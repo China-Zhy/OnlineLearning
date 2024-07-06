@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * 用户User的数据库持久层接口 (张宏业)
+ * 此处是为了演示原本的JDBC，因此没有使用MyBatis
  */
 public interface UserDao {
 
@@ -23,7 +24,7 @@ public interface UserDao {
      * @param password 密码
      * @return 单个User实体类
      */
-    User queryUserByLogin(String account, String password);
+    User queryUserToLogin(String account, String password);
 
     /**
      * 用户注册
@@ -31,7 +32,7 @@ public interface UserDao {
      * @param user 单个User实体类
      * @return insert后受影响的行数
      */
-    int insertUserByRegister(User user);
+    int insertUserToRegister(User user);
 
     /**
      * 删除用户

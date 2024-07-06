@@ -3,13 +3,15 @@ package nxu.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 
 /**
- * 用户实体类
+ * 用户实体类 (张宏业)
  */
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -21,5 +23,8 @@ public class User {
     private String password;    // 账户密码
     private String image;       // 用户头像
     private Date register;      // 注册时间
-    private Role role;          // 身份标识
+    private int score;          // 用户积分
+    private int type;           // 身份标识(外键)
+    private String info;        // 其他信息
+    private int state;          // 用户状态(0-禁用 1-可用)
 }

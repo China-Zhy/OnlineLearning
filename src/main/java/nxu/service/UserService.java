@@ -22,7 +22,7 @@ public interface UserService {
      * @param password 密码
      * @return 单个User实体类
      */
-    User queryUserByLogin(String account, String password);
+    User queryUserToLogin(String account, String password);
 
     /**
      * 用户注册
@@ -30,7 +30,7 @@ public interface UserService {
      * @param user 单个User实体类
      * @return insert后受影响的行数
      */
-    int insertUserByRegister(User user);
+    int insertUserToRegister(User user);
 
     /**
      * 删除用户

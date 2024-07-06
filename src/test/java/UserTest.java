@@ -22,7 +22,7 @@ public class UserTest {
 
     @Test
     public void queryOne() {
-        User user = userService.queryUserByLogin("3030695949@qq.com", "123");
+        User user = userService.queryUserToLogin("18201521341", "123456");
         System.out.println(user);
     }
 

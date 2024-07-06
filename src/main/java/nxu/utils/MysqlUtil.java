@@ -3,24 +3,24 @@ package nxu.utils;
 import java.sql.*;
 
 /**
- * MySQL工具类 (张宏业)
+ * MySQL的JDBC工具类 (张宏业)
  */
-public class MysqlTools {
+public class MysqlUtil {
 
     // MySQL8.0以上版本的JDBC驱动名
-    public static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/onlinelearning";
+    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/onlinelearning";
 
     // 数据库的用户名和密码
-    public static final String USER = "root";
-    public static final String PASS = "admin123";
+    private static final String USER = "root";
+    private static final String PASS = "admin123";
 
     /**
      * 获得MySQL的Connection对象
      */
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         // 加载JDBC驱动
-        Class.forName(MysqlTools.JDBC_DRIVER);
+        Class.forName(MysqlUtil.JDBC_DRIVER);
 
         // 连接MySQL数据库，获得Connection对象
         return DriverManager.getConnection(DB_URL, USER, PASS);

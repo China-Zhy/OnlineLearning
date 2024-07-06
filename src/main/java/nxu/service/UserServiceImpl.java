@@ -31,8 +31,8 @@ public class UserServiceImpl implements UserService {
      * @return 单个User实体类
      */
     @Override
-    public User queryUserByLogin(String account, String password) {
-        return userDao.queryUserByLogin(account, password);
+    public User queryUserToLogin(String account, String password) {
+        return userDao.queryUserToLogin(account, password);
     }
 
     /**
@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService {
      * @return insert后受影响的行数
      */
     @Override
-    public int insertUserByRegister(User user) {
-        return userDao.insertUserByRegister(user);
+    public int insertUserToRegister(User user) {
+        return userDao.insertUserToRegister(user);
     }
 
     /**
