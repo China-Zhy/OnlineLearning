@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.NoticeMapper">
+
+    <insert id="insertNotice" parameterType="map">
+        insert into notice (title, info, `create`, dateline, target, user_id)
+        values (#{title}, #{info}, NOW(), #{dateline}, #{target}, #{userId});
+    </insert>
+
+    <delete id="deleteNotice">
+        delete from notice where id = #{id};
+    </delete>
+
+    <select id="getNoticeByTarget" resultType="nxu.entity.Notice">
+        select * from notice where target = #{target};
+    </select>
+
+    <select id="getNoticeByUserId" resultType="nxu.entity.Notice">
+        select * from notice where user_id = #{userId};
+    </select>
+
+    <update id="updateNotice">
+        update notice set title = #{title}, info = #{info}, dateline = #{dateline}, target = #{target} where user_id = #{userId};
+    </update>
+
+</mapper>

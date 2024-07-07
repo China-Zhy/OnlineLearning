@@ -27,5 +27,8 @@
 
     <mappers>
         <mapper resource="mapper/FileMapper.xml"/>
+        <mapper resource="mapper/CommentMapper.xml"/>
+        <mapper resource="mapper/MessageMapper.xml"/>
+        <mapper resource="mapper/NoticeMapper.xml"/>
     </mappers>
 </configuration>

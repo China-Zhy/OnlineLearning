@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.CommentMapper">
+
+    <insert id="insertComment" parameterType="nxu.entity.Comment">
+        insert into comment (course_id, user_id, score, info, time, good)
+        values (#{courseId}, #{userId}, #{score},#{info}, NOW(), 0);
+    </insert>
+
+    <update id="updateCommentGood">
+        update comment set good = good + 1 where id = #{id};
+    </update>
+
+    <delete id="deleteComment">
+        delete from comment where id = #{id};
+    </delete>
+
+    <select id="getComment" resultType="nxu.entity.Comment">
+        select * from comment where course_id = #{courseId};
+    </select>
+
+</mapper>
