@@ -27,5 +27,8 @@
 
     <mappers>
         <mapper resource="mapper/FileMapper.xml"/>
+        <mapper resource="mapper/ActiveMapper.xml"/>
+        <mapper resource="mapper/OrderMapper.xml"/>
+        <mapper resource="mapper/PointsMapper.xml"/>
     </mappers>
 </configuration>

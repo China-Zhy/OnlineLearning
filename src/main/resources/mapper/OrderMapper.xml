@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.OrderMapper">
+
+    <select id="getOrderById" resultType="nxu.entity.Order">
+        select * from `Order` where id = #{id}
+    </select>
+
+    <select id="getAllOrder" resultType="nxu.entity.Order" parameterType="map">
+        select * from `Order` AS o
+        JOIN User AS u ON o.user_id = u.id
+        JOIN Course AS c ON o.course_id = c.id
+        <where>
+            <if test="userId != null and userId != ''">
+                and u.id = #{userId}
+            </if>
+            <if test="courseId != null and courseId != ''">
+                and c.id = #{courseId}
+            </if>
+            <if test="time != null and time != ''">
+                and o.time = #{time}
+            </if>
+            <if test="state != null and state != ''">
+                and o.state = #{state}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertOrder" parameterType="nxu.entity.Order">
+        insert into `order` values(null,#{userId},#{courseId},NOW(),#{state})
+    </insert>
+
+    <delete id="deleteOrderById">
+        delete from `order` where id = #{id}
+    </delete>
+</mapper>

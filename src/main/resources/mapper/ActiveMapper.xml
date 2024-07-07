@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.ActiveMapper">
+
+    <select id="getActiveById" resultType="nxu.entity.Active">
+        select * from Active where id = #{id}
+    </select>
+
+    <select id="getAllActive" resultType="nxu.entity.Active" parameterType="map">
+        select * from Active
+        <where>
+            <if test="discount != null and discount != ''">
+                Active.discount = #{discount}
+            </if>
+            <if test="create != null and create != ''">
+                Active.create = #{create}
+            </if>
+            <if test="deadline != null and deadline != ''">
+                Active.deadline = #{deadline}
+            </if>
+            <if test="userId != null and userId != ''">
+                Active.title = #{title}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertActive" parameterType="nxu.entity.Active">
+        insert into `active` values(null,#{title},#{info},#{image},#{discount},#{create},#{deadline},#{userId})
+    </insert>
+
+    <delete id="deleteActiveById">
+        delete from `active` where id = #{id}
+    </delete>
+
+    <update id="updateActive" parameterType="map">
+        update `active`
+        <set>
+            <if test="title!=null and title!=''">title=#{title},</if>
+            <if test="info!=null and info!=''">info=#{info},</if>
+            <if test="image!=null and image!=''">image=#{image},</if>
+            <if test="discount!=null and discount!=''">discount=#{discount},</if>
+            <if test="create!=null and create!=''">create=#{create},</if>
+            <if test="deadline!=null and deadline!=''">deadline=#{deadline},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>
