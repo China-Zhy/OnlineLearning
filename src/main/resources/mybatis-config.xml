@@ -6,7 +6,7 @@
 
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
 
     <typeAliases>
@@ -26,6 +26,17 @@
     </environments>
 
     <mappers>
+        <mapper resource="mapper/ActiveMapper.xml"/>
+        <mapper resource="mapper/CommentMapper.xml"/>
+        <mapper resource="mapper/CourseMapper.xml"/>
+        <mapper resource="mapper/CourseCodeMapper.xml"/>
+        <mapper resource="mapper/CourseTypeMapper.xml"/>
         <mapper resource="mapper/FileMapper.xml"/>
+        <mapper resource="mapper/FileTypeMapper.xml"/>
+        <mapper resource="mapper/HomeworkMapper.xml"/>
+        <mapper resource="mapper/MessageMapper.xml"/>
+        <mapper resource="mapper/NoticeMapper.xml"/>
+        <mapper resource="mapper/OrderMapper.xml"/>
+        <mapper resource="mapper/PointsMapper.xml"/>
     </mappers>
 </configuration>

@@ -18,4 +18,13 @@
             </if>
         </where>
     </select>
+
+    <insert id="insertFile" parameterType="nxu.entity.File">
+        insert into `file` values(null, #{name}, #{path}, NOW(), #{type}, #{info}, #{state})
+    </insert>
+
+    <delete id="deleteFileById">
+        delete from `file` where id = #{id}
+    </delete>
+
 </mapper>

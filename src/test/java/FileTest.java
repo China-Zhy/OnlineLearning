@@ -1,13 +1,10 @@
 import nxu.entity.File;
-import nxu.mapper.FileMapper;
 import nxu.service.FileService;
 import nxu.service.FileServiceImpl;
-import nxu.utils.MybatisUtil;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 文件相关功能测试 (张宏业)
@@ -32,5 +29,18 @@ public class FileTest {
         for (File file : allFiles) {
             System.out.println(file);
         }
+    }
+
+    @Test
+    public void test3() {
+        File file = new File(1, "《Java从入门到入土》", "D://java.txt", null, 1, "一个Java知识的笔记", 1);
+        int i = fileService.insertFile(file);
+        System.out.println(i);
+    }
+
+    @Test
+    public void test4() {
+        int i = fileService.deleteFileById(2);
+        System.out.println(i);
     }
 }

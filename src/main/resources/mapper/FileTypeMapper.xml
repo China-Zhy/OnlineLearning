@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.FileTypeMapper">
+
+    <select id="getFileTypeNameById" resultType="java.lang.String">
+        select name from `file_type` where id = #{id}
+    </select>
+
+    <select id="getAllFileType" resultType="nxu.entity.FileType">
+        select * from `file_type`
+    </select>
+
+    <insert id="insertFileType">
+        insert into `file_type` values (null, #{name})
+    </insert>
+
+    <update id="updateFileType">
+        update `file_type` set name = #{name} where id = #{id}
+    </update>
+
+    <delete id="deleteFileTypeById">
+        delete from `file_type` where id = #{id}
+    </delete>
+
+</mapper>

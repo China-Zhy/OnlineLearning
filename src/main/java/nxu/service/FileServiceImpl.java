@@ -26,11 +26,33 @@ public class FileServiceImpl implements FileService {
     /**
      * 通过指定条件查询多个文件实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(entity、target)
      * @return 文件实体集合
      */
     @Override
     public List<File> getAllFiles(Map<String, Object> map) {
         return MybatisUtil.getSqlSession().getMapper(FileMapper.class).getAllFiles(map);
+    }
+
+    /**
+     * 添加一个文件
+     *
+     * @param file 文件实体类
+     * @return 返回1-添加成功，返回0-添加失败
+     */
+    @Override
+    public int insertFile(File file) {
+        return MybatisUtil.getSqlSession().getMapper(FileMapper.class).insertFile(file);
+    }
+
+    /**
+     * 通过文件编号删除单个文件
+     *
+     * @param id 文件编号
+     * @return 返回1-删除成功，返回0-删除失败
+     */
+    @Override
+    public int deleteFileById(int id) {
+        return MybatisUtil.getSqlSession().getMapper(FileMapper.class).deleteFileById(id);
     }
 }

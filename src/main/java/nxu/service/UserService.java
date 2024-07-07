@@ -8,6 +8,7 @@ import java.util.List;
  * 用户User的服务层接口 (张宏业)
  */
 public interface UserService {
+
     /**
      * 查询全部用户
      *
