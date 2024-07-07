@@ -15,7 +15,6 @@
     </properties>
 
     <!--项目作者：张宏业、樊雪儿、胡昊、唐馨源-->
-    <!-- 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 -->
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

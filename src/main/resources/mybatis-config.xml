@@ -6,7 +6,7 @@
 
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
     </settings>
 
     <typeAliases>
@@ -26,6 +26,6 @@
     </environments>
 
     <mappers>
-        <mapper resource=""/>
+        <mapper resource="mapper/FileMapper.xml"/>
     </mappers>
 </configuration>

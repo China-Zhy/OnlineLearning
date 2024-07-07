@@ -1,6 +1,5 @@
 package nxu.dao;
 
-import nxu.entity.Role;
 import nxu.entity.User;
 import nxu.utils.MysqlUtil;
 

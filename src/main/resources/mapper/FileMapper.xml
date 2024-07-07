@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.FileMapper">
+
+    <select id="getFileById" resultType="nxu.entity.File">
+        select * from file where id = #{id}
+    </select>
+
+    <select id="getAllFiles" resultType="nxu.entity.File" parameterType="map">
+        select * from file, file_info
+        <where>
+            file.id = file_info.file_id
+            <if test="entity != null and entity != ''">
+                and file_info.entity = #{entity}
+            </if>
+            <if test="target != null and target != '' ">
+                and file_info.target = #{target}
+            </if>
+        </where>
+    </select>
+</mapper>
