@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.MessageMapper">
+
+    <insert id="insertMessage">
+        insert into message (sender, accept, info, time)
+        values (#{sender}, #{accept}, #{info}, NOW());
+    </insert>
+
+    <select id="getMessages" resultType="nxu.entity.Message">
+        select * from message where sender = #{sender} and accept = #{accept} or sender = #{accept} and accept = #{sender} order by time;
+    </select>
+
+</mapper>
