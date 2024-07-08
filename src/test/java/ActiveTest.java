@@ -1,3 +1,4 @@
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Active;
 import nxu.service.ActiveService;
 import nxu.service.ActiveServiceImpl;
@@ -5,7 +6,7 @@ import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+
 
 /**
  * 活动相关功能测试 (胡昊)
@@ -27,8 +28,10 @@ public class ActiveTest {
     public void text2() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("discount", '1');
-        List<Active> allActive = activeService.getAllActive(map);
-        for (Active active : allActive) {
+        map.put("pageIndex", 1);
+        map.put("pageSize", 2);
+        PageInfo<Active> allActive = activeService.getAllActive(map);
+        for (Active active : allActive.getList()) {
             System.out.println(active);
         }
     }

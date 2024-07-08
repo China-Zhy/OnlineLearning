@@ -21,7 +21,7 @@ public interface ActiveMapper {
     /**
      * 通过指定条件查询多个活动实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(discount,create,deadline,userId)
      * @return 活动实体集合
      */
     List<Active> getAllActive(Map<String, Object> map);

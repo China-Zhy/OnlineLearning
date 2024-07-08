@@ -20,7 +20,7 @@ public interface OrderMapper {
     /**
      * 通过指定条件查询多个订单实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(userId,courseId,time,state)
      * @return 订单实体集合
      */
     List<Order> getAllOrder(Map<String, Object> map);

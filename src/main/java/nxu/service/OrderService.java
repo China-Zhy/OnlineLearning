@@ -1,8 +1,8 @@
 package nxu.service;
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Order;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,10 +21,10 @@ public interface OrderService {
     /**
      * 通过指定条件查询多个订单实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(userId,courseId,time,state)
      * @return 订单实体集合
      */
-    List<Order> getAllOrder(Map<String, Object> map);
+    PageInfo<Order> getAllOrder(Map<String, Object> map);
 
     /**
      * 添加一个订单

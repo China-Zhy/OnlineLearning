@@ -1,5 +1,7 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Order;
 import nxu.mapper.OrderMapper;
 import nxu.utils.MybatisUtil;
@@ -26,13 +28,16 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 通过指定条件查询多个订单实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(userId,courseId,time,state)
      * @return 订单实体集合
      */
     @Override
-    public List<Order> getAllOrder(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(OrderMapper.class).getAllOrder(map);
+    public PageInfo<Order> getAllOrder(Map<String, Object> map) {
+        PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
+        List<Order> order = MybatisUtil.getSqlSession().getMapper(OrderMapper.class).getAllOrder(map);
+        return new PageInfo<>(order);
     }
+
 
     /**
      * 添加一个订单

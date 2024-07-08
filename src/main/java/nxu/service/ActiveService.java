@@ -1,8 +1,8 @@
 package nxu.service;
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Active;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,10 +21,10 @@ public interface ActiveService {
     /**
      * 通过指定条件查询多个活动实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(discount,create,deadline,userId)
      * @return 活动实体集合
      */
-    List<Active> getAllActive(Map<String, Object> map);
+    PageInfo<Active> getAllActive(Map<String, Object> map);
 
     /**
      * 添加一个活动

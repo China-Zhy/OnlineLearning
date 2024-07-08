@@ -1,8 +1,8 @@
 package nxu.service;
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Points;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,10 +21,10 @@ public interface PointsService {
     /**
      * 通过指定条件查询多个积分实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(userId,type,number)
      * @return 积分实体集合
      */
-    List<Points> getAllPoints(Map<String, Object> map);
+    PageInfo<Points> getAllPoints(Map<String, Object> map);
 
     /**
      * 添加一个积分
