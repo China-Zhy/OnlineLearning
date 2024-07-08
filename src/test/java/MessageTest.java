@@ -1,3 +1,4 @@
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Message;
 import nxu.service.MessageService;
 import nxu.service.MessageServiceImpl;
@@ -27,8 +28,10 @@ public class MessageTest {
         HashMap<String, Object> map = new HashMap<>();
         map.put("sender", 3);
         map.put("accept", 4);
-        List<Message> message = messageService.getMessages(map);
-        for (Message m : message) {
+        map.put("pageIndex", 1);
+        map.put("pageSize", 2);
+        PageInfo<Message> message = messageService.getMessages(map);
+        for (Message m : message.getList()) {
             System.out.println(m);
         }
     }

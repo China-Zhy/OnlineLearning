@@ -1,6 +1,10 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import nxu.entity.Homework;
 import nxu.entity.Message;
+
 import nxu.utils.MybatisUtil;
 
 import java.util.List;
@@ -14,7 +18,7 @@ public class MessageServiceImpl implements MessageService {
     /**
      * 插入消息
      *
-     * @param map 条件参数
+     * @param map 条件参数(sender 发送者,accept 接收者,info 发送消息)
      * @return 插入成功返回1，否则返回0
      */
     @Override
@@ -22,14 +26,19 @@ public class MessageServiceImpl implements MessageService {
         return MybatisUtil.getSqlSession().getMapper(nxu.mapper.MessageMapper.class).insertMessage(map);
     }
 
+
     /**
-     * 显示消息内容
+     * 查询消息
      *
-     * @param map 条件参数
-     * @return 返回符合条件的消息列表
+     * @param map (sender 发送者,accept 接收者 ,pageIndex 页码,pageSize 每页大小)
+     * @return 返回分页消息列表
      */
     @Override
-    public List<Message> getMessages(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(nxu.mapper.MessageMapper.class).getMessages(map);
+    public PageInfo<Message> getMessages(Map<String, Object> map) {
+        PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
+        List<Message> messages = MybatisUtil.getSqlSession().getMapper(nxu.mapper.MessageMapper.class).getMessages(map);
+        return new PageInfo<>(messages);
     }
+
+
 }

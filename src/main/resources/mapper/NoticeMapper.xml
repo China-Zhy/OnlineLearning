@@ -12,15 +12,23 @@
     </delete>
 
     <select id="getNoticeByTarget" resultType="nxu.entity.Notice">
-        select * from notice where target = #{target};
+        select * from notice where target = #{target}
     </select>
 
     <select id="getNoticeByUserId" resultType="nxu.entity.Notice">
-        select * from notice where user_id = #{userId};
+        select * from notice where user_id = #{userId}
     </select>
 
     <update id="updateNotice">
-        update notice set title = #{title}, info = #{info}, dateline = #{dateline}, target = #{target} where user_id = #{userId};
+        update notice
+        <set>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="info != null and info != ''">info = #{info},</if>
+            <if test="dateline != null">dateline = #{dateline},</if>
+            <if test="target != null and target !=''">target = #{target},</if>
+        </set>
+        where id = #{id}
+
     </update>
 
 </mapper>

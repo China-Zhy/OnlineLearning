@@ -8,7 +8,8 @@
     </insert>
 
     <select id="getMessages" resultType="nxu.entity.Message">
-        select * from message where sender = #{sender} and accept = #{accept} or sender = #{accept} and accept = #{sender} order by time;
+        select * from message where sender = #{sender} and accept = #{accept} or sender = #{accept} and accept =
+        #{sender} order by time
     </select>
 
 </mapper>

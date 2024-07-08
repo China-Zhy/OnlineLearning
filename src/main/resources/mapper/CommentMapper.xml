@@ -4,19 +4,19 @@
 
     <insert id="insertComment" parameterType="nxu.entity.Comment">
         insert into comment (course_id, user_id, score, info, time, good)
-        values (#{courseId}, #{userId}, #{score},#{info}, NOW(), 0);
+        values (#{courseId}, #{userId}, #{score},#{info}, NOW(), 0)
     </insert>
 
     <update id="updateCommentGood">
-        update comment set good = good + 1 where id = #{id};
+        update comment set good = good + 1 where id = #{id}
     </update>
 
     <delete id="deleteComment">
-        delete from comment where id = #{id};
+        delete from comment where id = #{id}
     </delete>
 
     <select id="getComment" resultType="nxu.entity.Comment">
-        select * from comment where course_id = #{courseId};
+        select * from comment where course_id = #{courseId}
     </select>
 
 </mapper>
