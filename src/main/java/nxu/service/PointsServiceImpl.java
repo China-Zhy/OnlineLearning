@@ -1,5 +1,7 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Points;
 import nxu.mapper.PointsMapper;
 import nxu.utils.MybatisUtil;
@@ -26,13 +28,16 @@ public class PointsServiceImpl implements PointsService {
     /**
      * 通过指定条件查询多个积分实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(userId,type,number)
      * @return 积分实体集合
      */
     @Override
-    public List<Points> getAllPoints(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(PointsMapper.class).getAllPoints(map);
+    public PageInfo<Points> getAllPoints(Map<String, Object> map) {
+        PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
+        List<Points> points = MybatisUtil.getSqlSession().getMapper(PointsMapper.class).getAllPoints(map);
+        return new PageInfo<>(points);
     }
+
 
     /**
      * 添加一个积分

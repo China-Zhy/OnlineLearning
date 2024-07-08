@@ -1,10 +1,10 @@
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Points;
 import nxu.service.PointsService;
 import nxu.service.PointsServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 积分相关功能测试 (胡昊)
@@ -25,9 +25,11 @@ public class PointsTest {
     public void test2() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", 4);
-        map.put("type", "用户消费");
-        List<Points> allPoints = pointsService.getAllPoints(map);
-        for (Points points : allPoints) {
+//        map.put("type", "用户消费");
+        map.put("pageIndex", 2);
+        map.put("pageSize", 2);
+        PageInfo<Points> allPoints = pointsService.getAllPoints(map);
+        for (Points points : allPoints.getList()) {
             System.out.println(points);
         }
     }

@@ -1,10 +1,10 @@
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Order;
 import nxu.service.OrderService;
 import nxu.service.OrderServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 订单相关功能测试 (胡昊)
@@ -27,8 +27,10 @@ public class OrderTest {
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", 4);
         map.put("courseId", 1);
-        List<Order> allOrder = orderService.getAllOrder(map);
-        for (Order order : allOrder) {
+        map.put("pageIndex", 2);
+        map.put("pageSize", 2);
+        PageInfo<Order> allOrder = orderService.getAllOrder(map);
+        for (Order order : allOrder.getList()) {
             System.out.println(order);
         }
     }

@@ -1,3 +1,4 @@
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Course;
 import nxu.service.CourseService;
 import nxu.service.CourseServiceImpl;
@@ -5,6 +6,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 课程相关功能测试 (樊雪儿)
@@ -35,12 +37,13 @@ public class CourseTest {
      */
     @Test
     public void Test2() {
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id", 2);
-        hashMap.put("name", "C语言程序设计");
-        List<Course> resultCourses = courseService.getCourse(hashMap);
-        for (Course c : resultCourses) {
-            System.out.println(c);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("courseType", 5);
+        map.put("pageIndex", 1);
+        map.put("pageSize", 10);
+        PageInfo<Course> allCourses = courseService.getCourse(map);
+        for (Course course : allCourses.getList()) {
+            System.out.println(course);
         }
     }
 
@@ -54,7 +57,6 @@ public class CourseTest {
         hashMap.put("score", 201);
         int result = courseService.updateCourse(hashMap);
         System.out.println(result);
-
     }
 
     /**

@@ -1,6 +1,5 @@
 package nxu.mapper;
 
-
 import nxu.entity.Points;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public interface PointsMapper {
     /**
      * 通过指定条件查询多个积分实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(userId,type,number)
      * @return 积分实体集合
      */
     List<Points> getAllPoints(Map<String, Object> map);

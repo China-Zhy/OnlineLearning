@@ -21,9 +21,11 @@ public interface RoleService {
     /**
      * 获取全部角色信息
      *
-     * @return 角色实体集合
+     * @param pageIndex 当前页码
+     * @param pageSize  每页数据量
+     * @return 角色实体集合(通过SQL语句进行分页)
      */
-    List<Role> getAllRoles();
+    List<Role> getAllRoles(int pageIndex, int pageSize);
 
     /**
      * 添加一个角色信息(目前禁用)

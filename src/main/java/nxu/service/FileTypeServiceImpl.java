@@ -25,11 +25,21 @@ public class FileTypeServiceImpl implements FileTypeService {
     /**
      * 查询全部文件类型
      *
-     * @return 文件类型集合
+     * @param pageIndex 当前页码 (0-表示不分页)
+     * @param pageSize  每页数据量 (0-表示不分页)
+     * @return 文件类型集合(通过数组进行分页)
      */
     @Override
-    public List<FileType> getAllFileType() {
-        return MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).getAllFileType();
+    public List<FileType> getAllFileType(int pageIndex, int pageSize) {
+        List<FileType> fileTypeList = MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).getAllFileType();
+        if (pageIndex > 0 && pageSize > 0) {
+            int beginIndex = Math.min((pageIndex - 1) * pageSize, fileTypeList.size());
+            int endIndex = Math.min((pageIndex * pageSize), fileTypeList.size());
+            return fileTypeList.subList(beginIndex, endIndex);
+        } else {
+            System.out.println("\n【非法的分页参数】\n");
+            return fileTypeList;
+        }
     }
 
     /**

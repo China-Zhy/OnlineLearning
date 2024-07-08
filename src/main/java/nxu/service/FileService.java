@@ -1,5 +1,6 @@
 package nxu.service;
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.File;
 
 import java.util.List;
@@ -21,10 +22,10 @@ public interface FileService {
     /**
      * 通过指定条件查询多个文件实体
      *
-     * @param map 条件参数(entity、target)
-     * @return 文件实体集合
+     * @param map 条件参数(entity、target、pageIndex、pageSize)
+     * @return 带有分页功能的文件实体集合
      */
-    List<File> getAllFiles(Map<String, Object> map);
+    PageInfo<File> getAllFiles(Map<String, Object> map);
 
     /**
      * 添加一个文件

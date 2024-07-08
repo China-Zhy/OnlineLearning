@@ -1,5 +1,7 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Active;
 import nxu.mapper.ActiveMapper;
 import nxu.utils.MybatisUtil;
@@ -26,12 +28,14 @@ public class ActiveServiceImpl implements ActiveService {
     /**
      * 通过指定条件查询多个活动实体
      *
-     * @param map 条件参数
+     * @param map 条件参数(discount,create,deadline,userId)
      * @return 活动实体集合
      */
     @Override
-    public List<Active> getAllActive(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).getAllActive(map);
+    public PageInfo<Active> getAllActive(Map<String, Object> map) {
+        PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
+        List<Active> actives = MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).getAllActive(map);
+        return new PageInfo<>(actives);
     }
 
     /**
