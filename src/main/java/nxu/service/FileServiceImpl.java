@@ -1,5 +1,7 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import nxu.entity.File;
 import nxu.mapper.FileMapper;
 import nxu.utils.MybatisUtil;
@@ -26,12 +28,14 @@ public class FileServiceImpl implements FileService {
     /**
      * 通过指定条件查询多个文件实体
      *
-     * @param map 条件参数(entity、target)
-     * @return 文件实体集合
+     * @param map 条件参数(entity、target、pageIndex、pageSize)
+     * @return 带有分页功能的文件实体集合
      */
     @Override
-    public List<File> getAllFiles(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(FileMapper.class).getAllFiles(map);
+    public PageInfo<File> getAllFiles(Map<String, Object> map) {
+        PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
+        List<File> allFiles = MybatisUtil.getSqlSession().getMapper(FileMapper.class).getAllFiles(map);
+        return new PageInfo<>(allFiles);
     }
 
     /**

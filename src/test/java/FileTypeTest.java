@@ -20,7 +20,7 @@ public class FileTypeTest {
 
     @Test
     public void test2() {
-        List<FileType> allFileType = fileTypeService.getAllFileType();
+        List<FileType> allFileType = fileTypeService.getAllFileType(2, 3);
         for (FileType fileType : allFileType) {
             System.out.println(fileType);
         }

@@ -1,3 +1,4 @@
+import com.github.pagehelper.PageInfo;
 import nxu.entity.File;
 import nxu.service.FileService;
 import nxu.service.FileServiceImpl;
@@ -26,8 +27,10 @@ public class FileTest {
         HashMap<String, Object> map = new HashMap<>();
         map.put("entity", 1);
         map.put("target", 1);
-        List<File> allFiles = fileService.getAllFiles(map);
-        for (File file : allFiles) {
+        map.put("pageIndex", 2);
+        map.put("pageSize", 1);
+        PageInfo<File> allFiles = fileService.getAllFiles(map);
+        for (File file : allFiles.getList()) {
             System.out.println(file);
         }
     }

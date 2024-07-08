@@ -26,11 +26,21 @@ public class RoleServiceImpl implements RoleService {
     /**
      * 获取全部角色信息
      *
-     * @return 角色实体集合
+     * @param pageIndex 当前页码
+     * @param pageSize  每页数据量
+     * @return 角色实体集合(通过SQL语句进行分页)
      */
     @Override
-    public List<Role> getAllRoles() {
-        return MybatisUtil.getSqlSession().getMapper(RoleMapper.class).getAllRoles();
+    public List<Role> getAllRoles(int pageIndex, int pageSize) {
+        int beginIndex, endIndex;
+        if (pageIndex > 0 && pageSize > 0) {
+            beginIndex = (pageIndex - 1) * pageSize;
+            endIndex = (pageIndex * pageSize);
+        } else {
+            System.out.println("\n【非法的分页参数】\n");
+            return null;
+        }
+        return MybatisUtil.getSqlSession().getMapper(RoleMapper.class).getAllRoles(beginIndex, endIndex);
     }
 
     /**
