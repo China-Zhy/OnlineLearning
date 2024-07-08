@@ -1,5 +1,6 @@
 package nxu.service;
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Course;
 
 import java.util.List;
@@ -21,10 +22,10 @@ public interface CourseService {
     /**
      * 获取搜索的课程集合
      *
-     * @param map 实体参数（id, name, course_type, score)
-     * @return 返回查询的课程实体集合
+     * @param map 实体参数 (id, name, course_type, score, pageIndex, pageSize)
+     * @return 返回查询的课程实体集合并按照分页长度控制每页输出量
      */
-    List<Course> getCourse(Map<String, Object> map);
+    PageInfo<Course> getCourse(Map<String, Object> map);
 
     /**
      * 更新课程内容

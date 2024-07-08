@@ -21,7 +21,7 @@ public class RoleTest {
 
     @Test
     public void test2() {
-        List<Role> allRoles = roleService.getAllRoles();
+        List<Role> allRoles = roleService.getAllRoles(2, 2);
         for (Role role : allRoles) {
             System.out.println(role);
         }
