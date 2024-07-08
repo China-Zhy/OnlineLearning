@@ -21,9 +21,11 @@ public interface FileTypeService {
     /**
      * 查询全部文件类型
      *
-     * @return 文件类型集合
+     * @param pageIndex 当前页码
+     * @param pageSize  每页数据量
+     * @return 文件类型集合(通过数组进行分页)
      */
-    List<FileType> getAllFileType();
+    List<FileType> getAllFileType(int pageIndex, int pageSize);
 
     /**
      * 添加文件类型

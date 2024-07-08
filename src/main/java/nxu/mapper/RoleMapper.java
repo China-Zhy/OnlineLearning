@@ -25,8 +25,8 @@ public interface RoleMapper {
      *
      * @return 角色实体集合
      */
-    @Select("select * from `role`")
-    List<Role> getAllRoles();
+    @Select("select * from `role` limit #{pageIndex}, #{pageSize}")
+    List<Role> getAllRoles(@Param("pageIndex") int pageIndex, @Param("pageSize") int pageSize);
 
     /**
      * 添加一个角色信息(目前禁用)
