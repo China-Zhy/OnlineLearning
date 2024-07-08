@@ -1,3 +1,4 @@
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Homework;
 import nxu.service.HomeworkService;
 import nxu.service.HomeworkServiceImpl;
@@ -23,8 +24,8 @@ public class HomeworkTest {
 
     @Test
     public void test2() {
-        List<Homework> allHomework = homeworkService.getAllHomework(0, 0);
-        for (Homework homework : allHomework) {
+        PageInfo<Homework> allHomework = homeworkService.getAllHomework(0, 0, 1, 5);
+        for (Homework homework : allHomework.getList()) {
             System.out.println(homework);
         }
     }

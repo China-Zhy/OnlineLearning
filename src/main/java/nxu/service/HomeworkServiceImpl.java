@@ -1,5 +1,7 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Homework;
 import nxu.mapper.HomeworkMapper;
 import nxu.utils.MybatisUtil;
@@ -26,13 +28,17 @@ public class HomeworkServiceImpl implements HomeworkService {
     /**
      * 通过课程编号或者用户编号查询作业
      *
-     * @param courseId 课程编号，0 表示 null
-     * @param userId   用户编号，0 表示 null
-     * @return 作业实体集合
+     * @param courseId  课程编号，0 表示 null
+     * @param userId    用户编号，0 表示 null
+     * @param pageIndex 当前页码
+     * @param pageSize  每页数据量
+     * @return 带有分页功能的作业集合
      */
     @Override
-    public List<Homework> getAllHomework(int courseId, int userId) {
-        return MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).getAllHomework(courseId, userId);
+    public PageInfo<Homework> getAllHomework(int courseId, int userId, int pageIndex, int pageSize) {
+        PageHelper.startPage(pageIndex, pageSize);
+        List<Homework> homeworks = MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).getAllHomework(courseId, userId);
+        return new PageInfo<>(homeworks);
     }
 
     /**

@@ -1,7 +1,7 @@
 package nxu.service;
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Homework;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -22,11 +22,13 @@ public interface HomeworkService {
     /**
      * 通过课程编号或者用户编号查询作业
      *
-     * @param courseId 课程编号，0 表示 null
-     * @param userId   用户编号，0 表示 null
-     * @return 作业实体集合
+     * @param courseId  课程编号，0 表示 null
+     * @param userId    用户编号，0 表示 null
+     * @param pageIndex 当前页码
+     * @param pageSize  每页数据量
+     * @return 带有分页功能的作业集合
      */
-    List<Homework> getAllHomework(@Param("courseId") int courseId, @Param("userId") int userId);
+    PageInfo<Homework> getAllHomework(int courseId, int userId, int pageIndex, int pageSize);
 
     /**
      * 添加作业
@@ -40,7 +42,7 @@ public interface HomeworkService {
      * 修改作业
      *
      * @param map 作业参数map(title、info、dateline、again)
-     * @return
+     * @return 返回1-修改成功，返回0-修改失败
      */
     int updateHomework(Map<String, Object> map);
 
