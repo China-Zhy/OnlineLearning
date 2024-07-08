@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.CourseMapper">
+
+    <insert id="insertCourse" parameterType="nxu.entity.Course">
+        insert into `course`
+        values(null, #{name}, #{courseType}, #{image}, #{info}, #{score}, #{state}, #{userId})
+    </insert>
+
+    <select id="getCourse" resultType="nxu.entity.Course" parameterType="map">
+        select * from `course` where 1=0
+        <if test="id !=null and id !=''">
+            or id=#{id}
+        </if>
+        <if test=" name!=null and name!='' ">
+            or name=#{name}
+        </if>
+        <if test=" courseType!=null and courseType!='' ">
+            or course_type=#{courseType}
+        </if>
+        <if test="score!=null and score!=''">
+            or score=#{score}
+        </if>
+    </select>
+
+    <update id="updateCourse" parameterType="map">
+        update `course`
+        <set>
+            <if test="name!=null and name!=''">name=#{name},</if>
+            <if test="image!=null and image!=''">image=#{image},</if>
+            <if test="course_type!=null and course_type!=''">course_type=#{courseType},</if>
+            <if test="info!=null and info!=''">info=#{info},</if>
+            <if test="score!=null and score!=''">score=#{score},</if>
+            <if test="state!=null and state!=''">state=#{state},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteCourse">
+        delete from `course`
+        <where>
+            <if test="id!=null and id!=''">id=#{id}</if>
+            <if test="user_id!=null and user_id!=''">user_id=#{userId}</if>
+            <if test="course_type!=null and course_type!=''">course_type=#{courseType}</if>
+        </where>
+    </delete>
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.CourseTypeMapper">
+
+    <insert id="insertCourseType" parameterType="nxu.entity.CourseType">
+        insert into `course_type`
+        values (null, #{name})
+    </insert>
+
+    <delete id="deleteCourseType" parameterType="java.lang.Integer">
+        delete from `course_type`
+        where id=#{id}
+    </delete>
+
+    <select id="getCourseType" resultType="java.lang.String">
+        select name from `course_type`
+        where id=#{id}
+    </select>
+
+</mapper>

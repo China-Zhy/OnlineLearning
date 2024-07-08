@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nxu.mapper.PointsMapper">
+
+    <select id="getPointsById" resultType="nxu.entity.Points">
+        select * from Points where id = #{id}
+    </select>
+
+    <select id="getAllPoints" resultType="nxu.entity.Points" parameterType="map">
+        SELECT * FROM Points p
+        JOIN User u ON p.user_id = u.id
+        <where>
+            <if test="userId != null and userId != ''">
+                AND u.id = #{userId}
+            </if>
+            <if test="type != null and type != ''">
+                AND p.type = #{type}
+            </if>
+            <if test="number != null and number != ''">
+                AND p.number = #{number}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertPoints" parameterType="nxu.entity.Points">
+        insert into `points` values(null,#{userId},#{type},#{number},NOW())
+    </insert>
+
+    <delete id="deletePointsById">
+        delete from `points` where id = #{id}
+    </delete>
+
+    <update id="updatePoints" parameterType="map">
+        update `points`
+        <set>
+            <if test="type!=null and type!=''">type=#{type},</if>
+            <if test="number!=null and number!=''">number=#{number},</if>
+            <if test="time!=null and time!=''">time=#{time},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>

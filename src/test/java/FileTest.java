@@ -31,16 +31,4 @@ public class FileTest {
         }
     }
 
-    @Test
-    public void test3() {
-        File file = new File(1, "《Java从入门到入土》", "D://java.txt", null, 1, "一个Java知识的笔记", 1);
-        int i = fileService.insertFile(file);
-        System.out.println(i);
-    }
-
-    @Test
-    public void test4() {
-        int i = fileService.deleteFileById(2);
-        System.out.println(i);
-    }
 }
