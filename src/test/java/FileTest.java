@@ -3,6 +3,7 @@ import nxu.service.FileService;
 import nxu.service.FileServiceImpl;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +30,20 @@ public class FileTest {
         for (File file : allFiles) {
             System.out.println(file);
         }
+    }
+
+    @Test
+    public void test3() {
+        Date date = new Date("2020/01/01 12:12:12");
+        File file = new File(0, "测试文件", "D:\\test.txt", date, 1, "一个文件", 0);
+        int i = fileService.insertFile(file);
+        System.out.println(i);
+    }
+
+    @Test
+    public void test4() {
+        int i = fileService.deleteFileById(3);
+        System.out.println(i);
     }
 
 }
