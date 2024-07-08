@@ -1,5 +1,7 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Course;
 import nxu.mapper.CourseMapper;
 import nxu.utils.MybatisUtil;
@@ -26,18 +28,20 @@ public class CourseServiceImpl implements CourseService {
     /**
      * 获取搜索的课程集合
      *
-     * @param map 实体参数（id, name, course_type, score)
-     * @return 返回查询的课程实体集合
+     * @param map 实体参数(id, name, course_type, score, pageIndex, pageSize)
+     * @return 返回查询的课程实体集合并按照分页长度控制每页输出量
      */
     @Override
-    public List<Course> getCourse(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(CourseMapper.class).getCourse(map);
+    public PageInfo<Course> getCourse(Map<String, Object> map) {
+        PageHelper.startPage((int) (map.get("pageIndex")), (int) map.get("pageSize"));
+        List<Course> list = MybatisUtil.getSqlSession().getMapper(CourseMapper.class).getCourse(map);
+        return new PageInfo<>(list);
     }
 
     /**
      * 更新课程内容
      *
-     * @param map 实体参数（id, name, image, course_type, info, score, state)
+     * @param map 实体参数 (id, name, image, course_type, info, score, state)
      * @return 更改后受影响的行数
      */
     @Override
