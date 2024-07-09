@@ -21,7 +21,7 @@ public class BaseServlet extends HttpServlet {
             Method method = clazz.getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             method.invoke(this, req, resp);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            System.out.println("【BaseServlet捕获到了异常】" + e.getClass() + "\n" + e.getMessage());
+            System.out.println("【BaseServlet捕获到了异常】" + e.getCause() + "\n【" + e.getMessage() + "】");
         }
     }
 }

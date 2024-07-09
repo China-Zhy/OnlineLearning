@@ -56,7 +56,7 @@ public class UserController extends BaseServlet {
     }
 
     // 查询全部用户
-    public void queryAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void queryAllUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         List<User> userList = userService.queryAllUsers();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);
