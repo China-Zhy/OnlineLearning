@@ -17,11 +17,11 @@ public class UserServiceImpl implements UserService {
     /**
      * 查询全部用户
      *
-     * @param map 查询参数的map
+     * @param map 查询参数的map(name、phone、gender、type)
      * @return User实体类集合
      */
-    public List<User> queryAllUsers() {
-        return userDao.queryAllUsers();
+    public List<User> queryAllUsers(Map<String, Object> map) {
+        return userDao.queryAllUsers(map);
     }
 
     /**

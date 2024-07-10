@@ -4,7 +4,6 @@ import com.alibaba.fastjson2.JSONObject;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import nxu.entity.Role;
 import nxu.entity.User;
 import nxu.service.RoleService;
@@ -14,6 +13,7 @@ import nxu.service.UserServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -75,18 +75,42 @@ public class UserController extends BaseServlet {
     // 查询全部用户
     public void queryAllUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
+        HashMap<String, Object> map = new HashMap<>();
         String name = req.getParameter("name");
         String phone = req.getParameter("phone");
         String gender = req.getParameter("gender");
         String type = req.getParameter("type");
 
+        System.out.println("name=" + name);
+        System.out.println("phone=" + phone);
+        System.out.println("gender=" + gender);
+        System.out.println("type=" + type);
 
-        List<User> userList = userService.queryAllUsers();
+        if (name != null && !name.isEmpty()) {
+            map.put("name", name);
+        }
+        if (phone != null && !phone.isEmpty()) {
+            map.put("phone", phone);
+        }
+        if (gender != null && !gender.isEmpty()) {
+            if (Integer.parseInt(gender) != 0) {
+                map.put("gender", Integer.parseInt(gender));
+            }
+        }
+        if (type != null && !type.isEmpty()) {
+            if (Integer.parseInt(type) != 0) {
+                map.put("type", Integer.parseInt(type));
+            }
+        }
+
+        List<User> userList = userService.queryAllUsers(map);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
         jsonObject.put("count", userList.size());
         jsonObject.put("data", userList);
+
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().write(jsonObject.toString());
     }

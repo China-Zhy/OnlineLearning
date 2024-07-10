@@ -21,23 +21,38 @@ public class UserDaoImpl implements UserDao {
     /**
      * 查询全部用户
      *
-     * @param map 查询参数的map
+     * @param map 查询参数的map(name、phone、gender、type)
      * @return User实体类集合
      */
-    public List<User> queryAllUsers() {
+    public List<User> queryAllUsers(Map<String, Object> map) {
         List<User> users = new ArrayList<>();
         try {
             Connection connection = MysqlUtil.getConnection();
-            String sql = "SELECT * FROM user where 1=1";
-//            StringBuilder builder = new StringBuilder();// 用于拼接SQL语句
-//            builder.append(sql);
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//
-//            if(!map.isEmpty()){
-//                Set<String> strings = map.keySet();
-//            }
+            StringBuilder builder = new StringBuilder(); // 用于拼接SQL语句
+            builder.append("SELECT * FROM user where 1=1");
 
+            // 此处使用JDBC模拟动态SQL，不过根据业务，参数固定为(name、phone、gender、type)
+            if (!map.isEmpty()) {
+                if (map.containsKey("name")) {
+                    String name = (String) map.get("name");
+                    builder.append(" and name like '%").append(name).append("%'");  // 姓名模糊查询
+                }
+                if (map.containsKey("phone")) {
+                    String phone = (String) map.get("phone");
+                    builder.append(" and phone = '").append(phone).append("'");
+                }
+                if (map.containsKey("gender")) {
+                    int gender = (int) map.get("gender");
+                    builder.append(" and gender = ").append(gender);
+                }
+                if (map.containsKey("type")) {
+                    int type = (int) map.get("type");
+                    builder.append(" and type = ").append(type);
+                }
+            }
+
+            PreparedStatement preparedStatement = connection.prepareStatement(builder.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
