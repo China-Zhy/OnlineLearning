@@ -18,7 +18,7 @@
                 <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                     <div class="layui-form-item">
 
-                        <!--表格顶部的From表单-->
+                        <!--表格顶部的Form表单-->
                         <form class="layui-form" action="" lay-filter="component-form-element">
 
                             <div class="layui-inline">
@@ -157,7 +157,7 @@
                         elem: '#star'+data[item].id+'', // 给不同id的rate绑定不同的值
                         length: 5,                      // 星星个数
                         value: data[item].relation,     // 初始化值
-                        theme: '#C39BD3',               // 星星颜色
+                        theme: '#8E44AD',               // 星星颜色
                         half: true,                     // 是否支持半颗星
                         text: false,                    // 是否显示文本，默认显示 '3.5星'
                         readonly: true                  // 是否只读
@@ -179,6 +179,30 @@
                 layer.alert(JSON.stringify(data))
             } else if (obj.event === 'delete') {
                 layer.confirm('真的要删除这条数据吗?', function (index) {
+                    layer.msg('删除' + obj.data.id);
+
+                    // 使用Ajax异步删除后台数据
+                    // $(document).ready(function (){
+                    //     $.ajax({
+                    //         type : 'post',
+                    //         url : '请求路径',
+                    //         data : 参数列表,
+                    //         dataType : 'json',
+                    //         success : function (data){
+                    //             for(let i=0; i < data.list.length; i++){
+                    //                 let option = document.createElement("option");
+                    //                 option.value = data.list[i].id;
+                    //                 option.text = data.list[i].identity;
+                    //                 document.getElementById('roleType').appendChild(option);
+                    //                 form.render("select");  // 渲染layui的下拉菜单(必须要有)
+                    //             }
+                    //         },
+                    //         error : function (xhr, status, error){
+                    //             console.log(error); // 控制台打印
+                    //         }
+                    //     })
+                    // })
+
                     obj.del();
                     layer.close(index);
                 });

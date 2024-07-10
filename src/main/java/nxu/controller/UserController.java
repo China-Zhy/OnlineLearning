@@ -61,8 +61,26 @@ public class UserController extends BaseServlet {
         resp.getWriter().write(jsonObject.toString());
     }
 
+    // 删除用户
+    public void deleteUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int result = userService.deleteUserById(Integer.parseInt(req.getParameter("id")));
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", result);
+        String info = result > 0 ? "删除成功" : "删除失败";
+        jsonObject.put("info", info);
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
     // 查询全部用户
     public void queryAllUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        String name = req.getParameter("name");
+        String phone = req.getParameter("phone");
+        String gender = req.getParameter("gender");
+        String type = req.getParameter("type");
+
+
         List<User> userList = userService.queryAllUsers();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);
@@ -75,10 +93,7 @@ public class UserController extends BaseServlet {
 
     // 获取用户角色类型
     public void queryAllRole(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        // 获取全部角色类型(用于下拉菜单)
         List<Role> allRoles = roleService.getAllRoles(1, 5);
-//        HttpSession session = req.getSession();
-//        session.setAttribute("roles", allRoles);    // 因为角色类型可能经常使用
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("list", allRoles);
         resp.setContentType("application/json; charset=utf-8");

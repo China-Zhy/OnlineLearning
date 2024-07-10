@@ -21,16 +21,16 @@
                         <form class="layui-form" action="" lay-filter="component-form-element">
 
                             <div class="layui-inline">
-                                <label class="layui-form-label" style="font-weight: bold;">查询条件1</label>
+                                <label class="layui-form-label" style="font-weight: bold;">用户昵称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="id" placeholder="请输入..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                    <input type="text" name="name" placeholder="请输入用户昵称..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                                 </div>
                             </div>
 
                             <div class="layui-inline">
-                                <label class="layui-form-label" style="font-weight: bold;">查询条件2</label>
+                                <label class="layui-form-label" style="font-weight: bold;">手机号码</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="username" placeholder="请输入..." autocomplete="off" class="layui-input">
+                                    <input type="text" name="phone" placeholder="请输入手机号码..." lay-verify="required|phone" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
 
@@ -176,7 +176,29 @@
             if (obj.event === 'detail') {
                 layer.alert(JSON.stringify(data))
             } else if (obj.event === 'delete') {
+
                 layer.confirm('真的要删除这条数据吗?', function (index) {
+                    // 使用Ajax异步加载表格顶部form表单中的下拉菜单 改这里！
+                    $(document).ready(function (){
+                        $.ajax({
+                            type : 'post',
+                            url : '/user?method=deleteUser',
+                            data : {'id' : obj.data.id},
+                            dataType : 'json',
+                            success : function (data){
+                                if(data.result === 1){
+                                    layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                }
+                                else{
+                                    layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                }
+                            },
+                            error : function (xhr, status, error){
+                                console.log(error); // 控制台打印
+                            }
+                        })
+                    })
+
                     obj.del();
                     layer.close(index);
                 });

@@ -3,6 +3,7 @@ package nxu.service;
 import nxu.entity.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户User的服务层接口 (张宏业)
@@ -12,6 +13,7 @@ public interface UserService {
     /**
      * 查询全部用户
      *
+     * @param map 查询参数的map
      * @return User实体类集合
      */
     List<User> queryAllUsers();

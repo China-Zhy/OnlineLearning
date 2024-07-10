@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 用户User的数据库持久层接口的实现类 (张宏业)
@@ -19,14 +21,23 @@ public class UserDaoImpl implements UserDao {
     /**
      * 查询全部用户
      *
+     * @param map 查询参数的map
      * @return User实体类集合
      */
-    @Override
     public List<User> queryAllUsers() {
         List<User> users = new ArrayList<>();
         try {
             Connection connection = MysqlUtil.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user");
+            String sql = "SELECT * FROM user where 1=1";
+//            StringBuilder builder = new StringBuilder();// 用于拼接SQL语句
+//            builder.append(sql);
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//
+//            if(!map.isEmpty()){
+//                Set<String> strings = map.keySet();
+//            }
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
