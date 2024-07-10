@@ -4,7 +4,11 @@ import com.alibaba.fastjson2.JSONObject;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import nxu.entity.Role;
 import nxu.entity.User;
+import nxu.service.RoleService;
+import nxu.service.RoleServiceImpl;
 import nxu.service.UserService;
 import nxu.service.UserServiceImpl;
 import nxu.utils.BaseServlet;
@@ -19,6 +23,8 @@ import java.util.List;
 public class UserController extends BaseServlet {
 
     private static final UserService userService = new UserServiceImpl();
+
+    private static final RoleService roleService = new RoleServiceImpl();
 
     // 用户登录
     public void login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -63,6 +69,18 @@ public class UserController extends BaseServlet {
         jsonObject.put("msg", "success");
         jsonObject.put("count", userList.size());
         jsonObject.put("data", userList);
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
+    // 获取用户角色类型
+    public void queryAllRole(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // 获取全部角色类型(用于下拉菜单)
+        List<Role> allRoles = roleService.getAllRoles(1, 5);
+//        HttpSession session = req.getSession();
+//        session.setAttribute("roles", allRoles);    // 因为角色类型可能经常使用
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("list", allRoles);
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().write(jsonObject.toString());
     }

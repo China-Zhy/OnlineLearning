@@ -6,6 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="icon" href="../../layuiadmin/resource/image/icon.png">
     <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
 </head>
@@ -81,7 +82,7 @@
                     <!--表格主体-->
                     <table class="layui-hide" id="OnlineLearning" lay-filter="OnlineLearning"></table>
 
-                    <!--脚本控制显示不同状态样式-->
+                    <!--通过脚本控制显示不同样式-->
                     <script type="text/html" id="buttonTpl">
                         {{#  if(d.score > 60){ }}
                         <button class="layui-btn layui-btn-xs">已审核</button>
@@ -90,6 +91,11 @@
                         {{#  } else { }}
                         <button class="layui-btn layui-btn-disabled layui-btn-xs">不可用</button>
                         {{#  } }}
+                    </script>
+
+                    <!--通过脚本控制显示照片-->
+                    <script type="text/html" id="imageTpl">
+                        <img style="display: inline-block; width: 25px; height: 25px;" src={{ d.image }} alt="加载失败"/>
                     </script>
 
                     <!--表格右侧身体工具栏-->
@@ -116,8 +122,8 @@
         base: '../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'table'], function () {
-        let table = layui.table;
+    }).use(['index', 'table', 'form', 'rate'], function () {
+        let table = layui.table, form = layui.form, rate = layui.rate, $ = layui.$;
 
         // 表格数据显示部分(改这里)
         table.render({
@@ -125,19 +131,39 @@
             url: layui.setter.base + 'json/table/user.js',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 80, title: 'ID', sort: true, fixed: 'left'},
-                {field: 'username', width: 80, title: '用户名'},
-                {field: 'sex', width: 80, title: '性别', sort: true},
-                {field: 'city', width: 80, title: '城市'},
-                {field: 'sign', width: 160, title: '签名'},
-                {field: 'experience', width: 80, title: '积分', sort: true},
-                {field: 'wealth', width: 135, title: '财富', sort: true},
-                {field: 'classify', width: 80, title: '职业'},
-                {field: 'score', width: 80, title: '评分', sort: true},
-                {field: 'score', width: 120, title: '审核状态', sort: true, templet: "#buttonTpl", align: "center"},
-                {width: 250, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
+                {field: 'id', width: 80, title: 'ID', align: "center", sort: true, fixed: 'left'},
+                {field: 'username', width: 120, title: '用户名', align: "center"},
+                {field: 'image', width: 100, title: '头像', align: "center", templet: "#imageTpl"},
+                {field: 'sex', width: 80, title: '性别', align: "center", sort: true},
+                {field: 'city', width: 100, title: '城市', align: "center"},
+                {field: 'sign', width: 160, title: '签名', align: "center"},
+                {field: 'experience', width: 80, title: '积分', align: "center", sort: true},
+                {field: 'wealth', width: 135, title: '财富', align: "center", sort: true},
+                {field:"relation", title:"相关度", width:180, align: 'center', id:'rate',
+                    templet: function (d) {
+                        return '<div id="star'+d.id+'" style="top: -10px;"></div>'
+                    }
+                },
+                {field: 'classify', width: 100, title: '职业', align: "center"},
+                {field: 'score', width: 100, title: '评分', align: "center", sort: true},
+                {field: 'score', width: 120, title: '审核状态', align: "center", sort: true, templet: "#buttonTpl"},
+                {title: '更多操作', width: 220, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
             ]],
-            page: true
+            page: true, // 是否支持分页
+            done:function(res){ // 回调函数，在里面设置rate.render(),给rate循环赋值
+                let data = res.data;    //获取返回的json中的数据
+                for (let item in data) {
+                    rate.render({//循环设置评分
+                        elem: '#star'+data[item].id+'', // 给不同id的rate绑定不同的值
+                        length: 5,                      // 星星个数
+                        value: data[item].relation,     // 初始化值
+                        theme: '#C39BD3',               // 星星颜色
+                        half: true,                     // 是否支持半颗星
+                        text: false,                    // 是否显示文本，默认显示 '3.5星'
+                        readonly: true                  // 是否只读
+                    });
+                }
+            }
         });
 
         // 监听表格复选框选择(勿改)
@@ -183,7 +209,7 @@
         });
 
         // 表格头部的几个小工具
-        let $ = layui.$, active = {
+        let active = {
             getCheckData: function () { //获取选中数据(勿改)
                 let checkStatus = table.checkStatus('OnlineLearning'), data = checkStatus.data;
                 layer.alert(JSON.stringify(data));

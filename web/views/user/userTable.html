@@ -6,6 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="icon" href="../../layuiadmin/resource/image/icon.png">
     <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
 </head>
@@ -34,20 +35,20 @@
                             </div>
 
                             <div class="layui-inline">
-                                <label class="layui-form-label" style="font-weight: bold;">筛选条件3</label>
+                                <label class="layui-form-label" style="font-weight: bold;">用户性别</label>
                                 <div class="layui-input-block">
-                                    <select name="sex">
+                                    <select name="gender">
                                         <option value="0">不限类型</option>
-                                        <option value="1">循环遍历</option>
-                                        <option value="2">条件数组</option>
+                                        <option value="1">男</option>
+                                        <option value="2">女</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="layui-inline">
-                                <label class="layui-form-label" style="font-weight: bold;">筛选条件4</label>
+                                <label class="layui-form-label" style="font-weight: bold;">用户类型</label>
                                 <div class="layui-input-block">
-                                    <select name="sex">
+                                    <select name="type">
                                         <option value="0">不限类型</option>
                                         <option value="1">循环遍历</option>
                                         <option value="2">条件数组</option>
@@ -89,6 +90,11 @@
                         {{#  } }}
                     </script>
 
+                    <!--通过脚本控制显示照片-->
+                    <script type="text/html" id="imageTpl">
+                        <img style="display: inline-block; width: 25px; height: 25px;" src={{ d.image }}>
+                    </script>
+
                     <!--表格右侧身体工具栏-->
                     <script type="text/html" id="OnlineLearning-Tools">
                         <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">
@@ -122,19 +128,19 @@
             url: '/user?method=queryAllUser',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 80, title: '编号', sort: true, fixed: 'left'},
-                {field: 'name', width: 120, title: '用户昵称'},
-                {field: 'gender', width: 50, title: '性别', sort: true},
-                {field: 'phone', width: 120, title: '手机号码'},
-                {field: 'email', width: 190, title: '电子邮箱'},
-                {field: 'password', width: 80, title: '密码'},
-                {field: 'image', width: 150, title: '用户头像'},
-                {field: 'register', width: 150, title: '注册时间'},
-                {field: 'score', width: 100, title: '用户积分', sort: true},
-                {field: 'type', width: 100, title: '身份标识', sort: true},
-                {field: 'info', width: 150, title: '其他信息'},
-                {field: 'state', width:120, title: '用户状态', sort: true, templet: "#buttonTpl", align: "center"},
-                {width: 250, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
+                {field: 'id', width: 80, title: 'ID', sort: true, align: "center", fixed: 'left'},
+                {field: 'name', width: 120, title: '用户昵称', align: "center"},
+                {field: 'image', width: 100, title: '头像', templet: "#imageTpl", align: "center"},
+                {field: 'gender', width: 80, title: '性别', align: "center", sort: true},
+                {field: 'phone', width: 120, title: '手机号码', align: "center", sort: true},
+                {field: 'email', width: 180, title: '电子邮箱', align: "center", sort: true},
+                {field: 'password', width: 80, title: '密码', align: "center"},
+                {field: 'score', width: 100, title: '积分', align: "center", sort: true},
+                {field: 'type', width: 120, title: '身份标识', align: "center", sort: true},
+                {field: 'state', width:120, title: '用户状态', align: "center", sort: true, templet: "#buttonTpl"},
+                {field: 'register', width: 180, title: '注册时间', align: "center", sort: true},
+                {field: 'info', width: 150, title: '其他信息', align: "center"},
+                {title: '更多操作', width: 220, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
             ]],
             page: true
         });
