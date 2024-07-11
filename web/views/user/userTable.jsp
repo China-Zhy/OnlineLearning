@@ -20,14 +20,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">用户昵称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="name" id="name" placeholder="请输入用户昵称..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                <input type="text" name="name" id="name" placeholder="请输入用户昵称" autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">手机号码</label>
                             <div class="layui-input-block">
-                                <input type="number" name="phone" id="phone" placeholder="请输入手机号码..." autocomplete="off" class="layui-input">
+                                <input type="number" name="phone" id="phone" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 

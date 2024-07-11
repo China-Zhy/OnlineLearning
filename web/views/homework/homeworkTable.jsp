@@ -20,21 +20,21 @@
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">作业标题</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" id="title" placeholder="请输入作业标题..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                <input type="text" name="title" id="title" placeholder="请输入作业标题" autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">课程编号</label>
                             <div class="layui-input-block">
-                                <input type="number" name="courseId" id="courseId" placeholder="请输入课程编号..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                <input type="number" name="courseId" id="courseId" placeholder="请输入课程编号" autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">用户编号</label>
                             <div class="layui-input-block">
-                                <input type="number" name="userId" id="userId" placeholder="请输入用户编号..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                <input type="number" name="userId" id="userId" placeholder="请输入用户编号" autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
@@ -147,7 +147,6 @@
         laydate.render({
             elem: '#create'
         });
-
         laydate.render({
             elem: '#dateline'
         });
@@ -244,25 +243,38 @@
                 layer.open({
                     type: 2,
                     title: '添加作业数据',
-                    content: '../../views/template/form1.html',
+                    content: '../../views/homework/homeworkInsert.html',
                     maxmin: true,
-                    area: ['500px', '450px'],
+                    area: ['900px', '800px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
+                        let iframeWindow = window['layui-layer-iframe' + index],
+                            submitID = 'LAY-user-front-submit',
                             submit = layero.find('iframe').contents().find('#' + submitID);
 
-                        //监听提交
+                        // 监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                            let field = data.field; //获取提交的字段
-
                             //提交 Ajax 成功后，静态更新表格中的数据
-                            //$.ajax({});
-
-                            table.reload('LAY-user-front-submit'); //数据刷新
+                            $.ajax({
+                                type: 'post',
+                                url: '/homework?method=insertHomework',
+                                data: data.field,
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.result === 1) {
+                                        layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                    } else {
+                                        layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    layer.msg('可恶，又出错了')
+                                    console.log(error); // 控制台打印
+                                }
+                            });
+                            table.reload('OnlineLearning'); //数据刷新
                             layer.close(index); //关闭弹层
                         });
-
                         submit.trigger('click');
                     }
                 });

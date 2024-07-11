@@ -20,7 +20,7 @@ public class Homework {
     private String info;        // 作业描述
     private int courseId;       // 课程编号(外键)
     private int userId;         // 用户编号(外键)
-    private Date create;        // 创建时间
+    private Date create;        // 开始时间
     private Date dateline;      // 截止时间
     private int again;          // 提交约束(1-允许 2-禁止)
 }

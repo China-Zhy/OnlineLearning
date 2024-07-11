@@ -20,14 +20,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">文件名称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="name" id="name" placeholder="请输入文件名称..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                <input type="text" name="name" id="name" placeholder="请输入文件名称" autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">实体编号</label>
                             <div class="layui-input-block">
-                                <input type="text" name="entity" id="entity" placeholder="请输入实体编号..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                <input type="text" name="entity" id="entity" placeholder="请输入实体编号" autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 

@@ -11,7 +11,11 @@ import nxu.service.HomeworkServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -83,6 +87,43 @@ public class HomeworkController extends BaseServlet {
 
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
+        jsonObject.put("info", info);
+
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
+    // 添加文件
+    public void insertHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException, ParseException {
+        Homework homework = new Homework();
+
+
+        System.out.println(req.getParameter("title"));
+        System.out.println(req.getParameter("info"));
+        System.out.println(req.getParameter("courseId"));
+        System.out.println(req.getParameter("userId"));
+        System.out.println(req.getParameter("create"));
+        System.out.println(req.getParameter("dateline"));
+        System.out.println(req.getParameter("again"));
+
+        homework.setTitle(req.getParameter("title"));
+        homework.setInfo(req.getParameter("info"));
+        homework.setCourseId(Integer.parseInt(req.getParameter("courseId")));
+        homework.setUserId(Integer.parseInt(req.getParameter("userId")));
+        homework.setAgain(Integer.parseInt(req.getParameter("again")));
+
+        // 时间字符串转为Date类型
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date create = format.parse(req.getParameter("create"));
+        Date dateline = format.parse(req.getParameter("dateline"));
+
+        homework.setCreate(create);
+        homework.setDateline(dateline);
+
+        JSONObject jsonObject = new JSONObject();
+        int result = homeworkService.insertHomework(homework);
+        jsonObject.put("result", result);
+        String info = result > 0 ? "添加成功" : "添加失败";
         jsonObject.put("info", info);
 
         resp.setContentType("application/json; charset=utf-8");

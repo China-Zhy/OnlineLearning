@@ -4,6 +4,9 @@ import nxu.service.HomeworkService;
 import nxu.service.HomeworkServiceImpl;
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,20 +39,24 @@ public class HomeworkTest {
     }
 
     @Test
-    public void test3() {
-        Date date = new Date("2018/03/03 00:00:00");
+    public void test3() throws ParseException {
+        String dateString = "2020-02-12 20:55:09";
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = df.parse(dateString);
         Homework homework = new Homework(0, "测试作业", "一个作业", 1, 1, date, date, 1);
         int i = homeworkService.insertHomework(homework);
         System.out.println(i);
     }
 
     @Test
-    public void test4() {
+    public void test4() throws ParseException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", 3);
         map.put("title", "新的测试作业");
         map.put("info", "新的作业信息");
-        Date date = new Date("2018/03/03 01:01:01");
+        String dateString = "2020-02-12 20:55:09";
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = df.parse(dateString);
         map.put("dateline", date);
         map.put("again", 0);
         int i = homeworkService.updateHomework(map);

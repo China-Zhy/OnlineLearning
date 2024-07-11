@@ -51,12 +51,22 @@ public class UserController extends BaseServlet {
         resp.getWriter().write(jsonObject.toString());
     }
 
-    // 用户注册
-    public void register(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println("进入注册的controller");
+    // 添加用户(注册)
+    public void insertUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        User user = new User();
+        user.setName(req.getParameter("name"));
+        user.setPassword(req.getParameter("password"));
+
+        /*
+            待完成
+         */
+
+        int result = userService.insertUserToRegister(user);
+
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", 0);
-        jsonObject.put("msg", "注册这块的服务没写");
+        jsonObject.put("result", result);
+        String info = result > 0 ? "添加成功" : "添加失败";
+        jsonObject.put("info", info);
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().write(jsonObject.toString());
     }
