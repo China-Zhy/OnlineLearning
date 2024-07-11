@@ -38,7 +38,7 @@ public class CourseTest {
     @Test
     public void Test2() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("courseType", 5);
+        map.put("name","语言");
         map.put("pageIndex", 1);
         map.put("pageSize", 10);
         PageInfo<Course> allCourses = courseService.getCourse(map);
@@ -64,9 +64,8 @@ public class CourseTest {
      */
     @Test
     public void Test4() {
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id", 1);
-        int result = courseService.deleteCourse(hashMap);
+        int id=1;
+        int result = courseService.deleteCourse(id);
         System.out.println(result);
     }
 
