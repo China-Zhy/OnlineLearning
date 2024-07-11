@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 用户User的数据库持久层接口的实现类 (张宏业)
@@ -65,6 +64,7 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("password"));
                 user.setImage(resultSet.getString("image"));
                 user.setRegister(resultSet.getDate("register"));
+                user.setScore(resultSet.getInt("score"));
                 user.setType(resultSet.getInt("type"));
                 user.setInfo(resultSet.getString("info"));
                 user.setState(resultSet.getInt("state"));
@@ -107,6 +107,7 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("password"));
                 user.setImage(resultSet.getString("image"));
                 user.setRegister(resultSet.getDate("register"));
+                user.setScore(resultSet.getInt("score"));
                 user.setType(resultSet.getInt("type"));
                 user.setInfo(resultSet.getString("info"));
                 user.setState(resultSet.getInt("state"));

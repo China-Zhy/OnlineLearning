@@ -9,11 +9,23 @@
     <select id="getAllHomework" resultType="nxu.entity.Homework">
         select * from `homework`
         <where>
-            <if test="courseId != null and courseId != '' and courseId != 0">
+            <if test="courseId != null and courseId != ''">
                 course_id = #{courseId}
             </if>
-            <if test="userId != null and userId != '' and userId != 0">
+            <if test="userId != null and userId != ''">
                 and user_id = #{userId}
+            </if>
+            <if test="again != null and again != ''">
+                and again = #{again}
+            </if>
+            <if test="create != null and create != ''">
+                and substr(concat(`create`), 1, 10) = #{create}
+            </if>
+            <if test="dateline != null and dateline != ''">
+                and substr(concat(`dateline`), 1, 10) = #{dateline}
+            </if>
+            <if test="title != null and title != ''">
+                and title like CONCAT('%', #{title}, '%')
             </if>
         </where>
     </select>

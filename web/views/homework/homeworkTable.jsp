@@ -41,14 +41,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">创建时间</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="create" id="create" lay-verify="date" placeholder="请选择上传日期" autocomplete="off" class="layui-input">
+                                <input type="text" name="create" id="create" placeholder="选择创建时间" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">截止时间</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="dateline" id="dateline" lay-verify="date" placeholder="请选择上传日期" autocomplete="off" class="layui-input">
+                                <input type="text" name="dateline" id="dateline" placeholder="选择截止时间" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
@@ -142,28 +142,6 @@
             ]],
             page: true
         });
-
-        // 使用Ajax异步加载表格顶部form表单中的下拉菜单(改这里)
-        // $(document).ready(function (){
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: '/user?method=queryAllRole',
-        //         data: '',
-        //         dataType: 'json',
-        //         success: function (data) {
-        //             for (let i = 0; i < data.list.length; i++) {
-        //                 let option = document.createElement("option");
-        //                 option.value = data.list[i].id;
-        //                 option.text = data.list[i].identity;
-        //                 document.getElementById('roleType').appendChild(option);
-        //                 form.render("select");  // 渲染layui的下拉菜单(必须要有)
-        //             }
-        //         },
-        //         error: function (xhr, status, error) {
-        //             console.log(error); // 控制台打印错误
-        //         }
-        //     });
-        // });
 
         // 日期组件的渲染
         laydate.render({

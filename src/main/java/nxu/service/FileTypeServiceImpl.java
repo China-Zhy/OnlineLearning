@@ -37,7 +37,6 @@ public class FileTypeServiceImpl implements FileTypeService {
             int endIndex = Math.min((pageIndex * pageSize), fileTypeList.size());
             return fileTypeList.subList(beginIndex, endIndex);
         } else {
-            System.out.println("\n【非法的分页参数】\n");
             return fileTypeList;
         }
     }

@@ -10,11 +10,23 @@
         select * from file, file_info
         <where>
             file.id = file_info.file_id
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
             <if test="entity != null and entity != ''">
                 and file_info.entity = #{entity}
             </if>
-            <if test="target != null and target != '' ">
+            <if test="target != null and target != ''">
                 and file_info.target = #{target}
+            </if>
+            <if test="upload != null and upload != ''">
+                and substr(concat(upload), 1, 10) = #{upload}
+            </if>
+            <if test="name != null and name != ''">
+                and name like CONCAT('%', #{name}, '%')
             </if>
         </where>
     </select>

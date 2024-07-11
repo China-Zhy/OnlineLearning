@@ -26,6 +26,7 @@ public class HomeworkController extends BaseServlet {
     public void queryAllHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HashMap<String, Object> map = new HashMap<>();
+
         String title = req.getParameter("title");
         String courseId = req.getParameter("courseId");
         String userId = req.getParameter("userId");
@@ -59,8 +60,8 @@ public class HomeworkController extends BaseServlet {
         }
 
         map.put("pageIndex", 1);
-        map.put("pageSize", 10);
-        PageInfo<Homework> allHomework = homeworkService.getAllHomework(1, 1, 1, 10);
+        map.put("pageSize", 100);
+        PageInfo<Homework> allHomework = homeworkService.getAllHomework(map);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);

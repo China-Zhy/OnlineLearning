@@ -36,6 +36,7 @@ public class FileController extends BaseServlet {
         String type = req.getParameter("type");
         String state = req.getParameter("state");
         String entity = req.getParameter("entity");
+        String target = req.getParameter("target");
 
         if (name != null && !name.isEmpty()) {
             map.put("name", name);
@@ -58,10 +59,14 @@ public class FileController extends BaseServlet {
                 map.put("entity", Integer.parseInt(entity));
             }
         }
+        if (target != null && !target.isEmpty()) {
+            if (Integer.parseInt(target) != 0) {
+                map.put("target", Integer.parseInt(target));
+            }
+        }
 
-        map.put("target", 0);
-        map.put("pageIndex", 1);
-        map.put("pageSize", 10);
+        map.put("pageIndex", 1);    // 分页待完成
+        map.put("pageSize", 100);    // 分页待完成
         PageInfo<File> allFiles = fileService.getAllFiles(map);
 
         JSONObject jsonObject = new JSONObject();

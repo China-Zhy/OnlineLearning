@@ -24,7 +24,12 @@ public class HomeworkTest {
 
     @Test
     public void test2() {
-        PageInfo<Homework> allHomework = homeworkService.getAllHomework(0, 0, 1, 5);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("pageIndex", 1);
+        map.put("pageSize", 100);
+        map.put("create", "2024-06-07");
+        map.put("dateline", "2024-07-11");
+        PageInfo<Homework> allHomework = homeworkService.getAllHomework(map);
         for (Homework homework : allHomework.getList()) {
             System.out.println(homework);
         }

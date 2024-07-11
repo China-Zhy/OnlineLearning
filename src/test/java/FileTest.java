@@ -25,10 +25,10 @@ public class FileTest {
     @Test
     public void test2() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("entity", 1);
-        map.put("target", 1);
-        map.put("pageIndex", 2);
-        map.put("pageSize", 1);
+        map.put("entity", 0);
+        map.put("target", 0);
+        map.put("pageIndex", 1);
+        map.put("pageSize", 100);
         PageInfo<File> allFiles = fileService.getAllFiles(map);
         for (File file : allFiles.getList()) {
             System.out.println(file);

@@ -25,9 +25,21 @@
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">上传时间</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="upload" id="uploadDate" lay-verify="date" placeholder="请选择上传日期" autocomplete="off" class="layui-input">
+                            <label class="layui-form-label" style="font-weight: bold;">实体编号</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="entity" id="entity" placeholder="请输入实体编号..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="font-weight: bold;">关联目标</label>
+                            <div class="layui-input-block">
+                                <select name="target" id="target">
+                                    <option value="0">全部目标</option>
+                                    <option value="1">系统资源</option>
+                                    <option value="2">课程资源</option>
+                                    <option value="3">用户资源</option>
+                                </select>
                             </div>
                         </div>
 
@@ -41,6 +53,13 @@
                         </div>
 
                         <div class="layui-inline">
+                            <label class="layui-form-label" style="font-weight: bold;">上传时间</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="upload" id="uploadDate" placeholder="选择上传日期" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
                             <label class="layui-form-label" style="font-weight: bold;">文件状态</label>
                             <div class="layui-input-block">
                                 <select name="state" id="state">
@@ -48,18 +67,6 @@
                                     <option value="1">已被禁用</option>
                                     <option value="2">可用只读</option>
                                     <option value="3">可用下载</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">关联目标</label>
-                            <div class="layui-input-block">
-                                <select name="entity" id="entity">
-                                    <option value="0">全部目标</option>
-                                    <option value="1">系统资源</option>
-                                    <option value="2">课程资源</option>
-                                    <option value="3">用户资源</option>
                                 </select>
                             </div>
                         </div>
@@ -138,7 +145,7 @@
                 {field: 'path', width: 220, title: '文件路径', align: "center"},
                 {field: 'upload', width: 180, title: '上传时间', align: "center", sort: true},
                 {field: 'type', width: 150, title: '文件类型', align: "center", sort: true},
-                {field: 'info', width: 300, title: '描述信息', align: "center"},
+                {field: 'info', width: 400, title: '描述信息', align: "center"},
                 {field: 'state', width: 120, title: '文件状态', align: "center", sort: true, templet: "#buttonTpl"},
                 {title: '其他操作', width: 220, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
             ]],
@@ -280,7 +287,6 @@
                             table.reload('LAY-user-front-submit'); //数据刷新
                             layer.close(index); //关闭弹层
                         });
-
                         submit.trigger('click');
                     }
                 });
@@ -296,10 +302,11 @@
         // 清空表格头部表单中的全部内容
         $('#clear').click(function (){
             $('#name').val('');
-            $('#uploadDate').val('');
+            $('#entity').val('');
+            $('#target').val('0');
             $('#fileType').val(0);
+            $('#uploadDate').val('');
             $('#state').val(0);
-            $('#entity').val(0);
             form.render("select");  // 渲染layui的下拉菜单(必须要有)
         });
     });

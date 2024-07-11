@@ -34,7 +34,7 @@ public class UserTest {
         map.put("name", "张");
         map.put("phone", "18201521341");
         map.put("gender", 1);
-        map.put("type", 0);
+        map.put("type", 1);
         List<User> users = userService.queryAllUsers(map);
         for (User user : users) {
             System.out.println(user);

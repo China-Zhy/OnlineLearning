@@ -20,15 +20,12 @@ public interface HomeworkService {
     Homework getHomeworkById(int id);
 
     /**
-     * 通过课程编号或者用户编号查询作业
+     * 多条件查询作业
      *
-     * @param courseId  课程编号，0 表示 null
-     * @param userId    用户编号，0 表示 null
-     * @param pageIndex 当前页码
-     * @param pageSize  每页数据量
-     * @return 带有分页功能的作业集合
+     * @param map 查询条件集合(title、courseId、userId、create、dateline、again)
+     * @return 作业集合
      */
-    PageInfo<Homework> getAllHomework(int courseId, int userId, int pageIndex, int pageSize);
+    PageInfo<Homework> getAllHomework(Map<String, Object> map);
 
     /**
      * 添加作业
