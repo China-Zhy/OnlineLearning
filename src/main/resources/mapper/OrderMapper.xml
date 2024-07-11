@@ -17,11 +17,11 @@
             <if test="courseId != null and courseId != ''">
                 and c.id = #{courseId}
             </if>
-            <if test="time != null and time != ''">
-                and o.time = #{time}
-            </if>
             <if test="state != null and state != ''">
                 and o.state = #{state}
+            </if>
+            <if test="time != null and time != ''">
+                AND substr(concat(o.time), 1, 10) = #{time}
             </if>
         </where>
     </select>

@@ -1,5 +1,6 @@
 package nxu.service;
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.CourseCode;
 
 import java.util.Map;
@@ -26,10 +27,9 @@ public interface CourseCodeService {
     int deleteCourseCode(Map<String, Object> map);
 
     /**
-     * 根据用户id和课程id获取课程邀请码
-     *
-     * @param map 实体参数(userid, courseId)
-     * @return 邀请码具体内容
+     * 获取课程邀请码信息
+     * @param map 实体参数(userId, courseId)
+     * @return 返回课程邀请码的集合
      */
-    String getCourseCode(Map<String, Object> map);
+    PageInfo<CourseCode> getCourseCode(Map<String, Object> map);
 }

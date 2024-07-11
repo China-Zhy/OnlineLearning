@@ -1,6 +1,11 @@
+import com.github.pagehelper.PageInfo;
+import nxu.entity.Course;
 import nxu.entity.CourseType;
 import nxu.service.CourseTypeServiceImpl;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 测试课程类型 (樊雪儿)
@@ -36,8 +41,12 @@ public class CourseTypeTest {
      */
     @Test
     public void test3() {
-        int id = 6;
-        String result = courseTypeImpl.getCourseType(id);
-        System.out.println(result);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageIndex", 1);
+        map.put("pageSize", 10);
+        PageInfo<CourseType> allCourseType = courseTypeImpl.getCourseType(map);
+        for (CourseType cT : allCourseType.getList()) {
+            System.out.println(cT);
+        }
     }
 }

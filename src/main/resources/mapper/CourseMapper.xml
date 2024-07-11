@@ -8,19 +8,24 @@
     </insert>
 
     <select id="getCourse" resultType="nxu.entity.Course" parameterType="map">
-        select * from `course` where 1=0
-        <if test="id !=null and id !=''">
-            or id=#{id}
-        </if>
-        <if test=" name!=null and name!='' ">
-            or name=#{name}
-        </if>
-        <if test=" courseType!=null and courseType!='' ">
-            or course_type=#{courseType}
-        </if>
-        <if test="score!=null and score!=''">
-            or score=#{score}
-        </if>
+        select * from `course`
+        <where>
+            <if test="id !=null and id !=''">
+                and id=#{id}
+            </if>
+            <if test=" courseType!=null and courseType!='' ">
+                and course_type=#{courseType}
+            </if>
+            <if test="score!=null and score!=''">
+                and score=#{score}
+            </if>
+            <if test="state!=null and state!=''">
+                and state=#{state}
+            </if>
+            <if test=" name!=null and name!='' ">
+                and name like CONCAT('%', #{name}, '%')
+            </if>
+        </where>
     </select>
 
     <update id="updateCourse" parameterType="map">
@@ -38,11 +43,7 @@
 
     <delete id="deleteCourse">
         delete from `course`
-        <where>
-            <if test="id!=null and id!=''">id=#{id}</if>
-            <if test="user_id!=null and user_id!=''">user_id=#{userId}</if>
-            <if test="course_type!=null and course_type!=''">course_type=#{courseType}</if>
-        </where>
+        where id=#{id}
     </delete>
 
 </mapper>

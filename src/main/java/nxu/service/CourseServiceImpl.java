@@ -52,12 +52,12 @@ public class CourseServiceImpl implements CourseService {
     /**
      * 删除相应课程
      *
-     * @param map 实体参数（id, userId, courseType)
+     * @param id 课程逐渐
      * @return 删除后受影响的行数
      */
     @Override
-    public int deleteCourse(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(CourseMapper.class).deleteCourse(map);
+    public int deleteCourse(int id) {
+        return MybatisUtil.getSqlSession().getMapper(CourseMapper.class).deleteCourse(id);
     }
 
 }

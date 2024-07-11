@@ -1,8 +1,16 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import nxu.entity.Course;
 import nxu.entity.CourseType;
+import nxu.mapper.CourseCodeMapper;
+import nxu.mapper.CourseMapper;
 import nxu.mapper.CourseTypeMapper;
 import nxu.utils.MybatisUtil;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 课程类型服务层接口实现 (樊雪儿)
@@ -32,13 +40,15 @@ public class CourseTypeServiceImpl implements CourseTypeService {
     }
 
     /**
-     * 获取课程类型
-     *
-     * @param id 课程编号
-     * @return 课程类型名
+     * @param map 传入实体参数 (id, pageIndex, pageSize)
+     * @return 返回课程类型的集合
      */
     @Override
-    public String getCourseType(int id) {
-        return MybatisUtil.getSqlSession().getMapper(CourseTypeMapper.class).getCourseType(id);
+    public PageInfo<CourseType> getCourseType(Map<String, Object> map) {
+        PageHelper.startPage((int) (map.get("pageIndex")), (int) map.get("pageSize"));
+        List<CourseType> list = MybatisUtil.getSqlSession().getMapper(CourseTypeMapper.class).getCourseType(map);
+        return new PageInfo<>(list);
     }
+
+
 }

@@ -40,5 +40,5 @@ public interface CourseMapper {
      * @param map 实体参数（id, userId, courseType)
      * @return 删除后受影响的行数
      */
-    int deleteCourse(Map<String, Object> map);
+    int deleteCourse(int id);
 }

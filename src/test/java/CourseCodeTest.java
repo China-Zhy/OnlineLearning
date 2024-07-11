@@ -1,4 +1,5 @@
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.CourseCode;
 import nxu.service.CourseCodeService;
 import nxu.service.CourseCodeServiceImpl;
@@ -47,7 +48,9 @@ public class CourseCodeTest {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", 2);
         map.put("courseId", 6);
-        String code = courseCodeService.getCourseCode(map);
-        System.out.println(code);
+        map.put("pageIndex", 1);
+        map.put("pageSize", 10);
+        PageInfo<CourseCode> getCourseCode = courseCodeService.getCourseCode(map);
+        System.out.println(getCourseCode);
     }
 }
