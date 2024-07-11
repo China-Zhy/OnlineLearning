@@ -25,9 +25,9 @@ public class PointsTest {
     public void test2() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("userId", 4);
-//        map.put("type", "用户消费");
-        map.put("pageIndex", 2);
-        map.put("pageSize", 2);
+        map.put("time", "2024-06-06");
+        map.put("pageIndex", 1);
+        map.put("pageSize", 4);
         PageInfo<Points> allPoints = pointsService.getAllPoints(map);
         for (Points points : allPoints.getList()) {
             System.out.println(points);

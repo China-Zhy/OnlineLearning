@@ -11,12 +11,22 @@
         delete from notice where id = #{id};
     </delete>
 
-    <select id="getNoticeByTarget" resultType="nxu.entity.Notice">
-        select * from notice where target = #{target}
-    </select>
-
-    <select id="getNoticeByUserId" resultType="nxu.entity.Notice">
-        select * from notice where user_id = #{userId}
+    <select id="getNotice" resultType="nxu.entity.Notice">
+        select * from notice
+        <where>
+            <if test="target != null and target != ''">
+                and target = #{target}
+            </if>
+            <if test="title != null and title != ''">
+                and title like CONCAT('%',#{title},'%')
+            </if>
+            <if test="create != null and create != ''">
+                and substr(concat(`create`), 1, 10) &gt;= #{create}
+            </if>
+            <if test="dateline != null and dateline != ''">
+                and substr(concat(dateline), 1, 10) &lt;= #{dateline}
+            </if>
+        </where>
     </select>
 
     <update id="updateNotice">

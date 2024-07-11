@@ -12,9 +12,13 @@
         where id=#{id}
     </delete>
 
-    <select id="getCourseType" resultType="java.lang.String">
-        select name from `course_type`
-        where id=#{id}
+    <select id="getCourseType" parameterType="map" resultType="nxu.entity.CourseType">
+        select *from `course_type`
+        <where>
+            <if test="id!=null and id!=''">
+                id=#{id}
+            </if>
+        </where>
     </select>
 
 </mapper>

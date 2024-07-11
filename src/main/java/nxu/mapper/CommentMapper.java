@@ -3,6 +3,9 @@ package nxu.mapper;
 import nxu.entity.Comment;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 评论数据层接口 (唐馨源)
  */
@@ -40,6 +43,12 @@ public interface CommentMapper {
      * @param courseId 课程编号
      * @return 评论全部信息
      */
-    Comment getComment(@Param("courseId") int courseId);
+    List<Comment> getCommentById(@Param("courseId") int courseId);
+
+    /**
+     * 查询所有评论
+     * @return 评论全部信息
+     */
+    List<Comment> getComment(Map<String, Object> map);
 
 }

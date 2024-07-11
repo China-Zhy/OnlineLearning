@@ -38,8 +38,8 @@ public interface CourseService {
     /**
      * 删除相应课程
      *
-     * @param map 实体参数（id, userId, courseType)
+     * @param id 课程主键
      * @return 删除后受影响的行数
      */
-    int deleteCourse(Map<String, Object> map);
+    int deleteCourse(int id);
 }

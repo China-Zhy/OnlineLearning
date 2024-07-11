@@ -2,6 +2,7 @@ package nxu.mapper;
 
 import nxu.entity.CourseCode;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,5 +32,5 @@ public interface CourseCodeMapper {
      * @param map 实体参数(userid, courseid)
      * @return 邀请码具体内容
      */
-    String getCourseCode(Map<String, Object> map);
+    List<CourseCode> getCourseCode(Map<String, Object> map);
 }

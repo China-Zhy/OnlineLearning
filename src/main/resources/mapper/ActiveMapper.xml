@@ -9,17 +9,17 @@
     <select id="getAllActive" resultType="nxu.entity.Active" parameterType="map">
         select * from Active
         <where>
-            <if test="discount != null and discount != ''">
-                Active.discount = #{discount}
+            <if test="userId != null and userId != ''">
+                AND Active.user_id = #{userId}
+            </if>
+            <if test="title != null and title != ''">
+                AND Active.title like CONCAT('%', #{title}, '%')
             </if>
             <if test="create != null and create != ''">
-                Active.create = #{create}
+                AND substr(concat(`create`), 1, 10) &gt;= #{create}
             </if>
             <if test="deadline != null and deadline != ''">
-                Active.deadline = #{deadline}
-            </if>
-            <if test="userId != null and userId != ''">
-                Active.title = #{title}
+                AND substr(concat(`deadline`), 1, 10) &lt;= #{deadline}
             </if>
         </where>
     </select>

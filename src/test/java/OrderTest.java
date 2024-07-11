@@ -25,10 +25,9 @@ public class OrderTest {
     @Test
     public void test2() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("userId", 4);
-        map.put("courseId", 1);
-        map.put("pageIndex", 2);
-        map.put("pageSize", 2);
+        map.put("time", "2024-07-10");
+        map.put("pageIndex", 1);
+        map.put("pageSize", 4);
         PageInfo<Order> allOrder = orderService.getAllOrder(map);
         for (Order order : allOrder.getList()) {
             System.out.println(order);

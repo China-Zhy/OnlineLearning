@@ -16,8 +16,8 @@
             <if test="type != null and type != ''">
                 AND p.type = #{type}
             </if>
-            <if test="number != null and number != ''">
-                AND p.number = #{number}
+            <if test="time != null and time != ''">
+                AND substr(concat(`time`), 1, 10) = #{time}
             </if>
         </where>
     </select>

@@ -12,9 +12,16 @@
         where user_id = #{userId} and course_id = #{courseId}
     </delete>
 
-    <select id="getCourseCode" resultType="java.lang.String">
-        select code from `course_code`
-        where user_id = #{userId} and course_id = #{courseId}
+    <select id="getCourseCode" parameterType="map" resultType="nxu.entity.CourseCode">
+        select * from `course_code`
+        <where>
+            <if test="userId!=null and userId!=''">
+                and user_id = #{userId}
+            </if>
+            <if test="courseId!=null and courseId!=''">
+                and course_id = #{courseId}
+            </if>
+        </where>
     </select>
 
 </mapper>

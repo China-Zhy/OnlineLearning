@@ -27,20 +27,13 @@ public interface NoticeService {
     int deleteNotice(int id);
 
     /**
-     * 根据系统、课程号查询公告
+     * 查询所有公告
      *
-     * @param target 系统、课程号
      * @return 公告列表
      */
-    List<Notice> getNoticeByTarget(int target);
+    List<Notice> getNotice(Map<String, Object> map);
 
-    /**
-     * 根据用户id查询公告
-     *
-     * @param userId 用户id
-     * @return 公告列表
-     */
-    List<Notice> getNoticeByUserId(int userId);
+
 
     /**
      * 更新公告

@@ -5,6 +5,8 @@ import nxu.mapper.CommentMapper;
 import nxu.utils.MybatisUtil;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 评论服务层实现类 (唐馨源)
@@ -54,8 +56,20 @@ public class CommentServiceImpl implements CommentService {
      * @return 评论全部信息
      */
     @Override
-    public Comment getComment(int courseId) {
-        return MybatisUtil.getSqlSession().getMapper(CommentMapper.class).getComment(courseId);
+    public List<Comment> getCommentById(int courseId) {
+        return MybatisUtil.getSqlSession().getMapper(CommentMapper.class).getCommentById(courseId);
     }
+
+    /**
+     * 查询所有评论
+     *
+     * @return 评论全部信息
+     */
+    @Override
+    public List<Comment> getComment(Map<String, Object> map) {
+        return MybatisUtil.getSqlSession().getMapper(CommentMapper.class).getComment(map);
+    }
+
+
 
 }

@@ -1,9 +1,14 @@
 package nxu.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import nxu.entity.Course;
 import nxu.entity.CourseCode;
 import nxu.mapper.CourseCodeMapper;
+import nxu.mapper.CourseMapper;
 import nxu.utils.MybatisUtil;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,13 +39,17 @@ public class CourseCodeServiceImpl implements CourseCodeService {
     }
 
     /**
-     * 根据用户id和课程id获取课程邀请码
+     * 获取课程邀请码信息
      *
-     * @param map 实体参数(userid, courseId)
-     * @return 邀请码具体内容
+     * @param map 实体参数(userId, courseId)
+     * @return 返回课程邀请码的集合
      */
     @Override
-    public String getCourseCode(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(CourseCodeMapper.class).getCourseCode(map);
+    public PageInfo<CourseCode> getCourseCode(Map<String, Object> map) {
+        PageHelper.startPage((int) (map.get("pageIndex")), (int) map.get("pageSize"));
+        List<CourseCode> list = MybatisUtil.getSqlSession().getMapper(CourseCodeMapper.class).getCourseCode(map);
+        return new PageInfo<>(list);
     }
+
+
 }
