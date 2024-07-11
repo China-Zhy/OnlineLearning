@@ -27,9 +27,11 @@ public class ActiveTest {
     @Test
     public void text2() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("discount", '1');
+//        map.put("title", "活");
+//        map.put("userId", 4);
+        map.put("create","2024-06-06");
         map.put("pageIndex", 1);
-        map.put("pageSize", 2);
+        map.put("pageSize", 4);
         PageInfo<Active> allActive = activeService.getAllActive(map);
         for (Active active : allActive.getList()) {
             System.out.println(active);
