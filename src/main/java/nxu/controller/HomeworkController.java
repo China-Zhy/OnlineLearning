@@ -65,9 +65,11 @@ public class HomeworkController extends BaseServlet {
 
         map.put("pageIndex", 1);
         map.put("pageSize", 100);
-        PageInfo<Homework> allHomework = homeworkService.getAllHomework(map);
 
         JSONObject jsonObject = new JSONObject();
+
+        PageInfo<Homework> allHomework = homeworkService.getAllHomework(map);
+
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
         jsonObject.put("count", allHomework.getTotal());
@@ -77,7 +79,23 @@ public class HomeworkController extends BaseServlet {
         resp.getWriter().write(jsonObject.toString());
     }
 
-    // 删除文件
+    // 获取单个作业信息
+    public void getOneHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        if (req.getParameter("id") != null) {
+            System.out.println("收到的编辑标号：" + req.getParameter("id"));
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        Homework homework = homeworkService.getHomeworkById(Integer.parseInt(req.getParameter("id")));
+
+        jsonObject.put("data", homework);
+
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
+    // 删除作业
     public void deleteHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ArrayList<Integer> list = new ArrayList<>();
         list.add(Integer.parseInt(req.getParameter("id")));
@@ -93,18 +111,9 @@ public class HomeworkController extends BaseServlet {
         resp.getWriter().write(jsonObject.toString());
     }
 
-    // 添加文件
+    // 添加作业
     public void insertHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException, ParseException {
         Homework homework = new Homework();
-
-
-        System.out.println(req.getParameter("title"));
-        System.out.println(req.getParameter("info"));
-        System.out.println(req.getParameter("courseId"));
-        System.out.println(req.getParameter("userId"));
-        System.out.println(req.getParameter("create"));
-        System.out.println(req.getParameter("dateline"));
-        System.out.println(req.getParameter("again"));
 
         homework.setTitle(req.getParameter("title"));
         homework.setInfo(req.getParameter("info"));
@@ -124,6 +133,36 @@ public class HomeworkController extends BaseServlet {
         int result = homeworkService.insertHomework(homework);
         jsonObject.put("result", result);
         String info = result > 0 ? "添加成功" : "添加失败";
+        jsonObject.put("info", info);
+
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
+    // 修改作业
+    public void updateHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException, ParseException {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", Integer.parseInt(req.getParameter("id")));
+        map.put("title", req.getParameter("title"));
+        map.put("info", req.getParameter("info"));
+        map.put("courseId", Integer.parseInt(req.getParameter("courseId")));
+        map.put("userId", Integer.parseInt(req.getParameter("userId")));
+        map.put("again", Integer.parseInt(req.getParameter("again")));
+
+        // 时间字符串转为Date类型
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date create = format.parse(req.getParameter("create"));
+        Date dateline = format.parse(req.getParameter("dateline"));
+
+        map.put("create", create);
+        map.put("dateline", dateline);
+
+        int result = homeworkService.updateHomework(map);
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("result", result);
+        String info = result > 0 ? "更新成功" : "更新失败";
         jsonObject.put("info", info);
 
         resp.setContentType("application/json; charset=utf-8");

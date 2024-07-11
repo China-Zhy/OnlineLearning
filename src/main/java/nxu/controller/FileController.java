@@ -67,9 +67,10 @@ public class FileController extends BaseServlet {
 
         map.put("pageIndex", 1);    // 分页待完成
         map.put("pageSize", 100);    // 分页待完成
-        PageInfo<File> allFiles = fileService.getAllFiles(map);
 
         JSONObject jsonObject = new JSONObject();
+        PageInfo<File> allFiles = fileService.getAllFiles(map);
+
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
         jsonObject.put("count", allFiles.getTotal());

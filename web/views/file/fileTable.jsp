@@ -169,6 +169,7 @@
                     }
                 },
                 error: function (xhr, status, error) {
+                    layer.msg('Ajax请求失败啦', {offset: '15px', icon: 5, time: 1000});
                     console.log(error); // 控制台打印错误
                 }
             });
@@ -203,7 +204,6 @@
             } else if (obj.event === 'delete') {
 
                 layer.confirm('真的要删除这条数据吗?', function (index) {
-                    // 使用Ajax异步加载表格顶部form表单中的下拉菜单
                     $.ajax({
                         type: 'post',
                         url: '/user?method=deleteUser',
@@ -217,6 +217,7 @@
                             }
                         },
                         error: function (xhr, status, error) {
+                            layer.msg('Ajax请求失败啦', {offset: '15px', icon: 5, time: 1000});
                             console.log(error); // 控制台打印
                         }
                     });
@@ -233,9 +234,7 @@
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
-                            submit = layero.find('iframe').contents().find('#' + submitID);
-
+                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -274,9 +273,7 @@
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
-                            submit = layero.find('iframe').contents().find('#' + submitID);
-
+                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段

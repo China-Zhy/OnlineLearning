@@ -205,27 +205,23 @@
             if (obj.event === 'detail') {
                 layer.alert(JSON.stringify(data))
             } else if (obj.event === 'delete') {
-
                 layer.confirm('真的要删除这条数据吗?', function (index) {
-                    // 使用Ajax异步加载表格顶部form表单中的下拉菜单
-                    $(document).ready(function (){
-                        $.ajax({
-                            type : 'post',
-                            url : '/user?method=deleteUser',
-                            data : {'id' : obj.data.id},
-                            dataType : 'json',
-                            success : function (data){
-                                if(data.result === 1){
-                                    layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
-                                }
-                                else{
-                                    layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
-                                }
-                            },
-                            error : function (xhr, status, error){
-                                console.log(error); // 控制台打印
+                    $.ajax({
+                        type : 'post',
+                        url : '/user?method=deleteUser',
+                        data : {'id' : obj.data.id},
+                        dataType : 'json',
+                        success : function (data){
+                            if(data.result === 1){
+                                layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
                             }
-                        });
+                            else{
+                                layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                            }
+                        },
+                        error : function (xhr, status, error){
+                            console.log(error); // 控制台打印
+                        }
                     });
                     obj.del();  // 移除表格当前行数据
                     layer.close(index); // 关闭确认弹窗
@@ -239,9 +235,14 @@
                     maxmin: true,
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
+                    success: function(layero, index){
+                        // 获取 iframe 中 body 元素的 jQuery 对象
+                        var body = layer.getChildFrame('body', index);
+                        // 给 iframe 页中的某个输入框赋值
+                        body.find('input[id="username"]').val('业哥赋的默认值');
+                    },
                     yes: function (index, layero) {
                         let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
-
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -281,7 +282,6 @@
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
                         let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
-
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -292,7 +292,6 @@
                             table.reload('LAY-user-front-submit'); //数据刷新
                             layer.close(index); //关闭弹层
                         });
-
                         submit.trigger('click');
                     }
                 });
@@ -311,7 +310,7 @@
             $('#username').val('');
             $('#one').val(0);
             $('#two').val(0);
-            form.render("select");  // 渲染layui的下拉菜单(必须要有)
+            form.render();  // 渲染form全部组件
         });
 
     });

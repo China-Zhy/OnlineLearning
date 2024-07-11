@@ -181,6 +181,7 @@
                     }
                 },
                 error: function (xhr, status, error) {
+                    layer.msg('Ajax请求失败啦', {offset: '15px', icon: 5, time: 1000});
                     console.log(error); // 控制台打印错误
                 }
             });
@@ -208,9 +209,7 @@
             if (obj.event === 'detail') {
                 layer.alert(JSON.stringify(data))
             } else if (obj.event === 'delete') {
-
                 layer.confirm('真的要删除这条数据吗?', function (index) {
-                    // 使用Ajax异步加载表格顶部form表单中的下拉菜单
                     $.ajax({
                         type: 'post',
                         url: '/user?method=deleteUser',
@@ -219,15 +218,16 @@
                         success: function (data) {
                             if (data.result === 1) {
                                 layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                obj.del();  // 移除表格当前行数据
                             } else {
                                 layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
                             }
                         },
                         error: function (xhr, status, error) {
+                            layer.msg('Ajax请求失败啦', {offset: '15px', icon: 5, time: 1000});
                             console.log(error); // 控制台打印
                         }
                     });
-                    obj.del();  // 移除表格当前行数据
                     layer.close(index); // 关闭确认弹窗
                 });
 
@@ -240,9 +240,7 @@
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
-                            submit = layero.find('iframe').contents().find('#' + submitID);
-
+                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -281,9 +279,7 @@
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
-                            submit = layero.find('iframe').contents().find('#' + submitID);
-
+                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -294,7 +290,6 @@
                             table.reload('LAY-user-front-submit'); //数据刷新
                             layer.close(index); //关闭弹层
                         });
-
                         submit.trigger('click');
                     }
                 });
