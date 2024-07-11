@@ -19,6 +19,6 @@ public class Course {
     private String image;           // 课程图片
     private String info;            // 课程描述
     private int score;              // 课程积分
-    private int state;              // 课程状态(0-正常 1-折扣 2-限免)
+    private int state;              // 课程状态(1-正常 2-折扣 3-限免)
     private int userId;             // 创建用户(外键)
 }

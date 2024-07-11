@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>用户数据表格</title>
+    <title>文件数据表格</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -18,35 +18,48 @@
                 <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">用户昵称</label>
+                            <label class="layui-form-label" style="font-weight: bold;">文件名称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="name" id="name" placeholder="请输入用户昵称..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                <input type="text" name="name" id="name" placeholder="请输入文件名称..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">手机号码</label>
-                            <div class="layui-input-block">
-                                <input type="number" name="phone" id="phone" placeholder="请输入手机号码..." autocomplete="off" class="layui-input">
+                            <label class="layui-form-label" style="font-weight: bold;">上传时间</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="upload" id="uploadDate" lay-verify="date" placeholder="请选择上传日期" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">用户性别</label>
+                            <label class="layui-form-label" style="font-weight: bold;">文件类型</label>
                             <div class="layui-input-block">
-                                <select name="gender" id="gender">
+                                <select name="type" id="fileType">
                                     <option value="0">不限类型</option>
-                                    <option value="1">男</option>
-                                    <option value="2">女</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">用户类型</label>
+                            <label class="layui-form-label" style="font-weight: bold;">文件状态</label>
                             <div class="layui-input-block">
-                                <select name="type" id="roleType">
-                                    <option value="0">不限类型</option>
+                                <select name="state" id="state">
+                                    <option value="0">不限状态</option>
+                                    <option value="1">已被禁用</option>
+                                    <option value="2">可用只读</option>
+                                    <option value="3">可用下载</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="font-weight: bold;">关联目标</label>
+                            <div class="layui-input-block">
+                                <select name="entity" id="entity">
+                                    <option value="0">全部目标</option>
+                                    <option value="1">系统资源</option>
+                                    <option value="2">课程资源</option>
+                                    <option value="3">用户资源</option>
                                 </select>
                             </div>
                         </div>
@@ -74,44 +87,17 @@
                     <!--表格主体-->
                     <table class="layui-hide" id="OnlineLearning" lay-filter="OnlineLearning"></table>
 
-                    <!--脚本控制将数字转换为性别-->
-                    <script type="text/html" id="genderTpl">
-                        {{#  if(d.gender == 1){ }}
-                            男
-                        {{#  } else if(d.gender == 2){ }}
-                            女
-                        {{#  } else { }}
-                            未知
-                        {{#  } }}
-                    </script>
-
-                    <!--脚本控制将数字转换为对应角色类型(待改为动态对应)-->
-                    <script type="text/html" id="typeTpl">
-                        {{#  if(d.type == 1){ }}
-                            超级管理员
-                        {{#  } else if(d.type == 2){ }}
-                            系统管理员
-                        {{#  } else if(d.type == 3){ }}
-                            教师
-                        {{#  } else if(d.type == 4){ }}
-                            学生
-                        {{#  } else { }}
-                            非法用户
-                        {{#  } }}
-                    </script>
-
                     <!--脚本控制显示不同状态样式-->
                     <script type="text/html" id="buttonTpl">
                         {{#  if(d.state == 1){ }}
-                        <button class="layui-btn layui-btn-xs">正常使用</button>
+                        已被禁用
+                        {{#  } else if(d.state == 2){ }}
+                        可用只读
+                        {{#  } else if(d.state == 3){ }}
+                        可用下载
                         {{#  } else { }}
-                        <button class="layui-btn layui-btn-primary layui-btn-xs">已被禁用</button>
+                        非法状态
                         {{#  } }}
-                    </script>
-
-                    <!--通过脚本控制显示照片-->
-                    <script type="text/html" id="imageTpl">
-                        <img style="display: inline-block; width: 25px; height: 25px;" src={{ d.image }} alt="加载失败">
                     </script>
 
                     <!--表格右侧身体工具栏-->
@@ -138,27 +124,22 @@
         base: '../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'table', 'form'], function () {
-        let table = layui.table, $ = layui.$, form = layui.form; // 改这里！
+    }).use(['index', 'table', 'form', 'laydate'], function () {
+        let table = layui.table, $ = layui.$, form = layui.form, laydate = layui.laydate; // 改这里！
 
         // 表格数据显示部分
         table.render({
             elem: '#OnlineLearning',
-            url: '/user?method=queryAllUser',
+            url: '/file?method=queryAllFile',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', width: 80, title: 'ID', sort: true, align: "center", fixed: 'left'},
-                {field: 'name', width: 120, title: '用户昵称', align: "center"},
-                {field: 'image', width: 100, title: '头像', templet: "#imageTpl", align: "center"},
-                {field: 'gender', width: 80, title: '性别', align: "center", sort: true, templet: "#genderTpl"},
-                {field: 'phone', width: 120, title: '手机号码', align: "center", sort: true},
-                {field: 'email', width: 180, title: '电子邮箱', align: "center", sort: true},
-                {field: 'password', width: 80, title: '密码', align: "center"},
-                {field: 'score', width: 100, title: '积分', align: "center", sort: true},
-                {field: 'type', width: 120, title: '身份标识', align: "center", sort: true, templet: "#typeTpl"},
-                {field: 'state', width: 120, title: '用户状态', align: "center", sort: true, templet: "#buttonTpl"},
-                {field: 'register', width: 180, title: '注册时间', align: "center", sort: true},
-                {field: 'info', width: 150, title: '其他信息', align: "center"},
+                {field: 'name', width: 180, title: '文件名', align: "center", sort: true},
+                {field: 'path', width: 220, title: '文件路径', align: "center"},
+                {field: 'upload', width: 180, title: '上传时间', align: "center", sort: true},
+                {field: 'type', width: 150, title: '文件类型', align: "center", sort: true},
+                {field: 'info', width: 300, title: '描述信息', align: "center"},
+                {field: 'state', width: 120, title: '文件状态', align: "center", sort: true, templet: "#buttonTpl"},
                 {title: '其他操作', width: 220, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
             ]],
             page: true
@@ -168,15 +149,15 @@
         $(document).ready(function (){
             $.ajax({
                 type: 'GET',
-                url: '/user?method=queryAllRole',
+                url: '/file?method=queryAllFileType',
                 data: '',
                 dataType: 'json',
                 success: function (data) {
                     for (let i = 0; i < data.list.length; i++) {
                         let option = document.createElement("option");
                         option.value = data.list[i].id;
-                        option.text = data.list[i].identity;
-                        document.getElementById('roleType').appendChild(option);
+                        option.text = data.list[i].name;
+                        document.getElementById('fileType').appendChild(option);
                         form.render("select");  // 渲染layui的下拉菜单(必须要有)
                     }
                 },
@@ -186,11 +167,16 @@
             });
         });
 
+        // 日期组件的渲染
+        laydate.render({
+            elem: '#uploadDate'
+        });
+
         // 监听表格顶部的搜索操作(改这里)
         form.on('submit(nxu-search)', function (data) {
             // 条件搜索后，根据新数据重载表格(改这里)
             table.reload('OnlineLearning', {
-                url : '/user?method=queryAllUser',
+                url : '/file?method=queryAllFile',
                 method : 'post',
                 where : data.field  // 装载提交到后台的请求参数
             }, 'data');
@@ -234,7 +220,7 @@
             } else if (obj.event === 'edit') { // 编辑数据(改这里)
                 layer.open({
                     type: 2,
-                    title: '编辑用户数据',
+                    title: '编辑文件数据',
                     content: '../../views/template/form1.html',
                     maxmin: true,
                     area: ['500px', '450px'],
@@ -275,7 +261,7 @@
             add: function () { // 新增数据(改这里)
                 layer.open({
                     type: 2,
-                    title: '添加用户数据',
+                    title: '添加文件数据',
                     content: '../../views/template/form1.html',
                     maxmin: true,
                     area: ['500px', '450px'],
@@ -310,9 +296,10 @@
         // 清空表格头部表单中的全部内容
         $('#clear').click(function (){
             $('#name').val('');
-            $('#phone').val('');
-            $('#gender').val(0);
-            $('#roleType').val(0);
+            $('#uploadDate').val('');
+            $('#fileType').val(0);
+            $('#state').val(0);
+            $('#entity').val(0);
             form.render("select");  // 渲染layui的下拉菜单(必须要有)
         });
     });

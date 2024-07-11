@@ -21,5 +21,5 @@ public class File {
     private Date upload;        // 上传时间
     private int type;           // 文件类型(外键)
     private String info;        // 描述信息
-    private int state;          // 文件状态(0-禁用 1-可用只读 2-可用可下载)
+    private int state;          // 文件状态(1-禁用 2-可用只读 3-可用下载)
 }

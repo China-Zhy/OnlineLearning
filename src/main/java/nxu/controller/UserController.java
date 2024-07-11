@@ -81,11 +81,6 @@ public class UserController extends BaseServlet {
         String gender = req.getParameter("gender");
         String type = req.getParameter("type");
 
-        System.out.println("name=" + name);
-        System.out.println("phone=" + phone);
-        System.out.println("gender=" + gender);
-        System.out.println("type=" + type);
-
         if (name != null && !name.isEmpty()) {
             map.put("name", name);
         }

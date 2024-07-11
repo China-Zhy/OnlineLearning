@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>用户数据表格</title>
+    <title>作业数据表格</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -18,35 +18,47 @@
                 <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">用户昵称</label>
+                            <label class="layui-form-label" style="font-weight: bold;">作业标题</label>
                             <div class="layui-input-block">
-                                <input type="text" name="name" id="name" placeholder="请输入用户昵称..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
+                                <input type="text" name="title" id="title" placeholder="请输入作业标题..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">手机号码</label>
+                            <label class="layui-form-label" style="font-weight: bold;">课程编号</label>
                             <div class="layui-input-block">
-                                <input type="number" name="phone" id="phone" placeholder="请输入手机号码..." autocomplete="off" class="layui-input">
+                                <input type="number" name="courseId" id="courseId" placeholder="请输入课程编号..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">用户性别</label>
+                            <label class="layui-form-label" style="font-weight: bold;">用户编号</label>
                             <div class="layui-input-block">
-                                <select name="gender" id="gender">
-                                    <option value="0">不限类型</option>
-                                    <option value="1">男</option>
-                                    <option value="2">女</option>
-                                </select>
+                                <input type="number" name="userId" id="userId" placeholder="请输入用户编号..." autocomplete="off" class="layui-input" style="letter-spacing: 1px;">
                             </div>
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label" style="font-weight: bold;">用户类型</label>
+                            <label class="layui-form-label" style="font-weight: bold;">创建时间</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="create" id="create" lay-verify="date" placeholder="请选择上传日期" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="font-weight: bold;">截止时间</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="dateline" id="dateline" lay-verify="date" placeholder="请选择上传日期" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="font-weight: bold;">提交约束</label>
                             <div class="layui-input-block">
-                                <select name="type" id="roleType">
-                                    <option value="0">不限类型</option>
+                                <select name="again" id="again">
+                                    <option value="0">不限补交</option>
+                                    <option value="1">允许补交</option>
+                                    <option value="2">禁止补交</option>
                                 </select>
                             </div>
                         </div>
@@ -75,43 +87,14 @@
                     <table class="layui-hide" id="OnlineLearning" lay-filter="OnlineLearning"></table>
 
                     <!--脚本控制将数字转换为性别-->
-                    <script type="text/html" id="genderTpl">
-                        {{#  if(d.gender == 1){ }}
-                            男
-                        {{#  } else if(d.gender == 2){ }}
-                            女
+                    <script type="text/html" id="againTpl">
+                        {{#  if(d.again == 1){ }}
+                        允许补交
+                        {{#  } else if(d.again == 2){ }}
+                        禁止补交
                         {{#  } else { }}
-                            未知
+                        非法补交
                         {{#  } }}
-                    </script>
-
-                    <!--脚本控制将数字转换为对应角色类型(待改为动态对应)-->
-                    <script type="text/html" id="typeTpl">
-                        {{#  if(d.type == 1){ }}
-                            超级管理员
-                        {{#  } else if(d.type == 2){ }}
-                            系统管理员
-                        {{#  } else if(d.type == 3){ }}
-                            教师
-                        {{#  } else if(d.type == 4){ }}
-                            学生
-                        {{#  } else { }}
-                            非法用户
-                        {{#  } }}
-                    </script>
-
-                    <!--脚本控制显示不同状态样式-->
-                    <script type="text/html" id="buttonTpl">
-                        {{#  if(d.state == 1){ }}
-                        <button class="layui-btn layui-btn-xs">正常使用</button>
-                        {{#  } else { }}
-                        <button class="layui-btn layui-btn-primary layui-btn-xs">已被禁用</button>
-                        {{#  } }}
-                    </script>
-
-                    <!--通过脚本控制显示照片-->
-                    <script type="text/html" id="imageTpl">
-                        <img style="display: inline-block; width: 25px; height: 25px;" src={{ d.image }} alt="加载失败">
                     </script>
 
                     <!--表格右侧身体工具栏-->
@@ -138,59 +121,64 @@
         base: '../../layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'table', 'form'], function () {
-        let table = layui.table, $ = layui.$, form = layui.form; // 改这里！
+    }).use(['index', 'table', 'form', 'laydate'], function () {
+        let table = layui.table, $ = layui.$, form = layui.form, laydate = layui.laydate; // 改这里！
 
         // 表格数据显示部分
         table.render({
             elem: '#OnlineLearning',
-            url: '/user?method=queryAllUser',
+            url: '/homework?method=queryAllHomework',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', width: 80, title: 'ID', sort: true, align: "center", fixed: 'left'},
-                {field: 'name', width: 120, title: '用户昵称', align: "center"},
-                {field: 'image', width: 100, title: '头像', templet: "#imageTpl", align: "center"},
-                {field: 'gender', width: 80, title: '性别', align: "center", sort: true, templet: "#genderTpl"},
-                {field: 'phone', width: 120, title: '手机号码', align: "center", sort: true},
-                {field: 'email', width: 180, title: '电子邮箱', align: "center", sort: true},
-                {field: 'password', width: 80, title: '密码', align: "center"},
-                {field: 'score', width: 100, title: '积分', align: "center", sort: true},
-                {field: 'type', width: 120, title: '身份标识', align: "center", sort: true, templet: "#typeTpl"},
-                {field: 'state', width: 120, title: '用户状态', align: "center", sort: true, templet: "#buttonTpl"},
-                {field: 'register', width: 180, title: '注册时间', align: "center", sort: true},
-                {field: 'info', width: 150, title: '其他信息', align: "center"},
-                {title: '其他操作', width: 220, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
+                {field: 'title', width: 200, title: '作业标题', align: "center"},
+                {field: 'courseId', width: 120, title: '课程编号', align: "center", sort: true},
+                {field: 'userId', width: 120, title: '用户编号', align: "center", sort: true},
+                {field: 'create', width: 180, title: '创建时间', align: "center", sort: true},
+                {field: 'dateline', width: 180, title: '截止时间', align: "center", sort: true},
+                {field: 'again', width: 160, title: '提交约束', align: "center", sort: true, templet: "#againTpl"},
+                {field: 'info', width: 300, title: '作业描述', align: "center"},
+                {title: '更多操作', width: 220, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
             ]],
             page: true
         });
 
         // 使用Ajax异步加载表格顶部form表单中的下拉菜单(改这里)
-        $(document).ready(function (){
-            $.ajax({
-                type: 'GET',
-                url: '/user?method=queryAllRole',
-                data: '',
-                dataType: 'json',
-                success: function (data) {
-                    for (let i = 0; i < data.list.length; i++) {
-                        let option = document.createElement("option");
-                        option.value = data.list[i].id;
-                        option.text = data.list[i].identity;
-                        document.getElementById('roleType').appendChild(option);
-                        form.render("select");  // 渲染layui的下拉菜单(必须要有)
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.log(error); // 控制台打印错误
-                }
-            });
+        // $(document).ready(function (){
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: '/user?method=queryAllRole',
+        //         data: '',
+        //         dataType: 'json',
+        //         success: function (data) {
+        //             for (let i = 0; i < data.list.length; i++) {
+        //                 let option = document.createElement("option");
+        //                 option.value = data.list[i].id;
+        //                 option.text = data.list[i].identity;
+        //                 document.getElementById('roleType').appendChild(option);
+        //                 form.render("select");  // 渲染layui的下拉菜单(必须要有)
+        //             }
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.log(error); // 控制台打印错误
+        //         }
+        //     });
+        // });
+
+        // 日期组件的渲染
+        laydate.render({
+            elem: '#create'
+        });
+
+        laydate.render({
+            elem: '#dateline'
         });
 
         // 监听表格顶部的搜索操作(改这里)
         form.on('submit(nxu-search)', function (data) {
             // 条件搜索后，根据新数据重载表格(改这里)
             table.reload('OnlineLearning', {
-                url : '/user?method=queryAllUser',
+                url : '/homework?method=queryAllHomework',
                 method : 'post',
                 where : data.field  // 装载提交到后台的请求参数
             }, 'data');
@@ -211,21 +199,23 @@
 
                 layer.confirm('真的要删除这条数据吗?', function (index) {
                     // 使用Ajax异步加载表格顶部form表单中的下拉菜单
-                    $.ajax({
-                        type: 'post',
-                        url: '/user?method=deleteUser',
-                        data: {'id': obj.data.id},
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data.result === 1) {
-                                layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
-                            } else {
-                                layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                    $(document).ready(function () {
+                        $.ajax({
+                            type: 'post',
+                            url: '/homework?method=deleteHomework',
+                            data: {'id': obj.data.id},
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.result === 1) {
+                                    layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                } else {
+                                    layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(error); // 控制台打印
                             }
-                        },
-                        error: function (xhr, status, error) {
-                            console.log(error); // 控制台打印
-                        }
+                        });
                     });
                     obj.del();  // 移除表格当前行数据
                     layer.close(index); // 关闭确认弹窗
@@ -234,7 +224,7 @@
             } else if (obj.event === 'edit') { // 编辑数据(改这里)
                 layer.open({
                     type: 2,
-                    title: '编辑用户数据',
+                    title: '编辑作业数据',
                     content: '../../views/template/form1.html',
                     maxmin: true,
                     area: ['500px', '450px'],
@@ -275,7 +265,7 @@
             add: function () { // 新增数据(改这里)
                 layer.open({
                     type: 2,
-                    title: '添加用户数据',
+                    title: '添加作业数据',
                     content: '../../views/template/form1.html',
                     maxmin: true,
                     area: ['500px', '450px'],
@@ -309,10 +299,12 @@
 
         // 清空表格头部表单中的全部内容
         $('#clear').click(function (){
-            $('#name').val('');
-            $('#phone').val('');
-            $('#gender').val(0);
-            $('#roleType').val(0);
+            $('#title').val('');
+            $('#create').val('');
+            $('#dateline').val('');
+            $('#courseId').val('');
+            $('#userId').val('');
+            $('#again').val(0);
             form.render("select");  // 渲染layui的下拉菜单(必须要有)
         });
     });

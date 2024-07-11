@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
             Connection connection = MysqlUtil.getConnection();
 
             StringBuilder builder = new StringBuilder(); // 用于拼接SQL语句
-            builder.append("SELECT * FROM user where 1=1");
+            builder.append("SELECT * FROM `user` where 1=1 ");
 
             // 此处使用JDBC模拟动态SQL，不过根据业务，参数固定为(name、phone、gender、type)
             if (!map.isEmpty()) {
