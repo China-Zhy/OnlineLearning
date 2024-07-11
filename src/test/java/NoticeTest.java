@@ -34,20 +34,17 @@ public class NoticeTest {
     }
 
     @Test
-    public void test3() {
-        List<Notice> notices = noticeService.getNoticeByTarget(0);
+    public void test6() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("title", "title");
+        List<Notice> notices = noticeService.getNotice(map);
         for (Notice notice : notices) {
             System.out.println(notice);
         }
     }
 
-    @Test
-    public void test4() {
-        List<Notice> notices = noticeService.getNoticeByUserId(1);
-        for (Notice notice : notices) {
-            System.out.println(notice);
-        }
-    }
+
+
 
     @Test
     public void test5() {

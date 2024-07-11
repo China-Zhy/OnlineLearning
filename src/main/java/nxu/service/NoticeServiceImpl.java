@@ -35,26 +35,18 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     /**
-     * 根据系统、课程号查询公告
+     * 查询所有公告
      *
-     * @param target 系统、课程号
      * @return 公告列表
      */
     @Override
-    public List<Notice> getNoticeByTarget(int target) {
-        return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).getNoticeByTarget(target);
+    public List<Notice> getNotice(Map<String, Object> map) {
+        return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).getNotice(map);
     }
 
-    /**
-     * 根据用户id查询公告
-     *
-     * @param userId 用户id
-     * @return 公告列表
-     */
-    @Override
-    public List<Notice> getNoticeByUserId(int userId) {
-        return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).getNoticeByUserId(userId);
-    }
+
+
+
 
     /**
      * 更新公告

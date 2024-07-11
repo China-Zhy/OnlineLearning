@@ -15,7 +15,22 @@
         delete from comment where id = #{id}
     </delete>
 
-    <select id="getComment" resultType="nxu.entity.Comment">
+    <select id="getComment" resultType="nxu.entity.Comment" parameterType="map">
+        select * from comment
+        <where>
+            <if test="time != null and time != ''">
+                and substr(concat(time), 1, 10) &gt;= #{time}
+            </if>
+            <if test="courseId != null and courseId != ''">
+                and course_id = #{courseId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+
+        </where>
+    </select>
+    <select id="getCommentById" resultType="nxu.entity.Comment">
         select * from comment where course_id = #{courseId}
     </select>
 

@@ -27,7 +27,7 @@ public class UserController extends BaseServlet {
     private static final RoleService roleService = new RoleServiceImpl();
 
     // 用户登录
-    public void login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void login(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String account = req.getParameter("account");
         String password = req.getParameter("password");
         String vercode = req.getParameter("vercode");
