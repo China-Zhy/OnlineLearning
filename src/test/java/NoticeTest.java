@@ -43,6 +43,11 @@ public class NoticeTest {
         }
     }
 
+    @Test
+    public void test3() {
+        Notice oneNotice = noticeService.getOneNotice(1);
+        System.out.println(oneNotice);
+    }
 
 
 

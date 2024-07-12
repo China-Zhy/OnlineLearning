@@ -60,4 +60,15 @@ public class CourseServiceImpl implements CourseService {
         return MybatisUtil.getSqlSession().getMapper(CourseMapper.class).deleteCourse(id);
     }
 
+    /**
+     * @param id 传入用户参数
+     * @return 获取用户拥有的课程集合
+     */
+    @Override
+    public PageInfo<Course> userCourse(int id) {
+        PageHelper.startPage(1,10);
+        List<Course> list = MybatisUtil.getSqlSession().getMapper(CourseMapper.class).userCourse(id);
+        return new PageInfo<>(list);
+    }
+
 }

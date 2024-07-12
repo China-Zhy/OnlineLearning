@@ -15,7 +15,12 @@
         select * from notice
         <where>
             <if test="target != null and target != ''">
-                and target = #{target}
+                <if test="target &lt; 0">
+                    and target != 0
+                </if>
+                <if test="target &gt;= 0">
+                    and target = #{target}
+                </if>
             </if>
             <if test="title != null and title != ''">
                 and title like CONCAT('%',#{title},'%')
@@ -28,6 +33,9 @@
             </if>
         </where>
     </select>
+    <select id="getOneNotice" resultType="nxu.entity.Notice">
+        select * from notice where id = #{id};
+    </select>
 
     <update id="updateNotice">
         update notice
@@ -36,6 +44,7 @@
             <if test="info != null and info != ''">info = #{info},</if>
             <if test="dateline != null">dateline = #{dateline},</if>
             <if test="target != null and target !=''">target = #{target},</if>
+            <if test="userId != null">user_id = #{userId}</if>
         </set>
         where id = #{id}
 

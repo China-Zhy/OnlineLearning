@@ -27,9 +27,9 @@
                 <label class="layui-form-label" style="font-weight: bold;">公告类型</label>
                 <div class="layui-input-block" >
                   <select name="type" id="type">
-                    <option value=""></option>
+                    <option value="1">选择类型</option>
                     <option value="0">系统公告</option>
-                    <option value="1">课程公告</option>
+                    <option value="-1">课程公告</option>
                   </select>
                 </div>
               </div>
@@ -37,13 +37,13 @@
               <div class="layui-inline">
                 <label class="layui-form-label"style="font-weight: bold;">创建时间</label>
                 <div class="layui-input-inline">
-                  <input type="text" name="create" id="LAY-component-form-group-create" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                  <input type="text" name="create" id="LAY-component-form-group-create" placeholder="请选择创建时间" autocomplete="off" class="layui-input">
                 </div>
               </div>
               <div class="layui-inline">
                 <label class="layui-form-label"style="font-weight: bold;">截止时间</label>
                 <div class="layui-input-inline">
-                  <input type="text" name="dateline" id="LAY-component-form-group-dateline" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                  <input type="text" name="dateline" id="LAY-component-form-group-dateline" placeholder="请选择截止时间" autocomplete="off" class="layui-input">
                 </div>
               </div>
 
@@ -110,26 +110,26 @@
             , $ = layui.$
             ,layer = layui.layer;
 
-    // 表格数据显示部分(改这里)
+
     table.render({
       elem: '#OnlineLearning',
       url: '/notice?method=queryAllNotice',
       cols: [[
         {type: 'checkbox', fixed: 'left'},
-        {field: 'id', width: 80, title: 'ID', sort: true, fixed: 'left'},
-        {field: 'title', width:160, title: '公告标题'},
-        {field: 'info', width: 160, title: '公告内容'},
-        {field: 'create', width: 160, title: '创建时间', sort: true},
-        {field: 'dateline', width: 160, title: '截止时间'},
-        {field: 'target', width: 120, title: '公告类型',sort: true,templet: "#buttonTpl"},
-        {field: 'userId', width: 120, title: '创建用户'},
+        {field: 'id', width: 80, title: 'ID', sort: true, align: 'center', fixed: 'left'},
+        {field: 'title', width:160, title: '公告标题', align: 'center'},
+        {field: 'info', width: 250, title: '公告内容', align: 'center'},
+        {field: 'create', width: 160, title: '创建时间', align: 'center', sort: true},
+        {field: 'dateline', width: 160, title: '截止时间', align: 'center', sort: true},
+        {field: 'target', width: 120, title: '公告类型', align: 'center', sort: true,templet: "#buttonTpl"},
+        {field: 'userId', width: 120, title: '创建用户', align: 'center', sort: true},
         {title: '更多操作',width: 250, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
       ]],
       page: true
     });
-    // 监听表格顶部的搜索操作(改这里)
+    // 监听表格顶部的搜索操作
     form.on('submit(nxu-search)', function (data) {
-      // 条件搜索后，根据新数据重载表格(改这里)
+      // 条件搜索后，根据新数据重载表格
       table.reload('OnlineLearning', {
         url : '/notice?method=queryAllNotice',
         method : 'post',
@@ -137,28 +137,6 @@
       }, 'data');
       return false;
     });
-
-   /* $(document).ready(function (){
-      $.ajax({
-        type : 'GET',
-        url : '/course?method=queryCourse',
-        data : '',
-        dataType : 'json',
-        success : function (data){
-          for(let i=0; i < data.list.length; i++){
-            let option = document.createElement("option");
-            option.value = data.list[i].id;
-            option.text = data.list[i].name;
-            document.getElementById('courseid').appendChild(option);
-            form.render("select");  // 渲染layui的下拉菜单(必须要有)
-          }
-        },
-        error : function (xhr, status, error){
-          console.log(error); // 控制台打印
-        }
-      })
-    });*/
-
 // 日期控件
     laydate.render({
       elem:'#LAY-component-form-group-create'
@@ -197,6 +175,7 @@
               error : function (xhr, status, error){
                 console.log(error); // 控制台打印
               }
+
             })
           })
           obj.del();
@@ -206,34 +185,42 @@
       else if (obj.event === 'edit') { // 编辑数据(改这里)
         layer.open({
           type: 2,
-          title: '编辑____数据',
-          content: '../../views/template/form1.html',
+          title: '编辑公告',
+          content: '../../views/notice/noticeEdit.html',
           maxmin: true,
-          area: ['500px', '450px'],
+          area: ['500px', '700px'],
           btn: ['确定', '取消'],
+          success: function(layero, index){
+            // 给弹出层中的隐藏表达赋值
+            layer.getChildFrame('body', index).find('input[id="id"]').val(data.id);
+          },
           yes: function (index, layero) {
             let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
 
             //监听提交
             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
               let field = data.field; //获取提交的字段
-
               //提交 Ajax 成功后，静态更新表格中的数据
-              //$.ajax({});
-              /*$(document).ready(function (){
-                $.ajax({
-                  type : 'post',
-                  url : '/notice?method=updateNotice',
-                  data : {'id' : obj.data.id,'title' : field.title,'info' : field.info,'dateline' : field.dateline,'userId' : field.userId},
-                  dataType : 'json',
-                  success : function (data){
-                    if(data.result === 1){
-                      layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
-                    }
+              $.ajax({
+                type: 'post',
+                url: '/notice?method=updateNotice',
+                data: data.field,
+                dataType: 'json',
+                success: function (data) {
+                  if (data.result === 1) {
+                    console.log("111111111111111111111111111");
+                    layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                  } if(data.result === 0) {
+                    console.log("2222222222222222");
+                    layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
                   }
-                })
-              })*/
-              table.reload('LAY-user-front-submit'); //数据刷新
+                  table.reload('OnlineLearning'); // 数据刷新，记得改成OnlineLearning
+                },
+                error: function (xhr, status, error) {
+                  layer.msg('糟糕又出错了！这一定不是我的问题！');
+                  console.log(error); // 控制台打印
+                }
+              });
               layer.close(index); //关闭弹层
             });
             submit.trigger('click');
@@ -241,7 +228,6 @@
         });
       }
     });
-
     // 表格头部的几个小工具
     let active = {
       getCheckData: function () { //获取选中数据(勿改)
@@ -262,30 +248,45 @@
           title: '添加用户数据',
           content: '../../views/notice/noticeInsert.html',
           maxmin: true,
-          area: ['500px', '450px'],
+          area: ['500px', '700px'],
           btn: ['确定', '取消'],
           yes: function (index, layero) {
             let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
                     submit = layero.find('iframe').contents().find('#' + submitID);
-
+            console.log("submit"+submitID);
             //监听提交
             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
               let field = data.field; //获取提交的字段
-
               //提交 Ajax 成功后，静态更新表格中的数据
-              //$.ajax({});
+              $.ajax({
+                type : 'POST',
+                url : '/notice?method=addNotice',
+                data : field,
+                dataType : 'json',
+                success : function(data){
+                  if(data.result === 1){
+                    layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                  }
+                  if(data.result === 0){
+                    layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                  }
+                },
+                error : function (xhr, status, error){
+                  layer.msg("糟糕又出错了！这肯定不是我的问题！");
+                  console.log(error); // 控制台打印
+                }
+              })
+              table.reload('OnlineLearning'); //数据刷新
+              layer.close(index);
 
-              table.reload('LAY-user-front-submit'); //数据刷新
-              layer.close(index); //关闭弹层
-            });
-
+            })
             submit.trigger('click');
           }
         });
       }
     };
 
-    // 按钮事件相关的控制(勿改)
+// 按钮事件相关的控制(勿改)
     $('.OnlineLearning-btn .layui-btn').on('click', function () {
       let type = $(this).data('type');
       active[type] ? active[type].call(this) : '';
@@ -296,7 +297,7 @@
       $('#type').val('');
       $('#LAY-component-form-group-create').val('');
       $('#LAY-component-form-group-dateline').val('');
-      form.render("select");  // 渲染layui的下拉菜单(必须要有)
+      form.render("select");  // 渲染layui的下拉菜单
     });
   });
 </script>

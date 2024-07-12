@@ -31,7 +31,7 @@ public class UserController extends BaseServlet {
         String account = req.getParameter("account");
         String password = req.getParameter("password");
         String vercode = req.getParameter("vercode");
-        System.out.println("login收到的参数：" + account + " " + password + " " + vercode);
+
         User user = userService.queryUserToLogin(account, password);
 
         JSONObject jsonObject = new JSONObject();

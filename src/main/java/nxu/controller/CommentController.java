@@ -1,13 +1,11 @@
 package nxu.controller;
 
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import jakarta.servlet.annotation.WebServlet;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Comment;
-import nxu.entity.Notice;
 import nxu.service.CommentService;
 import nxu.service.CommentServiceImpl;
 import nxu.utils.BaseServlet;
@@ -23,32 +21,25 @@ import java.util.List;
 public class CommentController extends BaseServlet {
     public static final CommentService commentService = new CommentServiceImpl();
 
-    public void queryAllComment(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+    //查找全部
+    public void queryAllComment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HashMap<String, Object> map = new HashMap<>();
 
-        String userid = req.getParameter("userid");
-        String courseid = req.getParameter("courseid");
+        String userId = req.getParameter("userId");
+        String courseId = req.getParameter("courseId");
         String time = req.getParameter("time");
 
-
-        System.out.println("userid=" + userid);
-        System.out.println("courseid=" + courseid);
-        System.out.println("time=" + time);
-
-        if (userid != null && !userid.isEmpty()) {
-            map.put("userId", userid);
+        if (userId != null && !userId.isEmpty()) {
+            map.put("userId", userId);
         }
-        if (courseid != null && !courseid.isEmpty()) {
-                map.put("courseId", courseid);
+        if (courseId != null && !courseId.isEmpty()) {
+            map.put("courseId", courseId);
         }
         if (time != null && !time.isEmpty()) {
             map.put("time", time);
         }
-
-
-        List<Comment> commentList = commentService.getComment(map);
-
         JSONObject jsonObject = new JSONObject();
+        List<Comment> commentList = commentService.getComment(map);
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
         jsonObject.put("count", commentList.size());
@@ -59,12 +50,9 @@ public class CommentController extends BaseServlet {
     }
 
     //删除评论
-    public void deleteComment(HttpServletRequest req, HttpServletResponse resp) throws IOException
-    {
-        resp.setContentType("application/json; charset=utf-8");
-        String id = req.getParameter("id");
-        int result = commentService.deleteComment(Integer.parseInt(id));
+    public void deleteComment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         JSONObject jsonObject = new JSONObject();
+        int result = commentService.deleteComment(Integer.parseInt(req.getParameter("id")));
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
         jsonObject.put("info", info);

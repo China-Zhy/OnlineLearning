@@ -41,4 +41,11 @@ public interface CourseMapper {
      * @return 删除后受影响的行数
      */
     int deleteCourse(int id);
+
+    /**
+     *
+     * @param id 传入用户参数
+     * @return 获取用户拥有的课程集合
+     */
+    List<Course> userCourse(int id);
 }
