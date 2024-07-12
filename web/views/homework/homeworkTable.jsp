@@ -224,7 +224,7 @@
                                     }
                                 },
                                 error: function (xhr, status, error) {
-                                    layer.msg('可恶，又出错了')
+                                    layer.msg('可恶，又出错了');
                                     console.log(error); // 控制台打印
                                 }
                             });
