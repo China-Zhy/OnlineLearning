@@ -49,14 +49,8 @@ public class CourseController extends BaseServlet {
         }
         map.put("pageIndex",1);
         map.put("pageSize",10);
+
         PageInfo<Course> courseList=courseService.getCourse(map);
-        out.println("here");
-        out.println(map);
-//        resp.setContentType("text/html;charset=utf-8");
-//        for(Course course:courseList.getList()){
-//            resp.getWriter().println(course.toString());
-//            resp.getWriter().println("<hr>");
-//        }
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("code",0);
         jsonObject.put("msg","success");
@@ -68,11 +62,56 @@ public class CourseController extends BaseServlet {
 
     public void deleteCourse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int result = courseService.deleteCourse(Integer.parseInt(req.getParameter("id")));
-        out.println(result);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
         jsonObject.put("info", info);
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
+    public void insertCourse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Course course=new Course();
+        course.setName(req.getParameter("name"));
+        course.setCourseType(Integer.parseInt(req.getParameter("courseType")));
+        course.setImage(req.getParameter("image"));
+        course.setInfo(req.getParameter("info"));
+        course.setScore(Integer.parseInt(req.getParameter("score")));
+        course.setState(Integer.parseInt(req.getParameter("state")));
+        course.setUserId(Integer.parseInt(req.getParameter("userId")));
+        // 测试控制台输出
+        out.println(course);
+        int result = courseService.insertCourse(course);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", result);
+        String info = result > 0 ? "插入成功" : "插入失败";
+        jsonObject.put("info", info);
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
+    public void updateCourse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HashMap<String,Object> map=new HashMap<>();
+        map.put("id",Integer.parseInt(req.getParameter("id")));
+        map.put("name",req.getParameter("name"));
+        map.put("courseType",Integer.parseInt(req.getParameter("courseType")));
+        map.put("image",req.getParameter("image"));
+        map.put("info",req.getParameter("info"));
+        map.put("score",Integer.parseInt(req.getParameter("score")));
+        map.put("state",Integer.parseInt(req.getParameter("state")));
+        map.put("userId",Integer.parseInt(req.getParameter("userId")));
+        int result = courseService.updateCourse(map);
+
+        //测试获取
+        out.println("here update-----------");
+        out.println(result);
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("result", result);
+        String info = result > 0 ? "更新成功" : "更新失败";
+        jsonObject.put("info", info);
+
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().write(jsonObject.toString());
     }

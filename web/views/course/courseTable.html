@@ -210,11 +210,15 @@
             } else if (obj.event === 'edit') { // 编辑数据(改这里)
                 layer.open({
                     type: 2,
-                    title: '编辑____数据',
-                    content: '../../views/template/form1.html',
+                    title: '编辑课程数据',
+                    content: '../../views/course/courseEdit.html',
                     maxmin: true,
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
+                    success: function(layero, index){
+                        // 给弹出层中的隐藏表达赋值
+                        layer.getChildFrame('body', index).find('input[id="id"]').val(data.id);
+                    },
                     yes: function (index, layero) {
                         let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
 
@@ -223,8 +227,24 @@
                             let field = data.field; //获取提交的字段
 
                             //提交 Ajax 成功后，静态更新表格中的数据
-                            //$.ajax({});
-                            table.reload('LAY-user-front-submit'); //数据刷新
+                            $.ajax({
+                                type: 'post',
+                                url: '/course?method=updateCourse',
+                                data: data.field,
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.result === 1) {
+                                        layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                        table.reload('OnlineLearning'); // 数据刷新，记得改成OnlineLearning
+                                    } else {
+                                        layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    layer.msg('可恶，又出错了')
+                                    console.log(error); // 控制台打印
+                                }
+                            });
                             layer.close(index); //关闭弹层
                         });
                         submit.trigger('click');
@@ -263,9 +283,25 @@
                             let field = data.field; //获取提交的字段
 
                             //提交 Ajax 成功后，静态更新表格中的数据
-                            //$.ajax({});
+                            $.ajax({
+                                type: 'post',
+                                url: '/course?method=insertCourse',
+                                data: data.field,
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.result === 1) {
+                                        layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                    } else {
+                                        layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    layer.msg('可恶，又出错了')
+                                    console.log(error); // 控制台打印
+                                }
+                            });
 
-                            table.reload('LAY-user-front-submit'); //数据刷新
+                            table.reload('OnlineLearning'); //数据刷新
                             layer.close(index); //关闭弹层
                         });
 

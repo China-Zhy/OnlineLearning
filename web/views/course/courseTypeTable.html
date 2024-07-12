@@ -46,9 +46,6 @@
                         <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">
                             <i class="layui-icon layui-icon-about"></i>查看
                         </a>
-                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">
-                            <i class="layui-icon layui-icon-edit"></i>编辑
-                        </a>
                         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">
                             <i class="layui-icon layui-icon-delete"></i>删除
                         </a>
@@ -74,9 +71,9 @@
             url:'/courseType?method=queryCourseType',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 120, title: '课程类型编号', sort: true, fixed: 'left'},
+                {field: 'id', width: 140, title: '课程类型编号', sort: true, fixed: 'left'},
                 {field: 'name', width: 160, title: '课程类型名称'},
-                {width: 250, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
+                {title:'更多操作', width: 250, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
             ]],
             page: true
         });
@@ -120,21 +117,20 @@
             } else if (obj.event === 'edit') { // 编辑数据(改这里)
                 layer.open({
                     type: 2,
-                    title: '编辑____数据',
-                    content: '../../views/template/form1.html',
+                    title: '编辑课程类型数据',
+                    content: '../../views/course/courseTypeEdit.html',
                     maxmin: true,
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
+
+                        console.log("success in1------");
                         let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
 
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                            console.log("success in2------");
                             let field = data.field; //获取提交的字段
-
-                            //提交 Ajax 成功后，静态更新表格中的数据
-                            //$.ajax({});
-                            table.reload('LAY-user-front-submit'); //数据刷新
                             layer.close(index); //关闭弹层
                         });
                         submit.trigger('click');
@@ -167,15 +163,31 @@
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
                         let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
-
+                        console.log("success in 1-------");
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
 
                             //提交 Ajax 成功后，静态更新表格中的数据
-                            //$.ajax({});
+                            $.ajax({
+                                type: 'post',
+                                url: '/courseType?method=insertCourseType',
+                                data: data.field,
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.result === 1) {
+                                        layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                    } else {
+                                        layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    layer.msg('可恶，又出错了')
+                                    console.log(error); // 控制台打印
+                                }
+                            });
 
-                            table.reload('LAY-user-front-submit'); //数据刷新
+                            table.reload('OnlineLearning'); //数据刷新
                             layer.close(index); //关闭弹层
                         });
 

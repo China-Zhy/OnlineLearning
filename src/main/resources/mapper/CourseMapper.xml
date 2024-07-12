@@ -46,4 +46,11 @@
         where id=#{id}
     </delete>
 
+    <select id="userCourse" resultType="nxu.entity.Course">
+        select * from course c
+        where c.id in
+        (select o.course_id from ownership o
+         where o.user_id=#{id})
+    </select>
+
 </mapper>

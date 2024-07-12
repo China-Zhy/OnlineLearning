@@ -44,17 +44,6 @@
     var $ = layui.$
     ,form = layui.form
     ,upload = layui.upload ;
-    
-    upload.render({
-      elem: '#layuiadmin-upload-useradmin'
-      ,url: layui.setter.base + 'json/upload/demo.js'
-      ,accept: 'images'
-      ,method: 'get'
-      ,acceptMime: 'image/*'
-      ,done: function(res){
-        $(this.item).prev("div").children("input").val(res.data.src)
-      }
-    });
   })
   </script>
 </body>
