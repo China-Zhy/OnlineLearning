@@ -82,10 +82,6 @@ public class HomeworkController extends BaseServlet {
     // 获取单个作业信息
     public void getOneHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        if (req.getParameter("id") != null) {
-            System.out.println("收到的编辑标号：" + req.getParameter("id"));
-        }
-
         JSONObject jsonObject = new JSONObject();
         Homework homework = homeworkService.getHomeworkById(Integer.parseInt(req.getParameter("id")));
 

@@ -68,5 +68,16 @@ public class CourseTest {
         int result = courseService.deleteCourse(id);
         System.out.println(result);
     }
+    /**
+     * 测试获取用户拥有课程集合
+     */
+    @Test
+    public void Test5() {
+        int id=4;
+        PageInfo<Course> result = courseService.userCourse(id);
+        for (Course course : result.getList()) {
+            System.out.println(course);
+        }
+    }
 
 }
