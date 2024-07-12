@@ -22,7 +22,7 @@
                 <label class="layui-form-label" style="font-weight: bold;">用户编号</label>
                 <div class="layui-input-block">
                   <div class="layui-input-inline">
-                    <input type="text" name="userid" id="userid"  placeholder="请输入用户编号" autocomplete="off" class="layui-input">
+                    <input type="text" name="userId" id="userId"  placeholder="请输入用户编号" autocomplete="off" class="layui-input">
                   </div>
                 </div>
               </div>
@@ -30,7 +30,7 @@
                 <label class="layui-form-label" style="font-weight: bold;">课程编号</label>
                 <div class="layui-input-block">
                   <div class="layui-input-inline">
-                    <input type="text" name="courseid" id="courseid"  placeholder="请输入课程编号" autocomplete="off" class="layui-input">
+                    <input type="text" name="courseId" id="courseId"  placeholder="请输入课程编号" autocomplete="off" class="layui-input">
                   </div>
                 </div>
               </div>
@@ -98,7 +98,7 @@
         {field: 'id', width: 80, title: 'ID', sort: true, fixed: 'left', align: "center"},
         {field: 'courseId', width: 80, title: '课程', align: "center"},
         {field: 'userId', width: 80, title: '用户', align: "center"},
-        {field: 'score', width: 160, title: '评价星级', align: 'center', sort: true,id:'rate',
+        {field: 'score', width: 180, title: '评价星级', align: 'center', sort: true,id:'rate',
           templet: function (d) {
             return '<div id="star'+d.id+'" style="top: -10px;"></div>'
           }},
@@ -135,35 +135,9 @@
       return false;
     });
 
-
-    // 使用Ajax异步加载表格顶部form表单中的下拉菜单 改这里！
-    /*$(document).ready(function (){
-      $.ajax({
-        type : 'GET',
-        url : '/course?method=queryCourse',
-        data : '',
-        dataType : 'json',
-        success : function (data){
-          for(let i=0; i < data.data.length; i++){
-            let option = document.createElement("option");
-            option.value = data.data[i].id;
-            option.text = data.data[i].name;
-            document.getElementById('courseid').appendChild(option);
-            form.render("select");  // 渲染layui的下拉菜单(必须要有)
-          }
-        },
-        error : function (xhr, status, error){
-          console.log(error); // 控制台打印
-        }
-      })
-    });*/
-
-
       laydate.render({
         elem: '#LAY-component-form-group-time'
       });
-
-
 
     // 监听表格复选框选择(勿改)
     table.on('checkbox(OnlineLearning)', function (obj) {
@@ -227,8 +201,8 @@
     });
     // 清空表格头部表单中的全部内容
     $('#clear').click(function (){
-      $('#userid').val('');
-      $('#courseid').val('');
+      $('#userId').val('');
+      $('#courseId').val('');
       $('#LAY-component-form-group-time').val('');
       form.render("select");  // 渲染layui的下拉菜单(必须要有)
     });

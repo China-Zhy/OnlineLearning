@@ -44,8 +44,16 @@ public class NoticeServiceImpl implements NoticeService {
         return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).getNotice(map);
     }
 
-
-
+    /**
+     * 查询一个公告
+     *
+     * @param id 公告编号
+     * @return 公告
+     */
+    @Override
+    public Notice getOneNotice(int id) {
+        return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).getOneNotice(id);
+    }
 
 
     /**

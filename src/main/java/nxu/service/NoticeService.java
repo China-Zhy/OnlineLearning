@@ -32,7 +32,13 @@ public interface NoticeService {
      * @return 公告列表
      */
     List<Notice> getNotice(Map<String, Object> map);
-
+    /**
+     * 查询一个公告
+     *
+     * @param id 公告编号
+     * @return 公告
+     */
+    Notice getOneNotice(int id);
 
 
     /**
