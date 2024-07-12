@@ -177,20 +177,38 @@
                 layer.open({
                     type: 2,
                     title: '编辑活动数据',
-                    content: '../../views/active/activeRewrite.html',
+                    content: '../../views/active/activeEdit.html',
                     maxmin: true,
                     area: ['700px', '600px'],
                     btn: ['确定', '取消'],
+                    success: function(layero, index){
+                        // 给弹出层中的隐藏表达赋值
+                        layer.getChildFrame('body', index).find('input[id="id"]').val(data.id);
+                    },
                     yes: function (index, layero) {
                         let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
 
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                            let field = data.field; //获取提交的字段
-
                             //提交 Ajax 成功后，静态更新表格中的数据
-                            //$.ajax({});
-                            table.reload('LAY-user-front-submit'); //数据刷新
+                            $.ajax({
+                                type: 'post',
+                                url: '/active?method=updateActive',
+                                data: data.field,
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.result === 1) {
+                                        layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                        table.reload('OnlineLearning'); // 数据刷新，记得改成OnlineLearning
+                                    } else {
+                                        layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    layer.msg('可恶，又出错了')
+                                    console.log(error); // 控制台打印
+                                }
+                            });
                             layer.close(index); //关闭弹层
                         });
                         submit.trigger('click');
@@ -217,24 +235,38 @@
                 layer.open({
                     type: 2,
                     title: '添加活动数据',
-                    content: '../../views/active/activeAdd.html',
+                    content: '../../views/active/activeInsert.html',
                     maxmin: true,
                     area: ['700px', '600px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
+                        let iframeWindow = window['layui-layer-iframe' + index],
+                            submitID = 'LAY-user-front-submit',
+                            submit = layero.find('iframe').contents().find('#' + submitID);
 
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                            let field = data.field; //获取提交的字段
-
                             //提交 Ajax 成功后，静态更新表格中的数据
-                            //$.ajax({});
-
-                            table.reload('LAY-user-front-submit'); //数据刷新
+                            $.ajax({
+                                type: 'post',
+                                url: '/active?method=insertActive',
+                                data: data.field,
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.result === 1) {
+                                        layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                        table.reload('OnlineLearning'); //数据刷新
+                                    } else {
+                                        layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    layer.msg('出错了')
+                                    console.log(error); // 控制台打印
+                                }
+                            });
                             layer.close(index); //关闭弹层
                         });
-
                         submit.trigger('click');
                     }
                 });

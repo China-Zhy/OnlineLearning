@@ -14,28 +14,28 @@
     <div class="layui-form-item">
         <label class="layui-form-label">用户编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="userId" lay-verify="required" placeholder="请输入用户编号" autocomplete="off" class="layui-input">
+            <input type="number" name="userId" id="userId" lay-verify="required" placeholder="请输入用户编号" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">课程编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="courseId" lay-verify="required" placeholder="请输入课程编号" autocomplete="off" class="layui-input">
+            <input type="number" name="courseId" id="courseId" lay-verify="required" placeholder="请输入课程编号" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">下单时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="time" id="LAY-component-form-group-time" lay-verify="datetime" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
+            <input type="text" name="time" id="time" lay-verify="datetime|required" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">订单状态</label>
         <div class="layui-input-inline">
-            <select name="state">
+            <select name="state" id="state">
                 <option value="1">待支付</option>
                 <option value="2">购买成功</option>
                 <option value="3">购买失败</option>
@@ -62,7 +62,7 @@
 
         // 表格顶部时间选择部分
         laydate.render({
-            elem: '#LAY-component-form-group-time',
+            elem: '#time',
             type: 'datetime', // 设置日期时间选择器类型为 datetime
             format: 'yyyy-MM-dd HH:mm:ss' // 指定日期时间格式
         });

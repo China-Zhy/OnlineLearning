@@ -231,12 +231,24 @@
 
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                            let field = data.field; //获取提交的字段
-
-                            //提交 Ajax 成功后，静态更新表格中的数据
-                            //$.ajax({});
-
-                            table.reload('LAY-user-front-submit'); //数据刷新
+                            $.ajax({
+                                type: 'post',
+                                url: '/order?method=insertOrder',
+                                data: data.field,
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.result === 1) {
+                                        layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
+                                    } else {
+                                        layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    layer.msg('出错了')
+                                    console.log(error); // 控制台打印
+                                }
+                            });
+                            table.reload('OnlineLearning'); //数据刷新
                             layer.close(index); //关闭弹层
                         });
 

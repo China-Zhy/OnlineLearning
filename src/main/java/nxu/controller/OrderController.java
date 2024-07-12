@@ -12,6 +12,10 @@ import nxu.service.OrderServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -32,11 +36,6 @@ public class OrderController extends BaseServlet {
         String courseId = req.getParameter("courseId");
         String time = req.getParameter("time");
         String state = req.getParameter("state");
-
-        System.out.println("userId=" + userId);
-        System.out.println("courseId=" + courseId);
-        System.out.println("time=" + time);
-        System.out.println("state=" + state);
 
         if (userId != null && !userId.isEmpty()) {
             map.put("userId", userId);
@@ -66,7 +65,7 @@ public class OrderController extends BaseServlet {
         resp.getWriter().write(jsonObject.toString());
     }
 
-    // 删除用户
+    // 删除活动
     public void deleteOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int result = orderService.deleteOrderById(Integer.parseInt(req.getParameter("id")));
         JSONObject jsonObject = new JSONObject();
@@ -76,4 +75,35 @@ public class OrderController extends BaseServlet {
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().write(jsonObject.toString());
     }
+
+    // 添加活动
+    public void insertOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException, ParseException {
+        Order order = new Order();
+
+        System.out.println(req.getParameter("userId"));
+        System.out.println(req.getParameter("courseId"));
+        System.out.println(req.getParameter("time"));
+        System.out.println(req.getParameter("state"));
+
+        order.setUserId(Integer.parseInt(req.getParameter("userId")));
+        order.setCourseId(Integer.parseInt(req.getParameter("courseId")));
+        order.setState(Integer.parseInt(req.getParameter("state")));
+
+        // 时间字符串转为Date类型
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date time = format.parse(req.getParameter("time"));
+
+        order.setTime(time);
+
+        JSONObject jsonObject = new JSONObject();
+        int result = orderService.insertOrder(order);
+        jsonObject.put("result", result);
+        String info = result > 0 ? "添加成功" : "添加失败";
+        jsonObject.put("info", info);
+
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
+
 }

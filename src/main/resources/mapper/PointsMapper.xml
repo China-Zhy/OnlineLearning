@@ -33,9 +33,10 @@
     <update id="updatePoints" parameterType="map">
         update `points`
         <set>
+            <if test="userId!=null and userId!=''">user_id=#{userId},</if>
             <if test="type!=null and type!=''">type=#{type},</if>
             <if test="number!=null and number!=''">number=#{number},</if>
-            <if test="time!=null and time!=''">time=#{time},</if>
+            <if test="time!=null">`time`=#{time},</if>
         </set>
         where id=#{id}
     </update>

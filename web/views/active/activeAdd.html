@@ -14,7 +14,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">活动图片</label>
         <div class="layui-input-inline">
-            <input type="text" name="image" lay-verify="required" placeholder="请上传活动图片" autocomplete="off" class="layui-input" >
+            <input type="text" name="image" id="image" lay-verify="required" placeholder="请上传活动图片" autocomplete="off" class="layui-input" >
         </div>
         <button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
     </div>
@@ -22,26 +22,26 @@
     <div class="layui-form-item">
         <label class="layui-form-label">活动标题</label>
         <div class="layui-input-inline">
-            <input type="text" name="title" lay-verify="required" placeholder="请输入活动标题" autocomplete="off" class="layui-input">
+            <input type="text" name="title" id="title" lay-verify="required" placeholder="请输入活动标题" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">开始时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="create" id="create" lay-verify="datetime" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
+            <input type="text" name="create" id="create" lay-verify="datetime|required" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
         </div>
 
         <label class="layui-form-label">截止时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="deadline" id="deadline" lay-verify="datetime" placeholder="请选择截止时间" autocomplete="off" class="layui-input">
+            <input type="text" name="deadline" id="deadline" lay-verify="datetime|required" placeholder="请选择截止时间" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">折扣力度</label>
         <div class="layui-input-inline">
-            <input type="text" name="discount" placeholder="请输入折扣力度" autocomplete="off" class="layui-input">
+            <input type="number" name="discount" id="discount" lay-verify="required" placeholder="请输入折扣力度" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -49,8 +49,15 @@
         <label class="layui-form-label">活动内容</label>
         <div class="layui-card-body layui-row layui-col-space10">
             <div class="layui-col-md12">
-                <textarea name="" placeholder="请输入活动内容" class="layui-textarea"></textarea>
+                <textarea type="text" name="info" id="info" lay-verify="required" placeholder="请输入活动内容" class="layui-textarea"></textarea>
             </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">创建用户</label>
+        <div class="layui-input-inline">
+            <input type="userId" name="userId" id="userId" lay-verify="required" placeholder="请输入创建用户" autocomplete="off" class="layui-input">
         </div>
     </div>
 

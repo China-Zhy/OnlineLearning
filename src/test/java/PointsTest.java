@@ -60,7 +60,8 @@ public class PointsTest {
     public void test5() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", 2);
-        map.put("type", "用户消费");
+        map.put("userId",4);
+        map.put("type", 2);
         int i = pointsService.updatePoints(map);
         System.out.println(i);
     }

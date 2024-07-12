@@ -14,17 +14,17 @@
     <div class="layui-form-item">
         <label class="layui-form-label">用户编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="userId" lay-verify="required" placeholder="请输入用户编号" autocomplete="off" class="layui-input">
+            <input type="number" name="userId" id="userId" lay-verify="required" placeholder="请输入用户编号" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">来源类型</label>
         <div class="layui-input-inline">
-            <select name="type">
-                <option value="1">学习所得</option>
-                <option value="2">用户充值</option>
-                <option value="1">用户消费</option>
+            <select name="type" id="type">
+                <option value="1">用户充值</option>
+                <option value="2">用户消费</option>
+                <option value="3">学习所得</option>
             </select>
         </div>
     </div>
@@ -32,14 +32,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">积分数量</label>
         <div class="layui-input-inline">
-            <input type="text" name="number" lay-verify="required" placeholder="请输入积分数量" autocomplete="off" class="layui-input">
+            <input type="number" name="number" id="number" lay-verify="required" placeholder="请输入积分数量" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">变动时间</label>
         <div class="layui-input-inline">
-            <input type="text" name="time" id="LAY-component-form-group-time" lay-verify="datetime" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
+            <input type="text" name="time" id="time" lay-verify="datetime|required" placeholder="请选择开始时间" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -62,7 +62,7 @@
 
         // 表格顶部时间选择部分
         laydate.render({
-            elem: '#LAY-component-form-group-time',
+            elem: '#time',
             type: 'datetime', // 设置日期时间选择器类型为 datetime
             format: 'yyyy-MM-dd HH:mm:ss' // 指定日期时间格式
         });

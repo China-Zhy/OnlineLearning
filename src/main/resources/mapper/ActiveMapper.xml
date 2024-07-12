@@ -39,8 +39,9 @@
             <if test="info!=null and info!=''">info=#{info},</if>
             <if test="image!=null and image!=''">image=#{image},</if>
             <if test="discount!=null and discount!=''">discount=#{discount},</if>
-            <if test="create!=null and create!=''">create=#{create},</if>
-            <if test="deadline!=null and deadline!=''">deadline=#{deadline},</if>
+            <if test="create!=null">`create`=#{create},</if>
+            <if test="deadline!=null">deadline=#{deadline},</if>
+            <if test="userId!=null and userId!=''">user_id=#{userId},</if>
         </set>
         where id=#{id}
     </update>
