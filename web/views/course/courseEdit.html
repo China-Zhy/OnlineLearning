@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>新增课程</title>
+  <title>编辑课程</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <link rel="icon" href="../../layuiadmin/resource/image/courseInsert.png">
   <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
 </head>
 <body>
@@ -15,7 +14,7 @@
     <div class="layui-form-item">
       <label class="layui-form-label">课程名</label>
       <div class="layui-input-inline">
-        <input type="text" name="name" lay-verify="required" placeholder="请输入课程名" autocomplete="off" class="layui-input">
+        <input type="text" name="name" id="name" lay-verify="required" placeholder="请输入课程名" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -38,28 +37,31 @@
       <div class="layui-form-label">课程描述</div>
       <div class="layui-input-inline">
         <div class="layui-card-body layui-row layui-col-space10">
-          <textarea name="info" placeholder="请输入课程描述" class="layui-textarea"></textarea>
+          <textarea name="info" id="info" placeholder="请输入课程描述" class="layui-textarea"></textarea>
         </div>
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">课程积分</label>
       <div class="layui-input-inline">
-        <input type="text" name="score" lay-verify="required" placeholder="请输入相应课程积分" autocomplete="off" class="layui-input">
+        <input type="text" name="score" id="score" lay-verify="required" placeholder="请输入相应课程积分" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">课程状态</label>
       <div class="layui-input-inline">
-        <input type="text" name="state" lay-verify="required" placeholder="请输入课程状态" autocomplete="off" class="layui-input">
+        <input type="text" name="state" id="state" lay-verify="required" placeholder="请输入课程状态" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">用户ID</label>
       <div class="layui-input-inline">
-        <input type="text" name="userId" lay-verify="required" placeholder="请输入您的用户ID" autocomplete="off" class="layui-input">
+        <input type="text" name="userId" id="userId" lay-verify="required" placeholder="请输入您的用户ID" autocomplete="off" class="layui-input">
       </div>
     </div>
+      <!--这个用来存储ID，然后一起传到后端，用来修改信息，所以设为隐藏-->
+      <input type="number" name="id" id="id" hidden="hidden">
+
     <div class="layui-form-item layui-hide">
       <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
     </div>
@@ -93,7 +95,32 @@ index: 'lib/index' //主入口模块
           error : function (xhr, status, error){
               console.log(error); // 控制台打印
           }
-      })
+      });
+
+      $.ajax({
+          type: 'POST',
+          url: '/course?method=queryCourse',
+          data: {'id': $('#id').val()},
+          dataType: 'json',
+          success: function (data) {
+              let entity = data.data[0]; // 获取后端传过来的实体信息
+              //测试是否取到
+              console.log(entity)
+              console.log("success get id="+$('#id').val());
+              $('#name').val(entity.name);
+              $('#courseType').val(entity.courseType);
+              $('#image').val(entity.image);
+              $('#info').val(entity.info);
+              $('#score').val(entity.score);
+              $('#state').val(entity.state);
+              $('#userId').val(entity.userId);
+              form.render();  // 渲染form样式
+          },
+          error: function (xhr, status, error) {
+              layer.msg('Ajax请求失败啦', {offset: '15px', icon: 5, time: 1000});
+              console.log(error); // 控制台打印错误
+          }
+      });
   });
   //上传照片
     upload.render({

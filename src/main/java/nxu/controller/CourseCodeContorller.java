@@ -30,18 +30,13 @@ public class CourseCodeContorller extends BaseServlet {
         Map<String, Object> map=new HashMap<>();
         //获取参数
         if(request.getParameter("userId")!=null &&request.getParameter("userId")!=""){
-            out.println("success userId");
                 map.put("userId", Integer.parseInt(request.getParameter("userId")));
         }
         if(request.getParameter("courseId")!=null &&request.getParameter("courseId")!=""){
-            out.println("success courseId");
                 map.put("courseId", Integer.parseInt(request.getParameter("courseId")));
         }
         map.put("pageIndex",1);
         map.put("pageSize",10);
-        //测试部分
-        out.println("here:");
-        out.println(map);
         PageInfo<CourseCode> result=courseCodeService.getCourseCode(map);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("code",0);
@@ -57,10 +52,24 @@ public class CourseCodeContorller extends BaseServlet {
         map.put("userId",request.getParameter("user_id"));
         map.put("courseId",request.getParameter("course_id"));
         int result = courseCodeService.deleteCourseCode(map);
-        out.println(map);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
+        jsonObject.put("info", info);
+        response.setContentType("application/json; charset=utf-8");
+        response.getWriter().write(jsonObject.toString());
+    }
+
+    public void insertCourseCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CourseCode courseCode=new CourseCode();
+        courseCode.setUserId(Integer.parseInt(request.getParameter("userId")));
+        courseCode.setCourseId(Integer.parseInt(request.getParameter("courseId")));
+        courseCode.setCode(request.getParameter("code"));
+        int result = courseCodeService.insertCourseCode(courseCode);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", result);
+        String info = result > 0 ? "插入成功" : "插入失败";
         jsonObject.put("info", info);
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().write(jsonObject.toString());

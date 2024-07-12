@@ -28,9 +28,16 @@ public class CourseTypeController extends BaseServlet {
     //查询课程类型
     public void queryCourseType(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String,Object> map=new HashMap<>();
+        if(request.getParameter("id")!=null&&!request.getParameter("id").equals("")){
+            if(Integer.parseInt(request.getParameter("id"))>0){
+                map.put("id",Integer.parseInt(request.getParameter("id")));
+            }
+        }
         map.put("pageIndex",1);
         map.put("pageSize",10);
         PageInfo<CourseType> courseType = courseTypeService.getCourseType(map);
+        out.println("here query--------");
+        out.println(map.toString());
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("code",0);
         jsonObject.put("msg","success");
@@ -51,7 +58,19 @@ public class CourseTypeController extends BaseServlet {
         resp.getWriter().write(jsonObject.toString());
     }
 
-    public void updateCourseType(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+    public void insertCourseType(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CourseType courseType = new CourseType();
+        courseType.setName(req.getParameter("name"));
+        //测试控制台输出
+        out.println("here---------");
+        out.println(courseType);
+
+        int result=courseTypeService.insertCourseType(courseType);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", result);
+        String info = result > 0 ? "插入成功" : "插入失败";
+        jsonObject.put("info", info);
+        resp.setContentType("application/json; charset=utf-8");
+        resp.getWriter().write(jsonObject.toString());
     }
 }
