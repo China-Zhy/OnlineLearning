@@ -133,7 +133,7 @@ public class ActiveController extends BaseServlet {
         HashMap<String, Object> map = new HashMap<>();
         map.put("image",req.getParameter("image"));
         map.put("title", req.getParameter("title"));
-        map.put("discount", Integer.parseInt(req.getParameter("discount")));
+        map.put("discount", req.getParameter("discount"));
         map.put("info", req.getParameter("info"));
         map.put("id", Integer.parseInt(req.getParameter("id")));
         map.put("userId", Integer.parseInt(req.getParameter("userId")));

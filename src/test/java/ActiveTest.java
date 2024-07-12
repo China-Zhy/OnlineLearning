@@ -65,7 +65,7 @@ public class ActiveTest {
     public void test5() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", 3);
-        map.put("info", "只是一个更改4444");
+        map.put("discount", '0');
         int i = activeService.updateActive(map);
         System.out.println(i);
     }
