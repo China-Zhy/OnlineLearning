@@ -12,11 +12,8 @@ import nxu.service.CourseCodeServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-
-import static java.lang.System.out;
 
 /**
  * 课程邀请码相关功能的控制器 (樊雪儿)

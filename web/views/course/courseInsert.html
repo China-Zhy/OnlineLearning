@@ -18,15 +18,14 @@
         <input type="text" name="name" lay-verify="required" placeholder="请输入课程名" autocomplete="off" class="layui-input">
       </div>
     </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">课程类型</label>
-      <div class="layui-input-block">
-        <select name="courseType" id="courseType" lay-verify="required" >
-<!--          lay-filter="aihao"-->
-          <option value="0">全部类型</option>
-        </select>
+      <div class="layui-form-item">
+          <label class="layui-form-label" >课程类型</label>
+          <div class="layui-input-inline">
+              <select name="courseType" id="courseType"  lay-verify="required">
+                  <option value="0">全部类型</option>
+              </select>
+          </div>
       </div>
-    </div>
       <div class="layui-form-item">
           <label class="layui-form-label">课程封面</label>
           <div class="layui-input-inline">
@@ -34,14 +33,12 @@
           </div>
           <button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
       </div>
-    <div class="layui-card">
-      <div class="layui-form-label">课程描述</div>
-      <div class="layui-input-inline">
-        <div class="layui-card-body layui-row layui-col-space10">
-          <textarea name="info" placeholder="请输入课程描述" class="layui-textarea"></textarea>
-        </div>
+      <div class="layui-form-item">
+          <label class="layui-form-label">课程描述</label>
+          <div class="layui-input-block layui-col-md10">
+              <textarea name="info" id=“info” placeholder="请输入课程详细描述" class="layui-textarea"></textarea>
+          </div>
       </div>
-    </div>
     <div class="layui-form-item">
       <label class="layui-form-label">课程积分</label>
       <div class="layui-input-inline">

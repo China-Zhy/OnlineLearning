@@ -18,8 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.System.out;
-
 /**
  * 课程相关功能的控制器 (樊雪儿)
  */
@@ -29,7 +27,6 @@ public class CourseController extends BaseServlet {
 
     //查询课程
     public void queryCourse(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        out.println("id="+req.getParameter("id"));
         Map<String,Object> map=new HashMap<>();
         if(req.getParameter("id")!=null&&!req.getParameter("id").equals("")){
             map.put("id",req.getParameter("id"));
@@ -79,8 +76,6 @@ public class CourseController extends BaseServlet {
         course.setScore(Integer.parseInt(req.getParameter("score")));
         course.setState(Integer.parseInt(req.getParameter("state")));
         course.setUserId(Integer.parseInt(req.getParameter("userId")));
-        // 测试控制台输出
-        out.println(course);
         int result = courseService.insertCourse(course);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", result);
@@ -101,10 +96,6 @@ public class CourseController extends BaseServlet {
         map.put("state",Integer.parseInt(req.getParameter("state")));
         map.put("userId",Integer.parseInt(req.getParameter("userId")));
         int result = courseService.updateCourse(map);
-
-        //测试获取
-        out.println("here update-----------");
-        out.println(result);
 
         JSONObject jsonObject = new JSONObject();
 

@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.System.out;
-
 /**
  * 课程类型相关功能的控制器 (樊雪儿)
  */
@@ -36,8 +34,6 @@ public class CourseTypeController extends BaseServlet {
         map.put("pageIndex",1);
         map.put("pageSize",10);
         PageInfo<CourseType> courseType = courseTypeService.getCourseType(map);
-        out.println("here query--------");
-        out.println(map.toString());
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("code",0);
         jsonObject.put("msg","success");
@@ -49,7 +45,6 @@ public class CourseTypeController extends BaseServlet {
     //删除课程类型
     public void deleteCourseType(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int result = courseTypeService.deleteCourseType(Integer.parseInt(req.getParameter("id")));
-        out.println(result);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
@@ -61,9 +56,6 @@ public class CourseTypeController extends BaseServlet {
     public void insertCourseType(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CourseType courseType = new CourseType();
         courseType.setName(req.getParameter("name"));
-        //测试控制台输出
-        out.println("here---------");
-        out.println(courseType);
 
         int result=courseTypeService.insertCourseType(courseType);
         JSONObject jsonObject = new JSONObject();
