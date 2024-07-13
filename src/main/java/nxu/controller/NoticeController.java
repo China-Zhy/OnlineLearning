@@ -44,9 +44,8 @@ public class NoticeController extends BaseServlet {
         if (dateline != null && !dateline.isEmpty()) {
             map.put("dateline", dateline);
         }
-        List<Notice> noticeList = noticeService.getNotice(map);
-
         JSONObject jsonObject = new JSONObject();
+        List<Notice> noticeList = noticeService.getNotice(map);
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
         jsonObject.put("count", noticeList.size());
@@ -71,7 +70,6 @@ public class NoticeController extends BaseServlet {
     //添加公告
     public void addNotice(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HashMap<String, Object> map = new HashMap<>();
-        System.out.println("添加公告");
         String title = req.getParameter("title");
         String info = req.getParameter("info");
         String dateline = req.getParameter("dateline");
@@ -82,7 +80,6 @@ public class NoticeController extends BaseServlet {
         }
         if (info != null && !info.isEmpty()) {
             map.put("info", info);
-
         }
         if (target != null && !target.isEmpty()) {
             map.put("target", target);
@@ -140,13 +137,11 @@ public class NoticeController extends BaseServlet {
         if (dateline != null && !dateline.isEmpty()) {
             map.put("dateline", dateline);
         }
-        int result = noticeService.updateNotice(map);
         JSONObject jsonObject = new JSONObject();
+        int result = noticeService.updateNotice(map);
         jsonObject.put("result", result);
-        System.out.println("result:" + result);
         String data = result > 0 ? "更新成功" : "更新失败";
         jsonObject.put("info", data);
-        System.out.println("data:" + data);
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().write(jsonObject.toString());
     }

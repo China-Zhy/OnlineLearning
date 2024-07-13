@@ -20,28 +20,28 @@
     <div class="layui-form-item">
       <label class="layui-form-label">内容：</label>
       <div class="layui-input-block">
-        <textarea name="info" placeholder="公告内容" class="layui-textarea"></textarea>
+        <textarea name="info" placeholder="公告内容" lay-verify="required" class="layui-textarea"></textarea>
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">截止时间：</label>
       <div class="layui-input-inline">
-        <input type="text" name="dateline" id="LAY-component-form-group-dateline" lay-verify="datetime" placeholder="请选择截止时间" autocomplete="off" class="layui-input">
+        <input type="text" name="dateline" id="LAY-component-form-group-dateline" lay-verify="datetime|required" placeholder="请选择截止时间" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label" >课程名称：</label>
       <div class="layui-input-inline">
-        <select name="course" id="courseId"  lay-verify="" lay-search="">
-          <option value="0"></option>
+        <select name="course" id="courseId"  lay-verify="required" lay-search="">
+          <option value="">选择课程</option>
         </select>
       </div>
     </div>
     <div class="layui-form-item">
       <label class="layui-form-label">发布人：</label>
       <div class="layui-input-inline">
-        <select name="userId" id="userId"  lay-verify="" lay-search="">
-          <option value="0"></option>
+        <select name="userId" id="userId"  lay-verify="required" lay-search="">
+          <option value=""></option>
         </select>
     </div>
     </div>

@@ -208,10 +208,8 @@
                 dataType: 'json',
                 success: function (data) {
                   if (data.result === 1) {
-                    console.log("111111111111111111111111111");
                     layer.msg(data.info, {offset: '15px', icon: 1, time: 1000});
                   } if(data.result === 0) {
-                    console.log("2222222222222222");
                     layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
                   }
                   table.reload('OnlineLearning'); // 数据刷新，记得改成OnlineLearning
@@ -245,7 +243,7 @@
       add: function () { // 新增数据(改这里)
         layer.open({
           type: 2,
-          title: '添加用户数据',
+          title: '添加公告数据',
           content: '../../views/notice/noticeInsert.html',
           maxmin: true,
           area: ['500px', '700px'],
@@ -253,7 +251,6 @@
           yes: function (index, layero) {
             let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
                     submit = layero.find('iframe').contents().find('#' + submitID);
-            console.log("submit"+submitID);
             //监听提交
             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
               let field = data.field; //获取提交的字段
@@ -270,15 +267,14 @@
                   if(data.result === 0){
                     layer.msg(data.info, {offset: '15px', icon: 2, time: 1000});
                   }
+                  table.reload('OnlineLearning'); //数据刷新
                 },
                 error : function (xhr, status, error){
                   layer.msg("糟糕又出错了！这肯定不是我的问题！");
                   console.log(error); // 控制台打印
                 }
               })
-              table.reload('OnlineLearning'); //数据刷新
               layer.close(index);
-
             })
             submit.trigger('click');
           }
