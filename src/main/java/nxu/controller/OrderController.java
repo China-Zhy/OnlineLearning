@@ -2,13 +2,12 @@ package nxu.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.github.pagehelper.PageInfo;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Order;
 import nxu.service.OrderService;
-import nxu.service.OrderServiceImpl;
+import nxu.service.impl.OrderServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class OrderController extends BaseServlet {
     private static final OrderService orderService = new OrderServiceImpl();
 
     // 查询全部订单
-    public void queryAllOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void queryAllOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageIndex", 1);
         map.put("pageSize", 10);
@@ -52,11 +51,9 @@ public class OrderController extends BaseServlet {
             }
         }
 
-        PageInfo<Order> allOrder = orderService.getAllOrder(map);
-        for (Order order : allOrder.getList()) {
-            System.out.println(order);
-        }
         JSONObject jsonObject = new JSONObject();
+        PageInfo<Order> allOrder = orderService.getAllOrder(map);
+
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
         jsonObject.put("count", allOrder.getTotal());
@@ -67,8 +64,8 @@ public class OrderController extends BaseServlet {
 
     // 删除活动
     public void deleteOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int result = orderService.deleteOrderById(Integer.parseInt(req.getParameter("id")));
         JSONObject jsonObject = new JSONObject();
+        int result = orderService.deleteOrderById(Integer.parseInt(req.getParameter("id")));
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
         jsonObject.put("info", info);
@@ -79,11 +76,6 @@ public class OrderController extends BaseServlet {
     // 添加活动
     public void insertOrder(HttpServletRequest req, HttpServletResponse resp) throws IOException, ParseException {
         Order order = new Order();
-
-        System.out.println(req.getParameter("userId"));
-        System.out.println(req.getParameter("courseId"));
-        System.out.println(req.getParameter("time"));
-        System.out.println(req.getParameter("state"));
 
         order.setUserId(Integer.parseInt(req.getParameter("userId")));
         order.setCourseId(Integer.parseInt(req.getParameter("courseId")));
@@ -104,6 +96,4 @@ public class OrderController extends BaseServlet {
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().write(jsonObject.toString());
     }
-
-
 }

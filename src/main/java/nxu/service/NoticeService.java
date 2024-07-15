@@ -1,8 +1,8 @@
 package nxu.service;
 
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Notice;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,11 +27,12 @@ public interface NoticeService {
     int deleteNotice(int id);
 
     /**
-     * 查询所有公告
+     * 分页查询所有公告
      *
      * @return 公告列表
      */
-    List<Notice> getNotice(Map<String, Object> map);
+    PageInfo<Notice> getNotice(Map<String, Object> map);
+
     /**
      * 查询一个公告
      *
@@ -39,7 +40,6 @@ public interface NoticeService {
      * @return 公告
      */
     Notice getOneNotice(int id);
-
 
     /**
      * 更新公告

@@ -2,12 +2,12 @@ package nxu.service;
 
 import com.github.pagehelper.PageInfo;
 import nxu.entity.Course;
+import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
 import java.util.Map;
 
 /**
- * 课程服务层接口 (樊雪儿)
+ * 课程服务层接口 (樊雪儿、张宏业)
  */
 public interface CourseService {
 
@@ -44,9 +44,34 @@ public interface CourseService {
     int deleteCourse(int id);
 
     /**
-     *
      * @param id 传入用户参数
      * @return 获取用户拥有的课程集合
      */
     PageInfo<Course> userCourse(int id);
+
+    /**
+     * 添加用户购买的课程
+     *
+     * @param userId   用户编号
+     * @param courseId 课程编号
+     * @return 返回1-添加成功，返回0-添加失败
+     */
+    int insertData(int userId, int courseId);
+
+    /**
+     * 通过用户编号获取用户拥有的课程信息
+     *
+     * @param map 用户编号、pageIndex、pageSize
+     * @return 课程信息集合
+     */
+    PageInfo<Course> getMyCourse(Map<String, Object> map);
+
+    /**
+     * 判断某个用户是否拥有某个课程
+     *
+     * @param userId   用户编号
+     * @param courseId 课程编号
+     * @return 返回0-为拥有，返回1-已拥有
+     */
+    int isUserHaveThisCourse(@Param("userId") int userId, @Param("courseId") int courseId);
 }

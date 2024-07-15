@@ -1,12 +1,11 @@
 import com.github.pagehelper.PageInfo;
 import nxu.entity.File;
 import nxu.service.FileService;
-import nxu.service.FileServiceImpl;
+import nxu.service.impl.FileServiceImpl;
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 文件相关功能测试 (张宏业)

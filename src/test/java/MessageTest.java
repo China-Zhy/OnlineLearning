@@ -1,11 +1,10 @@
 import com.github.pagehelper.PageInfo;
 import nxu.entity.Message;
 import nxu.service.MessageService;
-import nxu.service.MessageServiceImpl;
+import nxu.service.impl.MessageServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 消息相关功能测试 (唐馨源)

@@ -6,7 +6,7 @@
 
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
 
     <typeAliases>
@@ -42,6 +42,7 @@
         <mapper resource="mapper/NoticeMapper.xml"/>
         <mapper resource="mapper/OrderMapper.xml"/>
         <mapper resource="mapper/PointsMapper.xml"/>
+        <mapper resource="mapper/OwnerShipMapper.xml"/>
 
         <mapper class="nxu.mapper.RoleMapper"/>
     </mappers>

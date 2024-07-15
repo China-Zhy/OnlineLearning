@@ -20,6 +20,7 @@
                 AND substr(concat(`time`), 1, 10) = #{time}
             </if>
         </where>
+        order by time desc
     </select>
 
     <insert id="insertPoints" parameterType="nxu.entity.Points">

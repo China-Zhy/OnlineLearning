@@ -37,13 +37,12 @@ public interface CourseMapper {
     /**
      * 删除相应课程
      *
-     * @param map 实体参数（id, userId, courseType)
+     * @param id 实体参数
      * @return 删除后受影响的行数
      */
     int deleteCourse(int id);
 
     /**
-     *
      * @param id 传入用户参数
      * @return 获取用户拥有的课程集合
      */

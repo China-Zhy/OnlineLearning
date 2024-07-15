@@ -1,7 +1,7 @@
 import com.github.pagehelper.PageInfo;
 import nxu.entity.Order;
 import nxu.service.OrderService;
-import nxu.service.OrderServiceImpl;
+import nxu.service.impl.OrderServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;

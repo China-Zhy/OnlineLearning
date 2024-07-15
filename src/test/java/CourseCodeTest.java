@@ -2,7 +2,7 @@
 import com.github.pagehelper.PageInfo;
 import nxu.entity.CourseCode;
 import nxu.service.CourseCodeService;
-import nxu.service.CourseCodeServiceImpl;
+import nxu.service.impl.CourseCodeServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;

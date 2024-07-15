@@ -7,14 +7,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Role;
 import nxu.entity.User;
 import nxu.service.RoleService;
-import nxu.service.RoleServiceImpl;
+import nxu.service.impl.RoleServiceImpl;
 import nxu.service.UserService;
-import nxu.service.UserServiceImpl;
+import nxu.service.impl.UserServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 用户相关功能的控制器 (张宏业)
@@ -28,46 +30,109 @@ public class UserController extends BaseServlet {
 
     // 用户登录
     public void login(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", 0);
+
         String account = req.getParameter("account");
         String password = req.getParameter("password");
         String vercode = req.getParameter("vercode");
 
+        // 验证码功能
+        if (!Objects.equals(vercode, "12138")) {
+            jsonObject.put("result", false);
+            jsonObject.put("msg", "验证码输入错误，请重试！");
+            resp.setContentType("application/json;");
+            resp.getWriter().write(jsonObject.toString());
+            return;
+        }
+
         User user = userService.queryUserToLogin(account, password);
 
-        JSONObject jsonObject = new JSONObject();
-
         if (user != null) {
-            req.getSession().setAttribute("user", user);
-            jsonObject.put("code", 0);
+            req.getSession().setAttribute("Admin", user);
+            jsonObject.put("role", user.getType());
             jsonObject.put("result", true);
             jsonObject.put("msg", "登录成功，欢迎您：" + user.getName());
         } else {
-            jsonObject.put("code", 0);
             jsonObject.put("result", false);
             jsonObject.put("msg", "登录失败，账号或密码错误");
         }
-
-        resp.setContentType("application/json; charset=utf-8");
+        resp.setContentType("application/json;");
         resp.getWriter().write(jsonObject.toString());
     }
 
-    // 添加用户(注册)
-    public void insertUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        User user = new User();
-        user.setName(req.getParameter("name"));
-        user.setPassword(req.getParameter("password"));
+    // 退出登录
+    public void logout(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        req.getSession().removeAttribute("Admin");
+        System.out.println("退出登录！");
+        resp.sendRedirect("/app/course?method=showCourseGroupByType");
+    }
 
-        /*
-            待完成
-         */
-
-        int result = userService.insertUserToRegister(user);
+    // 用户注册
+    public void register(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String phone = req.getParameter("phone");
+        String password = req.getParameter("password");
+        String vercode = req.getParameter("vercode");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result", result);
-        String info = result > 0 ? "添加成功" : "添加失败";
-        jsonObject.put("info", info);
-        resp.setContentType("application/json; charset=utf-8");
+        jsonObject.put("code", 0);
+
+        // 验证码功能
+        if (!Objects.equals(vercode, "12138")) {
+            jsonObject.put("result", false);
+            jsonObject.put("msg", "验证码输入错误，请重试!");
+            resp.setContentType("application/json;");
+            resp.getWriter().write(jsonObject.toString());
+            return;
+        }
+
+        int userExist = userService.isUserExist(phone);
+        if (userExist > 0) {
+            jsonObject.put("result", false);
+            jsonObject.put("msg", "注册失败，手机号" + phone + "已被注册!");
+        } else {
+            jsonObject.put("result", true);
+            jsonObject.put("phone", phone);
+            jsonObject.put("password", password);
+            jsonObject.put("msg", "此手机号可用，请继续完善您的信息!");
+        }
+        resp.setContentType("application/json;");
+        resp.getWriter().write(jsonObject.toString());
+    }
+
+    // 前往完善用户信息
+    public void toCompleteUserInfo(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String phone = req.getParameter("phone");
+        String password = req.getParameter("password");
+        req.setAttribute("phone", phone);
+        req.setAttribute("password", password);
+        req.getRequestDispatcher("/views/user/userInsert.jsp").forward(req, resp);
+    }
+
+    // 完善用户信息(最终注册)
+    public void doCompleteUserInfo(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        String phone = req.getParameter("phone");
+        String password = req.getParameter("password");
+        String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        String image = req.getParameter("image");
+        String newImage = "/layuiadmin/upload/" + image;
+        int gender = Integer.parseInt(req.getParameter("gender"));
+        String info = req.getParameter("info");
+
+        int result = userService.insertUserToRegister(new User(0, name, gender, phone, email, password, newImage, new Date(), 0, 4, info, 2));
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", 0);
+
+        if (result > 0) {
+            jsonObject.put("result", true);
+            jsonObject.put("msg", "注册成功，请前往登录~");
+        } else {
+            jsonObject.put("result", false);
+            jsonObject.put("msg", "注册失败，请联系管理员~");
+        }
+        resp.setContentType("application/json;");
         resp.getWriter().write(jsonObject.toString());
     }
 
@@ -78,7 +143,7 @@ public class UserController extends BaseServlet {
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
         jsonObject.put("info", info);
-        resp.setContentType("application/json; charset=utf-8");
+        resp.setContentType("application/json;");
         resp.getWriter().write(jsonObject.toString());
     }
 
@@ -116,7 +181,7 @@ public class UserController extends BaseServlet {
         jsonObject.put("count", userList.size());
         jsonObject.put("data", userList);
 
-        resp.setContentType("application/json; charset=utf-8");
+        resp.setContentType("application/json;");
         resp.getWriter().write(jsonObject.toString());
     }
 
@@ -125,7 +190,7 @@ public class UserController extends BaseServlet {
         List<Role> allRoles = roleService.getAllRoles(1, 5);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("list", allRoles);
-        resp.setContentType("application/json; charset=utf-8");
+        resp.setContentType("application/json;");
         resp.getWriter().write(jsonObject.toString());
     }
 
@@ -135,7 +200,7 @@ public class UserController extends BaseServlet {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);
         jsonObject.put("msg", "验证码获取成功：UserController");
-        resp.setContentType("application/json; charset=utf-8");
+        resp.setContentType("application/json;");
         resp.getWriter().write(jsonObject.toString());
     }
 }

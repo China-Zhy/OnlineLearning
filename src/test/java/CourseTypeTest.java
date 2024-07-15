@@ -1,7 +1,6 @@
 import com.github.pagehelper.PageInfo;
-import nxu.entity.Course;
 import nxu.entity.CourseType;
-import nxu.service.CourseTypeServiceImpl;
+import nxu.service.impl.CourseTypeServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;

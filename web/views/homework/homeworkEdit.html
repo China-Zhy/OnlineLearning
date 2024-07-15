@@ -32,18 +32,18 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">课程编号</label>
-        <div class="layui-input-block">
-            <div class="layui-inline">
-                <select name="courseId" id="courseId">
-                    <option value="0">选择课程</option>
-                    <option value="1">课程一</option>
-                    <option value="2">课程二</option>
-                    <option value="3">课程三</option>
+        <div class="layui-inline">
+            <label class="layui-form-label">课程编号</label>
+            <div class="layui-input-inline">
+                <select name="courseId" id="courseId" lay-verify="required">
+                    <option value="">选择课程</option>
+                    <option value="1">课程姓名1</option>
+                    <option value="2">课程姓名2</option>
+                    <option value="3">课程姓名3</option>
                 </select>
             </div>
             <div class="layui-inline">
-                <div class="layui-form-mid layui-word-aux">数据未填充！！！</div>
+                <div class="layui-form-mid layui-word-aux">必填项*</div>
             </div>
         </div>
     </div>
@@ -68,10 +68,10 @@
         </div>
     </div>
 
-    <div class="layui-form-item layui-form-text">
+    <div class="layui-form-item">
         <label class="layui-form-label">作业描述</label>
         <div class="layui-input-block">
-            <textarea name="info" id="info" placeholder="请输入作业描述" class="layui-textarea"></textarea>
+            <textarea name="info" id="info" rows="10" placeholder="请输入作业描述" lay-verify="required" class="layui-textarea"></textarea>
         </div>
     </div>
 

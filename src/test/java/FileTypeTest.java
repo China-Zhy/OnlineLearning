@@ -1,6 +1,6 @@
 import nxu.entity.FileType;
 import nxu.service.FileTypeService;
-import nxu.service.FileTypeServiceImpl;
+import nxu.service.impl.FileTypeServiceImpl;
 import org.junit.Test;
 
 import java.util.List;

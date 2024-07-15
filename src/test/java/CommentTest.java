@@ -1,6 +1,6 @@
 import nxu.entity.Comment;
 import nxu.service.CommentService;
-import nxu.service.CommentServiceImpl;
+import nxu.service.impl.CommentServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;

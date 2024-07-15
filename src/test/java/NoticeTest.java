@@ -1,11 +1,11 @@
+import com.github.pagehelper.PageInfo;
 import nxu.entity.Notice;
 import nxu.service.NoticeService;
-import nxu.service.NoticeServiceImpl;
+import nxu.service.impl.NoticeServiceImpl;
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 公告相关功能测试 (唐馨源)
@@ -36,9 +36,11 @@ public class NoticeTest {
     @Test
     public void test6() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("title", "title");
-        List<Notice> notices = noticeService.getNotice(map);
-        for (Notice notice : notices) {
+        map.put("pageIndex", 1);
+        map.put("pageSize", 2);
+        map.put("target", 9);
+        PageInfo<Notice> notices = noticeService.getNotice(map);
+        for (Notice notice : notices.getList()) {
             System.out.println(notice);
         }
     }
@@ -48,7 +50,6 @@ public class NoticeTest {
         Notice oneNotice = noticeService.getOneNotice(1);
         System.out.println(oneNotice);
     }
-
 
 
     @Test

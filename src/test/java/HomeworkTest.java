@@ -1,7 +1,7 @@
 import com.github.pagehelper.PageInfo;
 import nxu.entity.Homework;
 import nxu.service.HomeworkService;
-import nxu.service.HomeworkServiceImpl;
+import nxu.service.impl.HomeworkServiceImpl;
 import org.junit.Test;
 
 import java.text.DateFormat;

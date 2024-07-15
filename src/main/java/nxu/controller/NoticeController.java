@@ -1,17 +1,17 @@
 package nxu.controller;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.github.pagehelper.PageInfo;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Notice;
 import nxu.service.NoticeService;
-import nxu.service.NoticeServiceImpl;
+import nxu.service.impl.NoticeServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 公告相关功能的控制器 (唐馨源)
@@ -44,13 +44,17 @@ public class NoticeController extends BaseServlet {
         if (dateline != null && !dateline.isEmpty()) {
             map.put("dateline", dateline);
         }
-        List<Notice> noticeList = noticeService.getNotice(map);
+
+        map.put("pageIndex", 1);
+        map.put("pageSize", 10000);
+
+        PageInfo<Notice> notice = noticeService.getNotice(map);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
-        jsonObject.put("count", noticeList.size());
-        jsonObject.put("data", noticeList);
+        jsonObject.put("count", notice.getTotal());
+        jsonObject.put("data", notice.getList());
 
         resp.setContentType("application/json; charset=utf-8");
         resp.getWriter().write(jsonObject.toString());
@@ -114,7 +118,6 @@ public class NoticeController extends BaseServlet {
 
     // 更新公告消息
     public void updateNotice(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
         HashMap<String, Object> map = new HashMap<>();
         String title = req.getParameter("title");
         String info = req.getParameter("info");

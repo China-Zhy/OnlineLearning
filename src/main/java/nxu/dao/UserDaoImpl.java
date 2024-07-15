@@ -185,17 +185,25 @@ public class UserDaoImpl implements UserDao {
         int result = 0;
         try {
             Connection connection = MysqlUtil.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE `user` SET name=?,gender=?,phone=?,email=?,password=?,image=?,type=?,info=?,state=? WHERE id=?");
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setInt(2, user.getGender());
-            preparedStatement.setString(3, user.getPhone());
-            preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setString(5, user.getPassword());
-            preparedStatement.setString(6, user.getImage());
-            preparedStatement.setInt(7, user.getType());
-            preparedStatement.setString(8, user.getInfo());
-            preparedStatement.setInt(9, user.getState());
-            preparedStatement.setInt(10, user.getId());
+            PreparedStatement preparedStatement;
+            if (user.getState() == 0) {
+                preparedStatement = connection.prepareStatement("UPDATE `user` SET score=score+? WHERE id=?");
+                preparedStatement.setInt(1, user.getScore());
+                preparedStatement.setInt(2, user.getId());
+            } else {
+                preparedStatement = connection.prepareStatement("UPDATE `user` SET name=?,gender=?,phone=?,email=?,password=?,image=?,type=?,info=?,state=?,score=? WHERE id=?");
+                preparedStatement.setString(1, user.getName());
+                preparedStatement.setInt(2, user.getGender());
+                preparedStatement.setString(3, user.getPhone());
+                preparedStatement.setString(4, user.getEmail());
+                preparedStatement.setString(5, user.getPassword());
+                preparedStatement.setString(6, user.getImage());
+                preparedStatement.setInt(7, user.getType());
+                preparedStatement.setString(8, user.getInfo());
+                preparedStatement.setInt(9, user.getState());
+                preparedStatement.setInt(10, user.getScore());
+                preparedStatement.setInt(11, user.getId());
+            }
 
             result = preparedStatement.executeUpdate();
             MysqlUtil.toFreeResource(connection, preparedStatement, null);
@@ -204,5 +212,71 @@ public class UserDaoImpl implements UserDao {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+    /**
+     * 通过用户编号获取用户信息
+     *
+     * @param id 用户编号
+     * @return 用户实体类
+     */
+    @Override
+    public User queryUserById(int id) {
+        User user = null;
+        try {
+            Connection connection = MysqlUtil.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM `user` WHERE id=?;");
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setGender(resultSet.getInt("gender"));
+                user.setPhone(resultSet.getString("phone"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setImage(resultSet.getString("image"));
+                user.setRegister(resultSet.getDate("register"));
+                user.setScore(resultSet.getInt("score"));
+                user.setType(resultSet.getInt("type"));
+                user.setInfo(resultSet.getString("info"));
+                user.setState(resultSet.getInt("state"));
+            }
+            MysqlUtil.toFreeResource(connection, preparedStatement, resultSet);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("【" + this.getClass() + "这里捕获到了异常】");
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
+
+    /**
+     * 判断用户注册的手机号是否存在
+     *
+     * @param phone 手机号码
+     * @return 返回0-手机号未注册，返回1-手机号已注册
+     */
+    @Override
+    public int isUserExist(String phone) {
+        int count = -1; // 某手机号数量
+        try {
+            Connection connection = MysqlUtil.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) count FROM `user` WHERE phone=?;");
+            preparedStatement.setString(1, phone);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+            MysqlUtil.toFreeResource(connection, preparedStatement, resultSet);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("【" + this.getClass() + "这里捕获到了异常】");
+            throw new RuntimeException(e);
+        }
+        return count;
     }
 }

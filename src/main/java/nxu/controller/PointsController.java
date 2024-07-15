@@ -2,13 +2,12 @@ package nxu.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.github.pagehelper.PageInfo;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Points;
 import nxu.service.PointsService;
-import nxu.service.PointsServiceImpl;
+import nxu.service.impl.PointsServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class PointsController extends BaseServlet {
     private static final PointsService pointsService = new PointsServiceImpl();
 
     // 查询全部积分
-    public void queryAllPoints(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void queryAllPoints(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageIndex", 1);
         map.put("pageSize", 10);
@@ -48,11 +47,9 @@ public class PointsController extends BaseServlet {
             map.put("time", time);
         }
 
-        PageInfo<Points> allPoints = pointsService.getAllPoints(map);
-        for (Points points : allPoints.getList()) {
-            System.out.println(points);
-        }
         JSONObject jsonObject = new JSONObject();
+        PageInfo<Points> allPoints = pointsService.getAllPoints(map);
+
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
         jsonObject.put("count", allPoints.getTotal());
@@ -63,14 +60,8 @@ public class PointsController extends BaseServlet {
 
     // 获取单个积分信息
     public void getOnePoints(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        if (req.getParameter("id") != null) {
-            System.out.println("收到的编辑标号：" + req.getParameter("id"));
-        }
-
         JSONObject jsonObject = new JSONObject();
         Points points = pointsService.getPointsById(Integer.parseInt(req.getParameter("id")));
-
         jsonObject.put("data", points);
 
         resp.setContentType("application/json; charset=utf-8");
@@ -92,15 +83,9 @@ public class PointsController extends BaseServlet {
     public void insertPoints(HttpServletRequest req, HttpServletResponse resp) throws IOException, ParseException {
         Points points = new Points();
 
-        System.out.println(req.getParameter("userId"));
-        System.out.println(req.getParameter("type"));
-        System.out.println(req.getParameter("number"));
-        System.out.println(req.getParameter("time"));
-
         points.setUserId(Integer.parseInt(req.getParameter("userId")));
         points.setType(req.getParameter("type"));
         points.setNumber(Integer.parseInt(req.getParameter("number")));
-
 
         // 时间字符串转为Date类型
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

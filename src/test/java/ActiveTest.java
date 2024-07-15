@@ -1,7 +1,7 @@
 import com.github.pagehelper.PageInfo;
 import nxu.entity.Active;
 import nxu.service.ActiveService;
-import nxu.service.ActiveServiceImpl;
+import nxu.service.impl.ActiveServiceImpl;
 import org.junit.Test;
 
 import java.util.Date;

@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Comment;
 import nxu.service.CommentService;
-import nxu.service.CommentServiceImpl;
+import nxu.service.impl.CommentServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;

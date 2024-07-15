@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Homework;
 import nxu.service.HomeworkService;
-import nxu.service.HomeworkServiceImpl;
+import nxu.service.impl.HomeworkServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
@@ -153,9 +153,8 @@ public class HomeworkController extends BaseServlet {
         map.put("create", create);
         map.put("dateline", dateline);
 
-        int result = homeworkService.updateHomework(map);
-
         JSONObject jsonObject = new JSONObject();
+        int result = homeworkService.updateHomework(map);
 
         jsonObject.put("result", result);
         String info = result > 0 ? "更新成功" : "更新失败";

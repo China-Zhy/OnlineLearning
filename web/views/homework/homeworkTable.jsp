@@ -199,7 +199,7 @@
                     title: '编辑作业数据',
                     content: '../../views/homework/homeworkEdit.html',
                     maxmin: true,
-                    area: ['900px', '800px'],
+                    area: ['550px', '750px'],
                     btn: ['确定', '取消'],
                     success: function(layero, index){
                         // 给弹出层中的隐藏表达赋值
@@ -256,7 +256,7 @@
                     title: '添加作业数据',
                     content: '../../views/homework/homeworkInsert.html',
                     maxmin: true,
-                    area: ['900px', '800px'],
+                    area: ['550px', '750px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
                         let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);

@@ -13,7 +13,7 @@
             <if test="id !=null and id !=''">
                 and id=#{id}
             </if>
-            <if test=" courseType!=null and courseType!='' ">
+            <if test="courseType!=null and courseType!='' ">
                 and course_type=#{courseType}
             </if>
             <if test="score!=null and score!=''">
@@ -26,6 +26,7 @@
                 and name like CONCAT('%', #{name}, '%')
             </if>
         </where>
+        order by id desc
     </select>
 
     <update id="updateCourse" parameterType="map">
@@ -50,7 +51,7 @@
         select * from course c
         where c.id in
         (select o.course_id from ownership o
-         where o.user_id=#{id})
+        where o.user_id=#{id})
     </select>
 
 </mapper>

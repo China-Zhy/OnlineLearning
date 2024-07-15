@@ -1,8 +1,9 @@
 import nxu.entity.User;
 import nxu.service.UserService;
-import nxu.service.UserServiceImpl;
+import nxu.service.impl.UserServiceImpl;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,4 +42,19 @@ public class UserTest {
         }
     }
 
+    @Test
+    public void updateUser() {
+        User user = new User();
+        user.setState(0);
+        user.setId(1);
+        user.setScore(999);
+        int i = userService.updateUser(user);
+        System.out.println(i);
+    }
+
+    @Test
+    public void deleteUser() {
+        int result = userService.insertUserToRegister(new User(0, "name", 1, "18898765656", "email@qq.com", "123456", "../../layuiadmin/resource/image/portrait1.png", new Date(), 0, 4, "sb", 2));
+        System.out.println(result);
+    }
 }

@@ -50,4 +50,20 @@ public interface UserService {
      * @return update后受影响的行数
      */
     int updateUser(User user);
+
+    /**
+     * 通过用户编号获取用户信息
+     *
+     * @param id 用户编号
+     * @return 用户实体类
+     */
+    User queryUserById(int id);
+
+    /**
+     * 判断用户注册的手机号是否存在
+     *
+     * @param phone 手机号码
+     * @return 返回0-手机号未注册，返回1-手机号已注册
+     */
+    int isUserExist(String phone);
 }

@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.File;
 import nxu.entity.FileType;
 import nxu.service.FileService;
-import nxu.service.FileServiceImpl;
+import nxu.service.impl.FileServiceImpl;
 import nxu.service.FileTypeService;
-import nxu.service.FileTypeServiceImpl;
+import nxu.service.impl.FileTypeServiceImpl;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
@@ -91,8 +91,8 @@ public class FileController extends BaseServlet {
 
     // 删除文件
     public void deleteUser(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int result = fileService.deleteFileById(Integer.parseInt(req.getParameter("id")));
         JSONObject jsonObject = new JSONObject();
+        int result = fileService.deleteFileById(Integer.parseInt(req.getParameter("id")));
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
         jsonObject.put("info", info);

@@ -1,7 +1,7 @@
 import com.github.pagehelper.PageInfo;
 import nxu.entity.Points;
 import nxu.service.PointsService;
-import nxu.service.PointsServiceImpl;
+import nxu.service.impl.PointsServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 import nxu.entity.Role;
 import nxu.service.RoleService;
-import nxu.service.RoleServiceImpl;
+import nxu.service.impl.RoleServiceImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
