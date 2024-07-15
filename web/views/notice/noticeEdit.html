@@ -20,7 +20,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">公告内容</label>
     <div class="layui-input-block">
-      <textarea name="info" id="info" placeholder="公告内容" class="layui-textarea"></textarea>
+      <textarea name="info" id="info" placeholder="公告内容" lay-verify="required" class="layui-textarea"></textarea>
     </div>
   </div>
 
@@ -35,7 +35,7 @@
     <label class="layui-form-label">公告类型</label>
     <div class="layui-input-block">
       <div class="layui-inline">
-        <select name="target" id="target">
+        <select name="target" id="target" lay-verify="required">
           <option value="-1">选择类型</option>
           <option value="0">系统公告</option>
         </select>
@@ -44,11 +44,11 @@
   </div>
 
   <div class="layui-form-item">
-    <label class="layui-form-label">课程编号</label>
+    <label class="layui-form-label">发布人</label>
     <div class="layui-input-block">
       <div class="layui-inline">
-        <select name="userId" id="userId">
-          <option value="0">选择发布人</option>
+        <select name="userId" id="userId" lay-verify="required">
+          <option value="">选择发布人</option>
         </select>
       </div>
     </div>

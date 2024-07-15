@@ -125,14 +125,14 @@
             url: '/course?method=queryCourse',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 120, title: '课程编号', sort: true, fixed: 'left'},
-                {field: 'name', width: 150, title: '课程名称'},
-                {field: 'courseType', width: 120, title: '课程类型', sort: true},
-                {field: 'image', width: 160, title: '课程图片',templet: "#imageTpl",align: "center"},
-                {field: 'info', width: 170, title: '课程描述'},
-                {field: 'score', width: 130, title: '课程积分', sort: true},
+                {field: 'id', width: 120, title: '课程编号', sort: true, fixed: 'left',align: "center"},
+                {field: 'name', width: 150, title: '课程名称',align: "center"},
+                {field: 'courseType', width: 120, title: '课程类型', sort: true,align: "center"},
+                {field: 'image', width: 100, title: '课程图片',templet: "#imageTpl",align: "center"},
+                {field: 'info', width: 170, title: '课程描述',align: "center"},
+                {field: 'score', width: 130, title: '课程积分', sort: true,align: "center"},
                 {field: 'state', width: 130, title: '课程状态', align: "center", sort: true, templet: "#buttonTpl"},
-                {field: 'userId', width: 130, title: '创建用户'},
+                {field: 'userId', width: 130, title: '创建用户',align: "center"},
                 {title:'更多操作', width: 250, align: 'center', fixed: 'right', toolbar: '#OnlineLearning-Tools'}
             ]],
             page: true
@@ -213,7 +213,7 @@
                     title: '编辑课程数据',
                     content: '../../views/course/courseEdit.html',
                     maxmin: true,
-                    area: ['500px', '450px'],
+                    area: ['550px', '700px'],
                     btn: ['确定', '取消'],
                     success: function(layero, index){
                         // 给弹出层中的隐藏表达赋值
@@ -273,7 +273,7 @@
                     title: '添加课程数据',
                     content: '../course/courseInsert.html',
                     maxmin: true,
-                    area: ['700px', '630px'],
+                    area: ['550px', '700px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
                         let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
