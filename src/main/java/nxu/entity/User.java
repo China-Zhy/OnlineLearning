@@ -26,5 +26,5 @@ public class User {
     private int score;          // 用户积分
     private int type;           // 身份标识(外键)
     private String info;        // 其他信息
-    private int state;          // 用户状态(1-禁用 2-可用)
+    private int state;          // 用户状态(1-可用 2-禁用)
 }

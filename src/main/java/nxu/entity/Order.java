@@ -19,5 +19,5 @@ public class Order {
     private int userId;         // 用户编号(外键)
     private int courseId;       // 课程编号(外键)
     private Date time;          // 下单时间
-    private int state;          // 订单状态(1-待支付 2-购买成功 3-购买失败)
+    private int state;          // 订单状态(1-等待支付 2-购买成功 3-购买失败)
 }

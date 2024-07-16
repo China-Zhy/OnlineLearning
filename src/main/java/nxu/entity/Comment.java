@@ -22,4 +22,5 @@ public class Comment {
     private String info;        // 评论内容
     private Date time;          // 评论时间
     private int good;           // 获赞数量
+    private int state;          // 评论状态
 }

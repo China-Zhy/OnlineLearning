@@ -22,5 +22,5 @@ public class Homework {
     private int userId;         // 用户编号(外键)
     private Date create;        // 开始时间
     private Date dateline;      // 截止时间
-    private int again;          // 提交约束(1-允许 2-禁止)
+    private int again;          // 提交约束(1-允许补交 2-禁止补交)
 }
