@@ -1,7 +1,6 @@
 package nxu.service;
 
 import nxu.entity.FileType;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public interface FileTypeService {
      * @param name 文件类型名称
      * @return 返回1-修改成功，返回0-修改失败
      */
-    int updateFileType(@Param("id") int id, @Param("name") String name);
+    int updateFileType(int id, String name);
 
     /**
      * 通过文件类型编号删除文件类型

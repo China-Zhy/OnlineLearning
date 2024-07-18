@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * 用户User的数据库持久层接口的实现类 (张宏业)
- * 此处是为了演示原本的JDBC，因此没有使用MyBatis
+ * 此处是为了演示原本的JDBC，因此没有使用MyBatis(感受原本JDBC的操作，进一步理解MyBatis是如何进行封装)
  */
 public class UserDaoImpl implements UserDao {
 
@@ -81,7 +81,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * 用户登录
      *
-     * @param account  账号
+     * @param account  账号(手机号/密码)
      * @param password 密码
      * @return 单个User实体类
      */
@@ -90,12 +90,17 @@ public class UserDaoImpl implements UserDao {
         User user = null;
         try {
             Connection connection = MysqlUtil.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM `user` WHERE password=? AND (phone=? OR email=?);");
+            PreparedStatement ps;
             // 此处可使用phone或email登录，只要有一个与之匹配即登录成功(因为数据库中phone和email都是unique)
-            preparedStatement.setString(1, password);
-            preparedStatement.setString(2, account);
-            preparedStatement.setString(3, account);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            if (account.contains("@")) {
+                ps = connection.prepareStatement("SELECT * FROM `user` WHERE password=? AND email=?;");
+            } else {
+                ps = connection.prepareStatement("SELECT * FROM `user` WHERE password=? AND phone=?;");
+            }
+            ps.setString(1, password);
+            ps.setString(2, account);
+
+            ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
                 user = new User();
@@ -112,7 +117,7 @@ public class UserDaoImpl implements UserDao {
                 user.setInfo(resultSet.getString("info"));
                 user.setState(resultSet.getInt("state"));
             }
-            MysqlUtil.toFreeResource(connection, preparedStatement, resultSet);
+            MysqlUtil.toFreeResource(connection, ps, resultSet);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("【" + this.getClass() + "这里捕获到了异常】");
             throw new RuntimeException(e);

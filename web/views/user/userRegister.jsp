@@ -7,9 +7,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
-    <link rel="stylesheet" href="../../layuiadmin/style/login.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/login.css" media="all">
 </head>
 <body style="font-weight: bold;">
 <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
@@ -50,7 +50,8 @@
                 <input type="checkbox" name="agreement" lay-skin="primary" title="同意用户协议" checked>
             </div>
             <div class="layui-form-item">
-                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-reg-submit">注&ensp;册</button>
+                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-reg-submit">注&ensp;册
+                </button>
             </div>
             <div class="layui-trans layui-form-item layadmin-user-login-other">
                 <label>社交账号注册</label>
@@ -67,10 +68,10 @@
     </div>
 </div>
 
-<script src="../../layuiadmin/layui/layui.js"></script>
+<script src="/layuiadmin/layui/layui.js"></script>
 <script>
     layui.config({
-        base: '../../layuiadmin/' //静态资源所在路径
+        base: '/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'user'], function () {
@@ -92,12 +93,11 @@
                 url: '/user?method=register',
                 data: obj.field,
                 done: function (res) {
-                    if(res.result){
+                    if (res.result) {
                         layer.msg(res.msg, {offset: '15px', icon: 1, time: 1000}, function () {
                             window.location.href = '/user?method=toCompleteUserInfo&phone=' + res.phone + '&password=' + res.password;
                         });
-                    }
-                    else{
+                    } else {
                         layer.msg(res.msg, {offset: '15px', icon: 2, time: 1000});
                     }
                 }

@@ -21,7 +21,7 @@ public interface ActiveService {
     /**
      * 通过指定条件查询多个活动实体
      *
-     * @param map 条件参数(discount,create,deadline,userId)
+     * @param map 条件参数(discount、create、deadline、userId)
      * @return 活动实体集合
      */
     PageInfo<Active> getAllActive(Map<String, Object> map);

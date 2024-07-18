@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +22,7 @@
                     <a href="#" layadmin-event="flexible" title="伸缩边栏"><i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i></a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <a href="https://www.baidu.com" target="_blank" title="前台页面"><i class="layui-icon layui-icon-website"></i></a>
+                    <a href="/app/course?method=showCourseGroupByType" target="_blank" title="前台页面"><i class="layui-icon layui-icon-website"></i></a>
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="#" layadmin-event="refresh" title="刷新页面"><i class="layui-icon layui-icon-refresh-3"></i></a>
@@ -50,12 +51,14 @@
                     <a href="#" layadmin-event="fullscreen"><i class="layui-icon layui-icon-screen-full"></i></a>
                 </li>
                 <li class="layui-nav-item" lay-unselect>
-                    <a href="#"><cite>用户昵称</cite></a>
+                    <a href="#"><cite>${Admin.name}</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a lay-href="/set/user/info.html">基本资料</a></dd>
-                        <dd><a lay-href="/set/user/password.html">修改密码</a></dd>
+                        <dd><a lay-href="">基本资料</a></dd>
+                        <dd><a lay-href="">修改密码</a></dd>
                         <hr/>
-                        <dd layadmin-event="logout" style="text-align: center;"><a>退出登录</a></dd>
+                        <dd style="text-align: center;">
+                            <a href="/user?method=logout" onclick="layer.msg('退出成功', {offset: '15px', icon: 1, time: 1000});">退出登录</a>
+                        </dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
@@ -70,19 +73,14 @@
         <!-- 左侧竖列功能菜单 -->
         <div class="layui-side layui-side-menu" style="letter-spacing: 1px;">
             <div class="layui-side-scroll">
-                <div class="layui-logo" lay-href="home/console.html">
+                <div class="layui-logo" lay-href="/views/others/application.jsp">
                     <span style="font-weight: bold;">学习平台后端管理</span>
                 </div>
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-                    <li data-name="home" class="layui-nav-item layui-nav-itemed">
-                        <a href="#" lay-tips="后台主页" lay-direction="2">
+                    <li data-name="home" class="layui-nav-item layui-nav-itemed layui-this">
+                        <a href="#" lay-href="/views/others/application.jsp" lay-tips="后台主页" lay-direction="2">
                             <i class="layui-icon layui-icon-home"></i><cite>后台主页</cite>
                         </a>
-                        <dl class="layui-nav-child">
-                            <dd data-name="console" class="layui-this"><a lay-href="/views/home/console.html">控制台</a></dd>
-                            <dd data-name="console"><a lay-href="/views/home/homepage1.html">主页一</a></dd>
-                            <dd data-name="console"><a lay-href="/views/home/homepage2.html">主页二</a></dd>
-                        </dl>
                     </li>
 
                     <li data-name="course" class="layui-nav-item">
@@ -90,9 +88,9 @@
                             <i class="layui-icon layui-icon-template"></i><cite>课程管理</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd><a lay-href="/views/course/courseTypeTable.html">课程类型</a></dd>
-                            <dd><a lay-href="/views/course/courseTable.html">课程信息</a></dd>
-                            <dd><a lay-href="/views/course/courseCodeTable.html">课程邀请码</a></dd>
+                            <dd><a lay-href="/views/course/courseTable.jsp">课程信息</a></dd>
+                            <dd><a lay-href="/views/course/courseTypeTable.jsp">课程类型</a></dd>
+                            <dd><a lay-href="/views/course/courseCodeTable.jsp">课程邀请码</a></dd>
                         </dl>
                     </li>
 
@@ -103,52 +101,33 @@
                     </li>
 
                     <li data-name="file" class="layui-nav-item">
-                        <a href="#" lay-tips="文件管理" lay-direction="2">
+                        <a href="#" lay-href="/views/file/fileTable.jsp" lay-tips="文件管理" lay-direction="2">
                             <i class="layui-icon layui-icon-file-b"></i><cite>文件管理</cite>
                         </a>
-                        <dl class="layui-nav-child">
-                            <dd data-name="nav"><a lay-href="/views/file/fileTable.jsp">文件信息</a></dd>
-                            <dd data-name="nav"><a lay-href="/component/nav/index.html">网站文件</a></dd>
-                        </dl>
                     </li>
 
                     <li data-name="comment" class="layui-nav-item">
-                        <a href="#" lay-href="/views/comment/commentTable.html" lay-tips="评论管理" lay-direction="2">
+                        <a href="#" lay-href="/views/comment/commentTable.jsp" lay-tips="评论管理" lay-direction="2">
                             <i class="layui-icon layui-icon-dialogue"></i><cite>评论管理</cite>
                         </a>
                     </li>
 
                     <li data-name="notice" class="layui-nav-item">
-                        <a href="#" lay-tips="公告管理" lay-direction="2">
+                        <a href="#" lay-href="/views/notice/noticeTable.jsp" lay-tips="公告管理" lay-direction="2">
                             <i class="layui-icon layui-icon-notice"></i><cite>公告管理</cite>
                         </a>
-                        <dl class="layui-nav-child">
-                            <dd data-name="console"><a lay-href="/home/console.html">系统公告</a></dd>
-                            <dd data-name="console"><a lay-href="/home/homepage1.html">课程公告</a></dd>
-                            <dd data-name="console"><a lay-href="/views/notice/noticeTable.html">公告信息</a></dd>
-                        </dl>
                     </li>
 
                     <li data-name="active" class="layui-nav-item">
-                        <a href="#" lay-href="/views/active/activeTable.html" lay-tips="活动管理" lay-direction="2">
+                        <a href="#" lay-href="/views/active/activeTable.jsp" lay-tips="活动管理" lay-direction="2">
                             <i class="layui-icon layui-icon-flag"></i><cite>活动管理</cite>
                         </a>
                     </li>
 
                     <li data-name="order" class="layui-nav-item">
-                        <a href="#" lay-href="/views/order/orderTable.html" lay-tips="订单管理" lay-direction="2">
+                        <a href="#" lay-href="/views/order/orderTable.jsp" lay-tips="订单管理" lay-direction="2">
                             <i class="layui-icon layui-icon-cart"></i><cite>订单管理</cite>
                         </a>
-                    </li>
-
-                    <li data-name="user" class="layui-nav-item">
-                        <a href="#" lay-tips="用户管理" lay-direction="2">
-                            <i class="layui-icon layui-icon-user"></i><cite>用户管理</cite>
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd><a lay-href="/views/user/userTable.jsp">网站用户</a></dd>
-                            <dd><a lay-href="/user/administrators/role.html">角色管理</a></dd>
-                        </dl>
                     </li>
 
                     <li data-name="score" class="layui-nav-item">
@@ -157,27 +136,37 @@
                         </a>
                     </li>
 
-                    <li data-name="setting" class="layui-nav-item">
-                        <a href="#" lay-tips="基本设置" lay-direction="2">
-                            <i class="layui-icon layui-icon-set"></i><cite>基本设置</cite>
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd class="layui-nav-itemed">
-                                <a href="#">系统设置</a>
+                    <c:if test="${not empty Admin}">
+                        <c:if test="${Admin.type==1 || Admin.type==2}">
+                            <li data-name="user" class="layui-nav-item">
+                                <a href="#" lay-href="/views/user/userTable.jsp" lay-tips="用户管理" lay-direction="2">
+                                    <i class="layui-icon layui-icon-user"></i><cite>用户管理</cite>
+                                </a>
+                            </li>
+
+                            <li data-name="setting" class="layui-nav-item">
+                                <a href="#" lay-tips="基本设置" lay-direction="2">
+                                    <i class="layui-icon layui-icon-set"></i><cite>基本设置</cite>
+                                </a>
                                 <dl class="layui-nav-child">
-                                    <dd><a lay-href="/set/system/website.html">网站设置</a></dd>
-                                    <dd><a lay-href="/set/system/email.html">后台配置</a></dd>
+                                    <dd class="layui-nav-itemed">
+                                        <a href="#">页面设置1</a>
+                                        <dl class="layui-nav-child">
+                                            <dd><a lay-href="/views/user/userLogin.jsp">登录页面</a></dd>
+                                            <dd><a lay-href="/views/user/userRegister.jsp">注册页面</a></dd>
+                                        </dl>
+                                    </dd>
+                                    <dd class="layui-nav-itemed">
+                                        <a href="#">页面设置2</a>
+                                        <dl class="layui-nav-child">
+                                            <dd><a lay-href="/views/others/layui404.jsp">404页面</a></dd>
+                                            <dd><a lay-href="/views/others/layuiError.jsp">错误页面</a></dd>
+                                        </dl>
+                                    </dd>
                                 </dl>
-                            </dd>
-                            <dd class="layui-nav-itemed">
-                                <a href="#">我的设置</a>
-                                <dl class="layui-nav-child">
-                                    <dd><a lay-href="/set/user/info.html">基本资料</a></dd>
-                                    <dd><a lay-href="/set/user/password.html">修改密码</a></dd>
-                                </dl>
-                            </dd>
-                        </dl>
-                    </li>
+                            </li>
+                        </c:if>
+                    </c:if>
 
                     <li data-name="author" class="layui-nav-item">
                         <a href="#" lay-href="https://webvpn.nxu.edu.cn" lay-tips="关于作者" lay-direction="2">
@@ -207,7 +196,8 @@
             <!-- 后台默认页面的设置 -->
             <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
-                    <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                    <li lay-id="/views/others/application.jsp" lay-attr="/views/others/application.jsp" class="layui-this">
+                        <i class="layui-icon layui-icon-home"></i></li>
                 </ul>
             </div>
         </div>
@@ -215,7 +205,7 @@
         <!-- 主体区域内容 -->
         <div class="layui-body" id="LAY_app_body">
             <div class="layadmin-tabsbody-item layui-show">
-                <iframe src="/views/home/console.html" frameborder="0" class="layadmin-iframe"></iframe>
+                <iframe src="/views/others/application.jsp" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
         </div>
 

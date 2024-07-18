@@ -27,9 +27,8 @@ public interface CourseTypeMapper {
     int deleteCourseType(int id);
 
     /**
-     *
      * @param map 传入实体参数 (id, pageIndex, pageSize)
      * @return 返回课程类型的集合
      */
-    List<CourseType> getCourseType(Map<String,Object> map);
+    List<CourseType> getCourseType(Map<String, Object> map);
 }

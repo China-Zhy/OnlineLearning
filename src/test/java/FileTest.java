@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class FileTest {
 
-    FileService fileService = new FileServiceImpl();
+    private static final FileService fileService = new FileServiceImpl();
 
 
     @Test
@@ -47,5 +47,4 @@ public class FileTest {
         int i = fileService.deleteFileById(3);
         System.out.println(i);
     }
-
 }

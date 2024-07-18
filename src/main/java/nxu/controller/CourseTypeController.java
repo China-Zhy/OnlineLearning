@@ -25,15 +25,17 @@ public class CourseTypeController extends BaseServlet {
     //查询课程类型
     public void queryCourseType(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, Object> map = new HashMap<>();
-        if (request.getParameter("id") != null && !request.getParameter("id").equals("")) {
+        if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
             if (Integer.parseInt(request.getParameter("id")) > 0) {
                 map.put("id", Integer.parseInt(request.getParameter("id")));
             }
         }
         map.put("pageIndex", 1);
         map.put("pageSize", 10);
-        PageInfo<CourseType> courseType = courseTypeService.getCourseType(map);
+
         JSONObject jsonObject = new JSONObject();
+        PageInfo<CourseType> courseType = courseTypeService.getCourseType(map);
+
         jsonObject.put("code", 0);
         jsonObject.put("msg", "success");
         jsonObject.put("count", courseType.getTotal());

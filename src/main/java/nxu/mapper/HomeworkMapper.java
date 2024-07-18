@@ -39,7 +39,7 @@ public interface HomeworkMapper {
      * 修改作业
      *
      * @param map 作业参数map(id、title、info、dateline、again)
-     * @return
+     * @return 返回1-修改成功，返回0-修改失败
      */
     int updateHomework(Map<String, Object> map);
 

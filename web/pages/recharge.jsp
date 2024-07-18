@@ -3,19 +3,8 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>充值积分</title>
-    <meta name="description" content="在线学习平台"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/pages/assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/LineIcons.2.0.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/animate.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/tiny-slider.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/glightbox.min.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/main.css"/>
+    <title>积分充值</title>
+    <jsp:include page="/pages/assets/app/myCss.jsp"/>
 </head>
 
 <body>
@@ -50,7 +39,7 @@
 <div class="container mt-3">
     <table class="table table-bordered" id="pointInfo">
         <tr>
-            <th colspan="4" style="text-align: center;"><a href="#" class="list-group-item list-group-item-action">${Amdmin.name}的积分记录</a></th>
+            <th colspan="4" style="text-align: center;"><a href="#" class="list-group-item list-group-item-action">您 (${Admin.name}) 的 积分记录</a></th>
         </tr>
         <tr>
             <th style="text-align: center;"><a href="#" class="list-group-item list-group-item-warning">序号：</a></th>
@@ -161,18 +150,10 @@
     </div>
 </section>
 
-<a href="#" class="scroll-top btn-hover">
-    <i class="lni lni-chevron-up"></i>
-</a>
-<!-- js文件 -->
-<script src="/pages/assets/js/bootstrap.min.js"></script>
-<script src="/pages/assets/js/count-up.min.js"></script>
-<script src="/pages/assets/js/wow.min.js"></script>
-<script src="/pages/assets/js/tiny-slider.js"></script>
-<script src="/pages/assets/js/glightbox.min.js"></script>
-<script src="/pages/assets/js/imagesloaded.min.js"></script>
-<script src="/pages/assets/js/isotope.min.js"></script>
-<script src="/pages/assets/js/main.js"></script>
+<%--回到顶部按钮--%>
+<jsp:include page="goHead.jsp"/>
+
+<jsp:include page="/pages/assets/app/myJs.jsp"/>
 </body>
 <script src="/layuiadmin/layui/layui.js"></script>
 <script>

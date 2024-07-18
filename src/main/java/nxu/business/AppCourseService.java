@@ -6,7 +6,7 @@ import nxu.bo.CourseInfoBo;
 import java.util.List;
 
 /**
- * 页面数据服务层接口 (张宏业)
+ * 前端页面数据服务层接口 (张宏业)
  */
 public interface AppCourseService {
 

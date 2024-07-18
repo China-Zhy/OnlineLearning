@@ -1,35 +1,29 @@
 package nxu.business;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import nxu.bo.CommentBo;
 import nxu.bo.CourseDataBo;
 import nxu.bo.CourseInfoBo;
+import nxu.dao.UserDaoImpl;
 import nxu.entity.Comment;
 import nxu.entity.Course;
 import nxu.entity.CourseType;
 import nxu.entity.User;
-import nxu.service.*;
-import nxu.service.impl.CommentServiceImpl;
-import nxu.service.impl.CourseServiceImpl;
-import nxu.service.impl.CourseTypeServiceImpl;
-import nxu.service.impl.UserServiceImpl;
+import nxu.mapper.CommentMapper;
+import nxu.mapper.CourseMapper;
+import nxu.mapper.CourseTypeMapper;
+import nxu.utils.MybatisUtil;
+import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * 页面数据服务层接口实现类 (张宏业)
+ * 前端页面数据服务层接口实现类 (张宏业)
  */
 public class AppCourseServiceImpl implements AppCourseService {
-
-    private static final CourseService courseService = new CourseServiceImpl();
-
-    private static final UserService userService = new UserServiceImpl();
-
-    private static final CommentService commentService = new CommentServiceImpl();
-
-    private static final CourseTypeService courseTypeService = new CourseTypeServiceImpl();
 
     /**
      * 获取课程详细信息页面数据
@@ -43,23 +37,25 @@ public class AppCourseServiceImpl implements AppCourseService {
         CourseInfoBo courseInfoBo = new CourseInfoBo();
 
         HashMap<String, Object> courseMap = new HashMap<>();
-        courseMap.put("pageIndex", 1);
-        courseMap.put("pageSize", 9);   // 页面需求，每种课程最多显示9个
         courseMap.put("id", courseId);
-        PageInfo<Course> coursePI = courseService.getCourse(courseMap);
 
-        Course course = coursePI.getList().getFirst();
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+
+        Course course = sqlSession.getMapper(CourseMapper.class).getCourse(courseMap).getFirst();
         courseInfoBo.setCourse(course);
+        System.out.println("@@@课程信息：" + course);
 
-        User teacher = userService.queryUserById(course.getUserId());
+        User teacher = new UserDaoImpl().queryUserById(course.getUserId());
         courseInfoBo.setTeacher(teacher);
+        System.out.println("@@@教师信息：" + teacher);
 
-        List<Comment> comments = commentService.getCommentById(course.getId());
+        List<Comment> comments = sqlSession.getMapper(CommentMapper.class).getCommentById(courseId);
+        System.out.println("@@@评论集合：" + comments);
 
         List<CommentBo> commentBoList = new ArrayList<>();
 
         for (Comment comment : comments) {
-            User user = userService.queryUserById(comment.getUserId());
+            User user = new UserDaoImpl().queryUserById(comment.getUserId());
             CommentBo commentBo = new CommentBo();
             commentBo.setUser(user);
             commentBo.setComment(comment);
@@ -81,21 +77,23 @@ public class AppCourseServiceImpl implements AppCourseService {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageIndex", 1);
-        map.put("pageSize", 100);
-        PageInfo<CourseType> courseTypePI = courseTypeService.getCourseType(map);
+        map.put("pageSize", 10);   // 查询全部课程种类
 
-        HashMap<String, Object> courseMap = new HashMap<>();
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        List<CourseType> courseType = sqlSession.getMapper(CourseTypeMapper.class).getCourseType(map);
 
-        for (CourseType courseType : courseTypePI.getList()) {
+        map.put("pageSize", 9);   // 页面需求，每种课程最多显示9个
+
+        for (CourseType type : courseType) {
             CourseDataBo courseDataBo = new CourseDataBo();
-            courseDataBo.setCourseType(courseType);
-            courseMap.put("pageIndex", 1);
-            courseMap.put("pageSize", 9);
-            courseMap.put("courseType", courseType.getId());
-            PageInfo<Course> course = courseService.getCourse(courseMap);
-            courseDataBo.setCourses(course.getList());
+            courseDataBo.setCourseType(type);
+            map.put("courseType", type.getId());
+            PageHelper.startPage((int) (map.get("pageIndex")), (int) map.get("pageSize"));
+            List<Course> course = sqlSession.getMapper(CourseMapper.class).getCourse(map);
+            courseDataBo.setCourses(new PageInfo<>(course).getList());
             courseDataBoList.add(courseDataBo);
         }
+        sqlSession.close();
         return courseDataBoList;
     }
 }

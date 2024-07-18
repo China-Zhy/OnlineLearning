@@ -23,7 +23,9 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public int insertNotice(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).insertNotice(map);
+        int i = MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).insertNotice(map);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -34,7 +36,9 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public int deleteNotice(int id) {
-        return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).deleteNotice(id);
+        int i = MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).deleteNotice(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -46,6 +50,7 @@ public class NoticeServiceImpl implements NoticeService {
     public PageInfo<Notice> getNotice(Map<String, Object> map) {
         PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
         List<Notice> notice = MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).getNotice(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(notice);
     }
 
@@ -57,9 +62,10 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public Notice getOneNotice(int id) {
-        return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).getOneNotice(id);
+        Notice notice = MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).getOneNotice(id);
+        MybatisUtil.getSqlSession().close();
+        return notice;
     }
-
 
     /**
      * 更新公告
@@ -69,6 +75,8 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public int updateNotice(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).updateNotice(map);
+        int i = MybatisUtil.getSqlSession().getMapper(NoticeMapper.class).updateNotice(map);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 }

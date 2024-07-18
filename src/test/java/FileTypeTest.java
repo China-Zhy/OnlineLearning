@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class FileTypeTest {
 
-    FileTypeService fileTypeService = new FileTypeServiceImpl();
+    private static final FileTypeService fileTypeService = new FileTypeServiceImpl();
 
     @Test
     public void test1() {
@@ -43,5 +43,4 @@ public class FileTypeTest {
         int i = fileTypeService.deleteFileTypeById(6);
         System.out.println(i);
     }
-
 }

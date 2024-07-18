@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Course;
+import nxu.entity.User;
 import nxu.service.CourseService;
 import nxu.service.impl.CourseServiceImpl;
 import nxu.utils.BaseServlet;
@@ -78,7 +79,7 @@ public class CourseController extends BaseServlet {
         course.setInfo(req.getParameter("info"));
         course.setScore(Integer.parseInt(req.getParameter("score")));
         course.setState(Integer.parseInt(req.getParameter("state")));
-        course.setUserId(Integer.parseInt(req.getParameter("userId")));
+        course.setUserId(((User) req.getSession().getAttribute("Admin")).getId());
 
         JSONObject jsonObject = new JSONObject();
         int result = courseService.insertCourse(course);
@@ -86,7 +87,7 @@ public class CourseController extends BaseServlet {
         jsonObject.put("result", result);
         String info = result > 0 ? "插入成功" : "插入失败";
         jsonObject.put("info", info);
-        resp.setContentType("application/json; charset=utf-8");
+        resp.setContentType("application/json;");
         resp.getWriter().write(jsonObject.toString());
     }
 
@@ -97,11 +98,11 @@ public class CourseController extends BaseServlet {
         map.put("id", Integer.parseInt(req.getParameter("id")));
         map.put("name", req.getParameter("name"));
         map.put("courseType", Integer.parseInt(req.getParameter("courseType")));
-        map.put("image", req.getParameter("image"));
+        map.put("image", "/layuiadmin/upload/" + req.getParameter("image"));
         map.put("info", req.getParameter("info"));
         map.put("score", Integer.parseInt(req.getParameter("score")));
         map.put("state", Integer.parseInt(req.getParameter("state")));
-        map.put("userId", Integer.parseInt(req.getParameter("userId")));
+        map.put("userId", ((User) req.getSession().getAttribute("Admin")).getId());
 
         JSONObject jsonObject = new JSONObject();
         int result = courseService.updateCourse(map);

@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.Active;
+import nxu.entity.User;
 import nxu.service.ActiveService;
 import nxu.service.impl.ActiveServiceImpl;
 import nxu.utils.BaseServlet;
@@ -29,7 +30,7 @@ public class ActiveController extends BaseServlet {
     public void queryAllActive(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageIndex", 1);
-        map.put("pageSize", 10);
+        map.put("pageSize", 12);
 
         String title = req.getParameter("title");
         String userId = req.getParameter("userId");
@@ -72,7 +73,6 @@ public class ActiveController extends BaseServlet {
         resp.getWriter().write(jsonObject.toString());
     }
 
-
     // 删除活动
     public void deleteActive(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         JSONObject jsonObject = new JSONObject();
@@ -87,9 +87,9 @@ public class ActiveController extends BaseServlet {
     // 添加活动
     public void insertActive(HttpServletRequest req, HttpServletResponse resp) throws IOException, ParseException {
         Active active = new Active();
-        active.setImage(req.getParameter("image"));
+        active.setImage("/layuiadmin/upload/" + req.getParameter("image"));
         active.setTitle(req.getParameter("title"));
-        active.setUserId(Integer.parseInt(req.getParameter("userId")));
+        active.setUserId(((User) req.getSession().getAttribute("Admin")).getId());
         active.setDiscount(Integer.parseInt(req.getParameter("discount")));
         active.setInfo(req.getParameter("info"));
 
@@ -114,12 +114,12 @@ public class ActiveController extends BaseServlet {
     // 修改活动
     public void updateActive(HttpServletRequest req, HttpServletResponse resp) throws IOException, ParseException {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("image", req.getParameter("image"));
+        map.put("image", "/layuiadmin/upload/" + req.getParameter("image"));
         map.put("title", req.getParameter("title"));
         map.put("discount", req.getParameter("discount"));
         map.put("info", req.getParameter("info"));
         map.put("id", Integer.parseInt(req.getParameter("id")));
-        map.put("userId", Integer.parseInt(req.getParameter("userId")));
+        map.put("userId", ((User) req.getSession().getAttribute("Admin")).getId());
 
         // 时间字符串转为Date类型
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

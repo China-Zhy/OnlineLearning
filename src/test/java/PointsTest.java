@@ -10,7 +10,8 @@ import java.util.HashMap;
  * 积分相关功能测试 (胡昊)
  */
 public class PointsTest {
-    PointsService pointsService = new PointsServiceImpl();
+
+    private static final PointsService pointsService = new PointsServiceImpl();
 
     /**
      * 查找测试
@@ -60,7 +61,7 @@ public class PointsTest {
     public void test5() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", 2);
-        map.put("userId",4);
+        map.put("userId", 4);
         map.put("type", 2);
         int i = pointsService.updatePoints(map);
         System.out.println(i);

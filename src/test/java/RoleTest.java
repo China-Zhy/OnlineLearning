@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class RoleTest {
 
-    RoleService roleService = new RoleServiceImpl();
+    private static final RoleService roleService = new RoleServiceImpl();
 
     @Test
     public void test1() {

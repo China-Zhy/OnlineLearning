@@ -22,12 +22,14 @@ public interface CommentMapper {
     int insertComment(@Param("courseId") int courseId, @Param("userId") int userId, @Param("score") int score, @Param("info") String info);
 
     /**
-     * 更新获赞数
+     * 更新评论
      *
-     * @param id 评论编号
-     * @return 更新成功返回1，否则返回0
+     * @param id    评论编号
+     * @param good  评论获赞数
+     * @param state 评论合法状态
+     * @return 返回1-更新成功，返回0-更新失败
      */
-    int updateCommentGood(@Param("id") int id);
+    int updateCommentGood(@Param("id") int id, @Param("good") int good, @Param("state") int state);
 
     /**
      * 删除评论
@@ -47,8 +49,8 @@ public interface CommentMapper {
 
     /**
      * 查询所有评论
+     *
      * @return 评论全部信息
      */
     List<Comment> getComment(Map<String, Object> map);
-
 }

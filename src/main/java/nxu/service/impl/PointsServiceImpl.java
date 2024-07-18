@@ -23,7 +23,9 @@ public class PointsServiceImpl implements PointsService {
      */
     @Override
     public Points getPointsById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(PointsMapper.class).getPointsById(id);
+        Points points = MybatisUtil.getSqlSession().getMapper(PointsMapper.class).getPointsById(id);
+        MybatisUtil.getSqlSession().close();
+        return points;
     }
 
     /**
@@ -36,9 +38,9 @@ public class PointsServiceImpl implements PointsService {
     public PageInfo<Points> getAllPoints(Map<String, Object> map) {
         PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
         List<Points> points = MybatisUtil.getSqlSession().getMapper(PointsMapper.class).getAllPoints(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(points);
     }
-
 
     /**
      * 添加一个积分
@@ -48,7 +50,9 @@ public class PointsServiceImpl implements PointsService {
      */
     @Override
     public int insertPoints(Points points) {
-        return MybatisUtil.getSqlSession().getMapper(PointsMapper.class).insertPoints(points);
+        int i = MybatisUtil.getSqlSession().getMapper(PointsMapper.class).insertPoints(points);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -59,7 +63,9 @@ public class PointsServiceImpl implements PointsService {
      */
     @Override
     public int deletePointsById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(PointsMapper.class).deletePointsById(id);
+        int i = MybatisUtil.getSqlSession().getMapper(PointsMapper.class).deletePointsById(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -70,6 +76,8 @@ public class PointsServiceImpl implements PointsService {
      */
     @Override
     public int updatePoints(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(PointsMapper.class).updatePoints(map);
+        int i = MybatisUtil.getSqlSession().getMapper(PointsMapper.class).updatePoints(map);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 }

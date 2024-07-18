@@ -3,12 +3,21 @@
 <mapper namespace="nxu.mapper.CommentMapper">
 
     <insert id="insertComment" parameterType="nxu.entity.Comment">
-        insert into comment (course_id, user_id, score, info, time, good)
-        values (#{courseId}, #{userId}, #{score},#{info}, NOW(), 0)
+        insert into comment (course_id, user_id, score, info, time, good, state)
+        values (#{courseId}, #{userId}, #{score},#{info}, NOW(), 0, 1)
     </insert>
 
     <update id="updateCommentGood">
-        update comment set good = good + 1 where id = #{id}
+        update comment
+        <set>
+            <if test="good != null and good != '' and good != 0">
+                good = #{good},
+            </if>
+            <if test="state != null and state != '' and state != 0">
+                state = #{state}
+            </if>
+        </set>
+        where id = #{id}
     </update>
 
     <delete id="deleteComment">
@@ -27,9 +36,9 @@
             <if test="userId != null and userId != ''">
                 and user_id = #{userId}
             </if>
-
         </where>
     </select>
+
     <select id="getCommentById" resultType="nxu.entity.Comment">
         select * from comment where course_id = #{courseId}
     </select>

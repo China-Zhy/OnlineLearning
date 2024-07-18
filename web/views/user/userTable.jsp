@@ -77,26 +77,26 @@
                     <!--脚本控制将数字转换为性别-->
                     <script type="text/html" id="genderTpl">
                         {{#  if(d.gender == 1){ }}
-                            男
+                        男
                         {{#  } else if(d.gender == 2){ }}
-                            女
+                        女
                         {{#  } else { }}
-                            未知
+                        未知
                         {{#  } }}
                     </script>
 
                     <!--脚本控制将数字转换为对应角色类型(待改为动态对应)-->
                     <script type="text/html" id="typeTpl">
                         {{#  if(d.type == 1){ }}
-                            超级管理员
+                        超级管理员
                         {{#  } else if(d.type == 2){ }}
-                            系统管理员
+                        系统管理员
                         {{#  } else if(d.type == 3){ }}
-                            教师
+                        教师
                         {{#  } else if(d.type == 4){ }}
-                            学生
+                        学生
                         {{#  } else { }}
-                            非法用户
+                        非法用户
                         {{#  } }}
                     </script>
 
@@ -165,7 +165,7 @@
         });
 
         // 使用Ajax异步加载表格顶部form表单中的下拉菜单(改这里)
-        $(document).ready(function (){
+        $(document).ready(function () {
             $.ajax({
                 type: 'GET',
                 url: '/user?method=queryAllRole',
@@ -191,9 +191,9 @@
         form.on('submit(nxu-search)', function (data) {
             // 条件搜索后，根据新数据重载表格(改这里)
             table.reload('OnlineLearning', {
-                url : '/user?method=queryAllUser',
-                method : 'post',
-                where : data.field  // 装载提交到后台的请求参数
+                url: '/user?method=queryAllUser',
+                method: 'post',
+                where: data.field  // 装载提交到后台的请求参数
             }, 'data');
             return false;
         });
@@ -240,7 +240,8 @@
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
+                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
+                            submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -279,7 +280,8 @@
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
+                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
+                            submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -303,7 +305,7 @@
         });
 
         // 清空表格头部表单中的全部内容
-        $('#clear').click(function (){
+        $('#clear').click(function () {
             $('#name').val('');
             $('#phone').val('');
             $('#gender').val(0);

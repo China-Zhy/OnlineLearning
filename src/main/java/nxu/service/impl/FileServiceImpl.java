@@ -23,7 +23,9 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public File getFileById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(FileMapper.class).getFileById(id);
+        File file = MybatisUtil.getSqlSession().getMapper(FileMapper.class).getFileById(id);
+        MybatisUtil.getSqlSession().close();
+        return file;
     }
 
     /**
@@ -36,6 +38,7 @@ public class FileServiceImpl implements FileService {
     public PageInfo<File> getAllFiles(Map<String, Object> map) {
         PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
         List<File> allFiles = MybatisUtil.getSqlSession().getMapper(FileMapper.class).getAllFiles(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(allFiles);
     }
 
@@ -47,7 +50,9 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public int insertFile(File file) {
-        return MybatisUtil.getSqlSession().getMapper(FileMapper.class).insertFile(file);
+        int i = MybatisUtil.getSqlSession().getMapper(FileMapper.class).insertFile(file);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -58,6 +63,8 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public int deleteFileById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(FileMapper.class).deleteFileById(id);
+        int i = MybatisUtil.getSqlSession().getMapper(FileMapper.class).deleteFileById(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 }

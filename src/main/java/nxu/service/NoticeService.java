@@ -13,7 +13,7 @@ public interface NoticeService {
     /**
      * 插入公告
      *
-     * @param map 条件参数(传入数据：title 公告标题,info 公告信息 ,dateline 截止时间, target 系统0或课程号 ,user_id 用户)
+     * @param map 条件参数(传入数据：title-公告标题、info-公告信息、dateline-截止时间、target-系统0/课程编号、userId用户编号)
      * @return 插入成功返回1，否则返回0
      */
     int insertNotice(Map<String, Object> map);
@@ -44,8 +44,8 @@ public interface NoticeService {
     /**
      * 更新公告
      *
-     * @param map 条件参数(title 公告标题, info 公告消息, dateline 截止时间, target 系统0或课程号)
-     * @return 更新成功返回1，否则返回0
+     * @param map 条件参数(title-公告标题、info-公告消息、dateline-截止时间、target-系统0/课程编号)
+     * @return 更新成功-返回1，否则-返回0
      */
     int updateNotice(Map<String, Object> map);
 }

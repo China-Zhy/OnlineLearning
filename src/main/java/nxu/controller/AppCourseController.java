@@ -109,7 +109,6 @@ public class AppCourseController extends BaseServlet {
 
     // 前往充值页面，顺便查询积分消费记录
     public void toRechargeScore(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageIndex", 1);
         map.put("pageSize", 1000);
@@ -177,11 +176,6 @@ public class AppCourseController extends BaseServlet {
         PageInfo<Notice> notice = noticeService.getNotice(map);
         req.setAttribute("notices", notice.getList());
         req.setAttribute("courseName", req.getParameter("courseName"));
-
-//        req.setAttribute("total", notice.getTotal());
-//        req.setAttribute("pages", notice.getPages());
-//        req.setAttribute("pageNum", notice.getPageNum());
-
         req.getRequestDispatcher("/pages/courseNotice.jsp").forward(req, resp);
     }
 }

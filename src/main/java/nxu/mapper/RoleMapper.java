@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 角色数据层接口[全注解形式] (张宏业)
+ * 角色数据层接口[全注解形式，无Mapper文件] (张宏业)
  */
 public interface RoleMapper {
 
@@ -54,5 +54,4 @@ public interface RoleMapper {
      */
     @Delete("delete from `role` where id = #{id}")
     int deleteRole(@Param("id") int id);
-
 }

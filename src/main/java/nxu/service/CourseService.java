@@ -2,7 +2,6 @@ package nxu.service;
 
 import com.github.pagehelper.PageInfo;
 import nxu.entity.Course;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Map;
 
@@ -73,5 +72,5 @@ public interface CourseService {
      * @param courseId 课程编号
      * @return 返回0-为拥有，返回1-已拥有
      */
-    int isUserHaveThisCourse(@Param("userId") int userId, @Param("courseId") int courseId);
+    int isUserHaveThisCourse(int userId, int courseId);
 }

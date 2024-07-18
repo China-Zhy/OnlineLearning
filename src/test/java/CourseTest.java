@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class CourseTest {
 
-    CourseService courseService = new CourseServiceImpl();
+    private static final CourseService courseService = new CourseServiceImpl();
 
     /**
      * 测试课程增添内容功能
@@ -94,5 +94,4 @@ public class CourseTest {
         System.out.println("总页数：" + myCourse.getPages());
         System.out.println("第几页：" + myCourse.getPageNum());
     }
-
 }

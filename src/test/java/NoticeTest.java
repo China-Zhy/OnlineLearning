@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class NoticeTest {
 
-    NoticeService noticeService = new NoticeServiceImpl();
+    private static final NoticeService noticeService = new NoticeServiceImpl();
 
     @Test
     public void test1() {
@@ -50,7 +50,6 @@ public class NoticeTest {
         Notice oneNotice = noticeService.getOneNotice(1);
         System.out.println(oneNotice);
     }
-
 
     @Test
     public void test5() {

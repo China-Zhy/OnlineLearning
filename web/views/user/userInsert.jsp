@@ -102,8 +102,6 @@
         let uploadInst = upload.render({
             elem: '#test-upload-normal',
             url: '/uploadServlet',
-            processData: false,
-            contentType: false,
             before: function (obj) {
                 obj.preview(function (index, file, result) {
                     $('#test-upload-normal-img').attr('src', result); //图片链接（base64）

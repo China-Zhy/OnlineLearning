@@ -21,7 +21,7 @@ public interface CourseCodeMapper {
     /**
      * 删除课程邀请码
      *
-     * @param map 实体参数(userid, courseid)
+     * @param map 实体参数(userId, courseId)
      * @return 受影响行数
      */
     int deleteCourseCode(Map<String, Object> map);

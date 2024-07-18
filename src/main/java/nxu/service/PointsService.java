@@ -21,7 +21,7 @@ public interface PointsService {
     /**
      * 通过指定条件查询多个积分实体
      *
-     * @param map 条件参数(userId,type,number)
+     * @param map 条件参数(userId、type、number)
      * @return 积分实体集合
      */
     PageInfo<Points> getAllPoints(Map<String, Object> map);

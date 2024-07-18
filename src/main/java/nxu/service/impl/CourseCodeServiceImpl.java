@@ -23,7 +23,9 @@ public class CourseCodeServiceImpl implements CourseCodeService {
      */
     @Override
     public int insertCourseCode(CourseCode courseCode) {
-        return MybatisUtil.getSqlSession().getMapper(CourseCodeMapper.class).insertCourseCode(courseCode);
+        int i = MybatisUtil.getSqlSession().getMapper(CourseCodeMapper.class).insertCourseCode(courseCode);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -34,7 +36,9 @@ public class CourseCodeServiceImpl implements CourseCodeService {
      */
     @Override
     public int deleteCourseCode(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(CourseCodeMapper.class).deleteCourseCode(map);
+        int i = MybatisUtil.getSqlSession().getMapper(CourseCodeMapper.class).deleteCourseCode(map);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -47,8 +51,7 @@ public class CourseCodeServiceImpl implements CourseCodeService {
     public PageInfo<CourseCode> getCourseCode(Map<String, Object> map) {
         PageHelper.startPage((int) (map.get("pageIndex")), (int) map.get("pageSize"));
         List<CourseCode> list = MybatisUtil.getSqlSession().getMapper(CourseCodeMapper.class).getCourseCode(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(list);
     }
-
-
 }

@@ -24,7 +24,9 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public int insertCourse(Course course) {
-        return MybatisUtil.getSqlSession().getMapper(CourseMapper.class).insertCourse(course);
+        int i = MybatisUtil.getSqlSession().getMapper(CourseMapper.class).insertCourse(course);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -37,6 +39,7 @@ public class CourseServiceImpl implements CourseService {
     public PageInfo<Course> getCourse(Map<String, Object> map) {
         PageHelper.startPage((int) (map.get("pageIndex")), (int) map.get("pageSize"));
         List<Course> list = MybatisUtil.getSqlSession().getMapper(CourseMapper.class).getCourse(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(list);
     }
 
@@ -48,7 +51,9 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public int updateCourse(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(CourseMapper.class).updateCourse(map);
+        int i = MybatisUtil.getSqlSession().getMapper(CourseMapper.class).updateCourse(map);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -59,7 +64,9 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public int deleteCourse(int id) {
-        return MybatisUtil.getSqlSession().getMapper(CourseMapper.class).deleteCourse(id);
+        int i = MybatisUtil.getSqlSession().getMapper(CourseMapper.class).deleteCourse(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -70,6 +77,7 @@ public class CourseServiceImpl implements CourseService {
     public PageInfo<Course> userCourse(int id) {
         PageHelper.startPage(1, 10);
         List<Course> list = MybatisUtil.getSqlSession().getMapper(CourseMapper.class).userCourse(id);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(list);
     }
 
@@ -82,7 +90,9 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public int insertData(int userId, int courseId) {
-        return MybatisUtil.getSqlSession().getMapper(OwnerShipMapper.class).insertData(userId, courseId);
+        int i = MybatisUtil.getSqlSession().getMapper(OwnerShipMapper.class).insertData(userId, courseId);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -95,6 +105,7 @@ public class CourseServiceImpl implements CourseService {
     public PageInfo<Course> getMyCourse(Map<String, Object> map) {
         PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
         List<Course> course = MybatisUtil.getSqlSession().getMapper(OwnerShipMapper.class).getMyCourse((int) map.get("userId"));
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(course);
     }
 
@@ -107,7 +118,8 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     public int isUserHaveThisCourse(int userId, int courseId) {
-        return MybatisUtil.getSqlSession().getMapper(OwnerShipMapper.class).isUserHaveThisCourse(userId, courseId);
+        int i = MybatisUtil.getSqlSession().getMapper(OwnerShipMapper.class).isUserHaveThisCourse(userId, courseId);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
-
 }

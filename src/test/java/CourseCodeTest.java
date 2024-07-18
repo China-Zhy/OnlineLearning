@@ -1,4 +1,3 @@
-
 import com.github.pagehelper.PageInfo;
 import nxu.entity.CourseCode;
 import nxu.service.CourseCodeService;
@@ -13,7 +12,7 @@ import java.util.Map;
  */
 public class CourseCodeTest {
 
-    CourseCodeService courseCodeService = new CourseCodeServiceImpl();
+    private static final CourseCodeService courseCodeService = new CourseCodeServiceImpl();
 
     /**
      * 增添课程邀请码

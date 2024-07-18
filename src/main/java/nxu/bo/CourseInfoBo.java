@@ -10,7 +10,7 @@ import nxu.entity.User;
 import java.util.List;
 
 /**
- * 课程信息数据业务实体类 (张宏业)
+ * 课程信息页数据业务实体类 (张宏业)
  */
 @Data
 @AllArgsConstructor

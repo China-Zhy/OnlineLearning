@@ -21,14 +21,15 @@ public interface CourseCodeService {
     /**
      * 删除课程邀请码
      *
-     * @param map 实体参数(userid, courseId)
+     * @param map 实体参数(userid、courseId)
      * @return 受影响行数
      */
     int deleteCourseCode(Map<String, Object> map);
 
     /**
      * 获取课程邀请码信息
-     * @param map 实体参数(userId, courseId)
+     *
+     * @param map 实体参数(userId、courseId)
      * @return 返回课程邀请码的集合
      */
     PageInfo<CourseCode> getCourseCode(Map<String, Object> map);

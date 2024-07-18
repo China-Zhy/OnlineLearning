@@ -12,4 +12,5 @@
     <select id="isUserHaveThisCourse" resultType="java.lang.Integer">
         select COUNT(*) from `ownership` where user_id=#{userId} and course_id=#{courseId};
     </select>
+
 </mapper>

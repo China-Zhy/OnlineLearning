@@ -20,7 +20,9 @@ public class FileTypeServiceImpl implements FileTypeService {
      */
     @Override
     public String getFileTypeNameById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).getFileTypeNameById(id);
+        String fileTypeName = MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).getFileTypeNameById(id);
+        MybatisUtil.getSqlSession().close();
+        return fileTypeName;
     }
 
     /**
@@ -36,8 +38,10 @@ public class FileTypeServiceImpl implements FileTypeService {
         if (pageIndex > 0 && pageSize > 0) {
             int beginIndex = Math.min((pageIndex - 1) * pageSize, fileTypeList.size());
             int endIndex = Math.min((pageIndex * pageSize), fileTypeList.size());
+            MybatisUtil.getSqlSession().close();
             return fileTypeList.subList(beginIndex, endIndex);
         } else {
+            MybatisUtil.getSqlSession().close();
             return fileTypeList;
         }
     }
@@ -50,7 +54,9 @@ public class FileTypeServiceImpl implements FileTypeService {
      */
     @Override
     public int insertFileType(String name) {
-        return MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).insertFileType(name);
+        int i = MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).insertFileType(name);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -62,7 +68,9 @@ public class FileTypeServiceImpl implements FileTypeService {
      */
     @Override
     public int updateFileType(int id, String name) {
-        return MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).updateFileType(id, name);
+        int i = MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).updateFileType(id, name);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -73,6 +81,8 @@ public class FileTypeServiceImpl implements FileTypeService {
      */
     @Override
     public int deleteFileTypeById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).deleteFileTypeById(id);
+        int i = MybatisUtil.getSqlSession().getMapper(FileTypeMapper.class).deleteFileTypeById(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 }

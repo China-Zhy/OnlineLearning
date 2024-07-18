@@ -25,5 +25,4 @@ public interface MessageMapper {
      * @return 返回符合条件的消息列表
      */
     List<Message> getMessages(Map<String, Object> map);
-
 }

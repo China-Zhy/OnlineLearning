@@ -23,7 +23,9 @@ public class ActiveServiceImpl implements ActiveService {
      */
     @Override
     public Active getActiveById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).getActiveById(id);
+        Active active = MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).getActiveById(id);
+        MybatisUtil.getSqlSession().close();
+        return active;
     }
 
     /**
@@ -36,6 +38,7 @@ public class ActiveServiceImpl implements ActiveService {
     public PageInfo<Active> getAllActive(Map<String, Object> map) {
         PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
         List<Active> actives = MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).getAllActive(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(actives);
     }
 
@@ -47,7 +50,9 @@ public class ActiveServiceImpl implements ActiveService {
      */
     @Override
     public int insertActive(Active active) {
-        return MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).insertActive(active);
+        int i = MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).insertActive(active);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -58,7 +63,9 @@ public class ActiveServiceImpl implements ActiveService {
      */
     @Override
     public int deleteActiveById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).deleteActiveById(id);
+        int i = MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).deleteActiveById(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -69,6 +76,8 @@ public class ActiveServiceImpl implements ActiveService {
      */
     @Override
     public int updateActive(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).updateActive(map);
+        int i = MybatisUtil.getSqlSession().getMapper(ActiveMapper.class).updateActive(map);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 }

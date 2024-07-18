@@ -24,18 +24,24 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public int insertComment(int courseId, int userId, int score, String info) {
-        return MybatisUtil.getSqlSession().getMapper(CommentMapper.class).insertComment(courseId, userId, score, info);
+        int i = MybatisUtil.getSqlSession().getMapper(CommentMapper.class).insertComment(courseId, userId, score, info);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
-     * 更新获赞数
+     * 更新评论
      *
-     * @param id 评论编号
-     * @return 更新成功返回1，否则返回0
+     * @param id    评论编号
+     * @param good  评论获赞数
+     * @param state 评论合法状态
+     * @return 返回-1更新成功，返回-0更新失败
      */
     @Override
-    public int updateCommentGood(int id) {
-        return MybatisUtil.getSqlSession().getMapper(CommentMapper.class).updateCommentGood(id);
+    public int updateCommentGood(int id, int good, int state) {
+        int i = MybatisUtil.getSqlSession().getMapper(CommentMapper.class).updateCommentGood(id, good, state);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -46,7 +52,9 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public int deleteComment(int id) {
-        return MybatisUtil.getSqlSession().getMapper(CommentMapper.class).deleteComment(id);
+        int i = MybatisUtil.getSqlSession().getMapper(CommentMapper.class).deleteComment(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -57,7 +65,9 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public List<Comment> getCommentById(int courseId) {
-        return MybatisUtil.getSqlSession().getMapper(CommentMapper.class).getCommentById(courseId);
+        List<Comment> comment = MybatisUtil.getSqlSession().getMapper(CommentMapper.class).getCommentById(courseId);
+        MybatisUtil.getSqlSession().close();
+        return comment;
     }
 
     /**
@@ -67,9 +77,8 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public List<Comment> getComment(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(CommentMapper.class).getComment(map);
+        List<Comment> comment = MybatisUtil.getSqlSession().getMapper(CommentMapper.class).getComment(map);
+        MybatisUtil.getSqlSession().close();
+        return comment;
     }
-
-
-
 }

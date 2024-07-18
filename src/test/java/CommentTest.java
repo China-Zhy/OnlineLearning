@@ -11,7 +11,8 @@ import java.util.Map;
  * 评论相关功能测试 (唐馨源)
  */
 public class CommentTest {
-    CommentService commentService = new CommentServiceImpl();
+
+    private static final CommentService commentService = new CommentServiceImpl();
 
     @Test
     public void Test1() {
@@ -21,7 +22,7 @@ public class CommentTest {
 
     @Test
     public void Test2() {
-        int i = commentService.updateCommentGood(1);
+        int i = commentService.updateCommentGood(1, 1, 3);
         System.out.println(i);
     }
 
@@ -39,15 +40,13 @@ public class CommentTest {
         for (Comment c : comment) {
             System.out.println(c);
         }
-
     }
+
     @Test
     public void Test5() {
         List<Comment> comment = commentService.getCommentById(1);
         for (Comment c : comment) {
             System.out.println(c);
         }
-
     }
-
 }

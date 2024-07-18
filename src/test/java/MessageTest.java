@@ -10,7 +10,8 @@ import java.util.HashMap;
  * 消息相关功能测试 (唐馨源)
  */
 public class MessageTest {
-    MessageService messageService = new MessageServiceImpl();
+
+    private static final MessageService messageService = new MessageServiceImpl();
 
     @Test
     public void test() {

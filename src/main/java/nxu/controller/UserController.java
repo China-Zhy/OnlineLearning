@@ -64,8 +64,7 @@ public class UserController extends BaseServlet {
     // 退出登录
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         req.getSession().removeAttribute("Admin");
-        System.out.println("退出登录！");
-        resp.sendRedirect("/app/course?method=showCourseGroupByType");
+        resp.sendRedirect("/views/user/userLogin.jsp");
     }
 
     // 用户注册

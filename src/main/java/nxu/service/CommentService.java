@@ -1,7 +1,6 @@
 package nxu.service;
 
 import nxu.entity.Comment;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -23,12 +22,14 @@ public interface CommentService {
     int insertComment(int courseId, int userId, int score, String info);
 
     /**
-     * 更新获赞数
+     * 更新评论
      *
-     * @param id 评论编号
-     * @return 更新成功返回1，否则返回0
+     * @param id    评论编号
+     * @param good  评论获赞数
+     * @param state 评论合法状态
+     * @return 返回-1更新成功，返回-0更新失败
      */
-    int updateCommentGood(@Param("id") int id);
+    int updateCommentGood(int id, int good, int state);
 
     /**
      * 删除评论
@@ -36,7 +37,7 @@ public interface CommentService {
      * @param id 评论编号
      * @return 删除成功返回1，否则返回0
      */
-    int deleteComment(@Param("id") int id);
+    int deleteComment(int id);
 
     /**
      * 查询某课程下的评论
@@ -44,10 +45,11 @@ public interface CommentService {
      * @param courseId 课程编号
      * @return 评论全部信息
      */
-    List<Comment> getCommentById(@Param("courseId") int courseId);
+    List<Comment> getCommentById(int courseId);
 
     /**
      * 查询所有评论
+     *
      * @return 评论全部信息
      */
     List<Comment> getComment(Map<String, Object> map);

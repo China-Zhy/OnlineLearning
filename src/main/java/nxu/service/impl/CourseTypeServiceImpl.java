@@ -23,7 +23,9 @@ public class CourseTypeServiceImpl implements CourseTypeService {
      */
     @Override
     public int insertCourseType(CourseType courseType) {
-        return MybatisUtil.getSqlSession().getMapper(CourseTypeMapper.class).insertCourseType(courseType);
+        int i = MybatisUtil.getSqlSession().getMapper(CourseTypeMapper.class).insertCourseType(courseType);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -34,7 +36,9 @@ public class CourseTypeServiceImpl implements CourseTypeService {
      */
     @Override
     public int deleteCourseType(int id) {
-        return MybatisUtil.getSqlSession().getMapper(CourseTypeMapper.class).deleteCourseType(id);
+        int i = MybatisUtil.getSqlSession().getMapper(CourseTypeMapper.class).deleteCourseType(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -45,8 +49,7 @@ public class CourseTypeServiceImpl implements CourseTypeService {
     public PageInfo<CourseType> getCourseType(Map<String, Object> map) {
         PageHelper.startPage((int) (map.get("pageIndex")), (int) map.get("pageSize"));
         List<CourseType> list = MybatisUtil.getSqlSession().getMapper(CourseTypeMapper.class).getCourseType(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(list);
     }
-
-
 }

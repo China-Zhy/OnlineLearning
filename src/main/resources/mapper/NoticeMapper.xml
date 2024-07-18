@@ -47,7 +47,6 @@
             <if test="userId != null">user_id = #{userId}</if>
         </set>
         where id = #{id}
-
     </update>
 
 </mapper>

@@ -10,8 +10,8 @@ import java.util.HashMap;
  * 订单相关功能测试 (胡昊)
  */
 public class OrderTest {
-    OrderService orderService = new OrderServiceImpl();
 
+    private static final OrderService orderService = new OrderServiceImpl();
 
     /**
      * 查找测试

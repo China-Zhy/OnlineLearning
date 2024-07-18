@@ -23,7 +23,9 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order getOrderById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(OrderMapper.class).getOrderById(id);
+        Order order = MybatisUtil.getSqlSession().getMapper(OrderMapper.class).getOrderById(id);
+        MybatisUtil.getSqlSession().close();
+        return order;
     }
 
     /**
@@ -36,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
     public PageInfo<Order> getAllOrder(Map<String, Object> map) {
         PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
         List<Order> order = MybatisUtil.getSqlSession().getMapper(OrderMapper.class).getAllOrder(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(order);
     }
 
@@ -48,7 +51,9 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public int insertOrder(Order order) {
-        return MybatisUtil.getSqlSession().getMapper(OrderMapper.class).insertOrder(order);
+        int i = MybatisUtil.getSqlSession().getMapper(OrderMapper.class).insertOrder(order);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -59,6 +64,8 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public int deleteOrderById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(OrderMapper.class).deleteOrderById(id);
+        int i = MybatisUtil.getSqlSession().getMapper(OrderMapper.class).deleteOrderById(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 }

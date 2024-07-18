@@ -21,7 +21,9 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role getRoleById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(RoleMapper.class).getRoleById(id);
+        Role role = MybatisUtil.getSqlSession().getMapper(RoleMapper.class).getRoleById(id);
+        MybatisUtil.getSqlSession().close();
+        return role;
     }
 
     /**
@@ -41,7 +43,9 @@ public class RoleServiceImpl implements RoleService {
             System.out.println("\n【非法的分页参数】\n");
             return null;
         }
-        return MybatisUtil.getSqlSession().getMapper(RoleMapper.class).getAllRoles(beginIndex, endIndex);
+        List<Role> allRoles = MybatisUtil.getSqlSession().getMapper(RoleMapper.class).getAllRoles(beginIndex, endIndex);
+        MybatisUtil.getSqlSession().close();
+        return allRoles;
     }
 
     /**
@@ -52,7 +56,9 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public int insertRole(Role role) {
-        return MybatisUtil.getSqlSession().getMapper(RoleMapper.class).insertRole(role);
+        int i = MybatisUtil.getSqlSession().getMapper(RoleMapper.class).insertRole(role);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -63,7 +69,9 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public int updateRole(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(RoleMapper.class).updateRole(map);
+        int i = MybatisUtil.getSqlSession().getMapper(RoleMapper.class).updateRole(map);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -74,7 +82,8 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public int deleteRole(int id) {
-        return MybatisUtil.getSqlSession().getMapper(RoleMapper.class).deleteRole(id);
+        int i = MybatisUtil.getSqlSession().getMapper(RoleMapper.class).deleteRole(id);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
-
 }

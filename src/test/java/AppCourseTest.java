@@ -3,7 +3,6 @@ import nxu.bo.CourseDataBo;
 import nxu.bo.CourseInfoBo;
 import nxu.business.AppCourseService;
 import nxu.business.AppCourseServiceImpl;
-import nxu.entity.Comment;
 import nxu.entity.Course;
 import org.junit.Test;
 

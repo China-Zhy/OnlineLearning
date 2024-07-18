@@ -1,23 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="/views/others/layuiError.jsp" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>我的课程</title>
-    <meta name="description" content="在线学习平台"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" type="image/x-icon" href="/pages/assets/images/favicon.svg"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/pages/assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/LineIcons.2.0.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/animate.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/tiny-slider.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/glightbox.min.css"/>
-    <link rel="stylesheet" href="/pages/assets/css/main.css"/>
+    <jsp:include page="/pages/assets/app/myCss.jsp"/>
 </head>
 
 <body>
@@ -100,62 +88,61 @@
                         </c:forEach>
                         <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum+1}&pageSize=6">下一页</a></li>
                         <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pages}&pageSize=6">尾页</a></li>
-                        <span style="font-size: 30px; font-weight: bold; color: purple;">&ensp;总共：${total}条数据</span>
+                        <li><a disabled>共 ${total} 条</a></li>
                     </ul>
                 </div>
             </div>
             <aside class="col-lg-4 col-12">
                 <div class="sidebar">
                     <div class="widget search-widget">
-                        <h5 class="widget-title">搜索我拥有的课程</h5>
+                        <h5 class="widget-title">【搜索更多相关课程】</h5>
                         <form action="#">
-                            <input type="text" placeholder="输入课程名称进行模糊查询">
+                            <input type="text" placeholder="请输入课程名称信息...">
                             <button type="submit"><i class="lni lni-search-alt"></i></button>
                         </form>
                     </div>
                     <div class="widget popular-feeds">
-                        <h5 class="widget-title">最近学习过的课程</h5>
-                        <div class="popular-feed-loop">
-                            <c:forEach begin="1" end="3">
+                        <h5 class="widget-title">【更多同类课程】</h5>
+                        <c:forEach begin="1" end="5" var="item">
+                            <div class="popular-feed-loop">
                                 <div class="single-popular-feed">
                                     <div class="feed-img">
-                                        <a href="#"><img src="/pages/assets/images/blog/blog-sidebar1.jpg" alt="课程图片加载失败"></a>
+                                        <a href="#"><img src="/pages/assets/images/course/course-00${item}.jpg" alt="图片加载失败"></a>
                                     </div>
                                     <div class="feed-desc">
-                                        <h6 class="post-title"><a href="#">好好学习，天天向上。这块放最近学过的课程。</a>
-                                        </h6>
-                                        <span class="time"><i class="lni lni-calendar"></i>
-                                            <%@ taglib prefix="time" uri="/WEB-INF/myDemoTag.tld" %>
-                                            <time:showTime country="中国" city="银川"/>
+                                        <h6 class="post-title"><a href="#">${item}-课程名称：等待后端查询填充，更多详情请联管理员</a></h6>
+                                        <span class="time">
+                                            <i class="lni lni-calendar"></i>课程价格：￥999 &ensp;限时免费
+                                            <br><time:showTime country="中国" city="银川"/>
                                         </span>
                                     </div>
                                 </div>
-                            </c:forEach>
-                        </div>
+                            </div>
+                        </c:forEach>
                     </div>
                     <div class="widget categories-widget">
-                        <h5 class="widget-title">更多种类课程链接</h5>
+                        <h5 class="widget-title">【其他功能链接】</h5>
                         <ul class="custom">
                             <c:forEach begin="1" end="5" var="item">
                                 <li>
-                                    <a href="#">课程链接—${item}<i class="lni lni-arrow-right"></i></a>
+                                    <a href="#">相关功能链接——${item}<i class="lni lni-arrow-right"></i></a>
                                 </li>
                             </c:forEach>
                         </ul>
                     </div>
                     <div class="widget popular-tag-widget">
-                        <h5 class="widget-title">其他受欢迎的标签</h5>
+                        <h5 class="widget-title">【其他受欢迎的课程标签...】</h5>
                         <div class="tags">
-                            <c:forEach begin="1" end="12" var="item">
+                            <c:forEach begin="1" end="10" var="item">
                                 <a href="#">标签—${item}</a>
                             </c:forEach>
                         </div>
                     </div>
                     <div class="widget call-us">
                         <div class="content">
-                            <h4>准备好加入OnlineLearning了吗？<span>+86&ensp;18201521341</span></h4>
+                            <h3 style="color: white;">准备好加入<br>Online Learning 了吗？</h3>
                             <div class="button">
-                                <a href="#" class="btn">申请成为一名教师</a>
+                                <a href="#" class="btn" target="_blank">申请成为一名教师</a>
                             </div>
                         </div>
                     </div>
@@ -165,17 +152,9 @@
     </div>
 </section>
 
-<a href="#" class="scroll-top btn-hover">
-    <i class="lni lni-chevron-up"></i>
-</a>
+<%--回到顶部按钮--%>
+<jsp:include page="goHead.jsp"/>
 
-<script src="/pages/assets/js/bootstrap.min.js"></script>
-<script src="/pages/assets/js/count-up.min.js"></script>
-<script src="/pages/assets/js/wow.min.js"></script>
-<script src="/pages/assets/js/tiny-slider.js"></script>
-<script src="/pages/assets/js/glightbox.min.js"></script>
-<script src="/pages/assets/js/imagesloaded.min.js"></script>
-<script src="/pages/assets/js/isotope.min.js"></script>
-<script src="/pages/assets/js/main.js"></script>
+<jsp:include page="/pages/assets/app/myJs.jsp"/>
 </body>
 </html>

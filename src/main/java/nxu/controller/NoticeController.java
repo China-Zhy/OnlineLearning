@@ -124,7 +124,7 @@ public class NoticeController extends BaseServlet {
         String dateline = req.getParameter("dateline");
         String target = req.getParameter("target");
         String userId = req.getParameter("userId");
-        if (req.getParameter("id") != null) {
+        if (req.getParameter("id") != null && !req.getParameter("id").isEmpty()) {
             map.put("id", Integer.parseInt(req.getParameter("id")));
         }
         if (title != null && !title.isEmpty()) {

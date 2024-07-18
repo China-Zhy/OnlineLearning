@@ -50,5 +50,4 @@ public interface RoleService {
      * @return 返回1-删除成功，返回0-删除失败
      */
     int deleteRole(int id);
-
 }

@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class CourseTypeTest {
 
-    CourseTypeServiceImpl courseTypeImpl = new CourseTypeServiceImpl();
+    private static final CourseTypeServiceImpl courseTypeImpl = new CourseTypeServiceImpl();
 
     /**
      * 增添课程类型

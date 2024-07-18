@@ -6,9 +6,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="icon" href="../../layuiadmin/resource/image/icon.png">
-    <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+    <link rel="icon" href="/layuiadmin/resource/image/icon.png">
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
 </head>
 <body>
 <div class="layui-fluid">
@@ -125,10 +125,10 @@
     </div>
 </div>
 
-<script src="../../layuiadmin/layui/layui.js"></script>
+<script src="/layuiadmin/layui/layui.js"></script>
 <script>
     layui.config({
-        base: '../../layuiadmin/' //静态资源所在路径
+        base: '/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'table', 'form', 'laydate'], function () {
@@ -153,7 +153,7 @@
         });
 
         // 使用Ajax异步加载表格顶部form表单中的下拉菜单(改这里)
-        $(document).ready(function (){
+        $(document).ready(function () {
             $.ajax({
                 type: 'GET',
                 url: '/file?method=queryAllFileType',
@@ -184,9 +184,9 @@
         form.on('submit(nxu-search)', function (data) {
             // 条件搜索后，根据新数据重载表格(改这里)
             table.reload('OnlineLearning', {
-                url : '/file?method=queryAllFile',
-                method : 'post',
-                where : data.field  // 装载提交到后台的请求参数
+                url: '/file?method=queryAllFile',
+                method: 'post',
+                where: data.field  // 装载提交到后台的请求参数
             }, 'data');
             return false;
         });
@@ -234,7 +234,8 @@
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
+                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
+                            submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -273,7 +274,8 @@
                     area: ['500px', '450px'],
                     btn: ['确定', '取消'],
                     yes: function (index, layero) {
-                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit', submit = layero.find('iframe').contents().find('#' + submitID);
+                        let iframeWindow = window['layui-layer-iframe' + index], submitID = 'LAY-user-front-submit',
+                            submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             let field = data.field; //获取提交的字段
@@ -297,7 +299,7 @@
         });
 
         // 清空表格头部表单中的全部内容
-        $('#clear').click(function (){
+        $('#clear').click(function () {
             $('#name').val('');
             $('#entity').val('');
             $('#target').val('0');

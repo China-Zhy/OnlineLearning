@@ -7,13 +7,12 @@ import org.junit.Test;
 import java.util.Date;
 import java.util.HashMap;
 
-
 /**
  * 活动相关功能测试 (胡昊)
  */
 public class ActiveTest {
 
-    ActiveService activeService = new ActiveServiceImpl();
+    private static final ActiveService activeService = new ActiveServiceImpl();
 
     /**
      * 查找测试
@@ -27,9 +26,9 @@ public class ActiveTest {
     @Test
     public void text2() {
         HashMap<String, Object> map = new HashMap<>();
-//        map.put("title", "活");
-//        map.put("userId", 4);
-        map.put("create","2024-06-06");
+        map.put("title", "活");
+        map.put("userId", 4);
+        map.put("create", "2024-06-06");
         map.put("pageIndex", 1);
         map.put("pageSize", 4);
         PageInfo<Active> allActive = activeService.getAllActive(map);

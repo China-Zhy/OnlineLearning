@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nxu.entity.CourseCode;
+import nxu.entity.User;
 import nxu.service.CourseCodeService;
 import nxu.service.impl.CourseCodeServiceImpl;
 import nxu.utils.BaseServlet;
@@ -49,9 +50,10 @@ public class CourseCodeContorller extends BaseServlet {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", request.getParameter("user_id"));
         map.put("courseId", request.getParameter("course_id"));
-        int result = courseCodeService.deleteCourseCode(map);
 
         JSONObject jsonObject = new JSONObject();
+        int result = courseCodeService.deleteCourseCode(map);
+
         jsonObject.put("result", result);
         String info = result > 0 ? "删除成功" : "删除失败";
         jsonObject.put("info", info);
@@ -61,7 +63,7 @@ public class CourseCodeContorller extends BaseServlet {
 
     public void insertCourseCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CourseCode courseCode = new CourseCode();
-        courseCode.setUserId(Integer.parseInt(request.getParameter("userId")));
+        courseCode.setUserId(((User) request.getSession().getAttribute("Admin")).getId());
         courseCode.setCourseId(Integer.parseInt(request.getParameter("courseId")));
         courseCode.setCode(request.getParameter("code"));
         int result = courseCodeService.insertCourseCode(courseCode);

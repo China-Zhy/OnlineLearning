@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="/views/others/layuiError.jsp" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>欢迎登录 Online Learning</title>
@@ -43,7 +43,7 @@
             </div>
             <div class="layui-form-item" style="margin-bottom: 20px;">
                 <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-                <a href="forget.html" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">找回密码</a>
+                <a href="/views/user/userForget.jsp" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">找回密码</a>
             </div>
             <div class="layui-form-item">
                 <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登&ensp;录</button>

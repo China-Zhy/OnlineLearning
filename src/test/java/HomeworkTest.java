@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class HomeworkTest {
 
-    HomeworkService homeworkService = new HomeworkServiceImpl();
+    private static final HomeworkService homeworkService = new HomeworkServiceImpl();
 
     @Test
     public void test1() {

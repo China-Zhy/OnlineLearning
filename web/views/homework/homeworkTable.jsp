@@ -6,9 +6,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="icon" href="../../layuiadmin/resource/image/icon.png">
-    <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+    <link rel="icon" href="/layuiadmin/resource/image/icon.png">
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
 </head>
 <body>
 <div class="layui-fluid">
@@ -115,10 +115,10 @@
     </div>
 </div>
 
-<script src="../../layuiadmin/layui/layui.js"></script>
+<script src="/layuiadmin/layui/layui.js"></script>
 <script>
     layui.config({
-        base: '../../layuiadmin/' //静态资源所在路径
+        base: '/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'table', 'form', 'laydate'], function () {
@@ -197,7 +197,7 @@
                 layer.open({
                     type: 2,
                     title: '编辑作业数据',
-                    content: '../../views/homework/homeworkEdit.html',
+                    content: '/views/homework/homeworkEdit.jsp',
                     maxmin: true,
                     area: ['550px', '750px'],
                     btn: ['确定', '取消'],
@@ -254,7 +254,7 @@
                 layer.open({
                     type: 2,
                     title: '添加作业数据',
-                    content: '../../views/homework/homeworkInsert.html',
+                    content: '/views/homework/homeworkInsert.jsp',
                     maxmin: true,
                     area: ['550px', '750px'],
                     btn: ['确定', '取消'],

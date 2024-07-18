@@ -23,7 +23,9 @@ public class HomeworkServiceImpl implements HomeworkService {
      */
     @Override
     public Homework getHomeworkById(int id) {
-        return MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).getHomeworkById(id);
+        Homework homework = MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).getHomeworkById(id);
+        MybatisUtil.getSqlSession().close();
+        return homework;
     }
 
     /**
@@ -36,6 +38,7 @@ public class HomeworkServiceImpl implements HomeworkService {
     public PageInfo<Homework> getAllHomework(Map<String, Object> map) {
         PageHelper.startPage((int) map.get("pageIndex"), (int) map.get("pageSize"));
         List<Homework> homeworks = MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).getAllHomework(map);
+        MybatisUtil.getSqlSession().close();
         return new PageInfo<>(homeworks);
     }
 
@@ -47,7 +50,9 @@ public class HomeworkServiceImpl implements HomeworkService {
      */
     @Override
     public int insertHomework(Homework homework) {
-        return MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).insertHomework(homework);
+        int i = MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).insertHomework(homework);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -58,7 +63,9 @@ public class HomeworkServiceImpl implements HomeworkService {
      */
     @Override
     public int updateHomework(Map<String, Object> map) {
-        return MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).updateHomework(map);
+        int i = MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).updateHomework(map);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 
     /**
@@ -69,6 +76,8 @@ public class HomeworkServiceImpl implements HomeworkService {
      */
     @Override
     public int deleteHomeworkById(List<Integer> idList) {
-        return MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).deleteHomeworkById(idList);
+        int i = MybatisUtil.getSqlSession().getMapper(HomeworkMapper.class).deleteHomeworkById(idList);
+        MybatisUtil.getSqlSession().close();
+        return i;
     }
 }

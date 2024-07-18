@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class UserTest {
 
-    private final UserService userService = new UserServiceImpl();
+    private static final UserService userService = new UserServiceImpl();
 
     @Test
     public void queryAll() {
@@ -54,7 +54,7 @@ public class UserTest {
 
     @Test
     public void deleteUser() {
-        int result = userService.insertUserToRegister(new User(0, "name", 1, "18898765656", "email@qq.com", "123456", "../../layuiadmin/resource/image/portrait1.png", new Date(), 0, 4, "sb", 2));
+        int result = userService.insertUserToRegister(new User(0, "name", 1, "18898765656", "email@qq.com", "123456", "../../layuiadmin/resource/image/fxefxe.png", new Date(), 0, 4, "sb", 2));
         System.out.println(result);
     }
 }
