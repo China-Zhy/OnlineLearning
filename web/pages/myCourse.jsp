@@ -82,7 +82,7 @@
                                     <li class="active"><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum}&pageSize=6">${pageIndex}</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum}&pageSize=6">${pageIndex}</a></li>
+                                    <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageIndex}&pageSize=6">${pageIndex}</a></li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>

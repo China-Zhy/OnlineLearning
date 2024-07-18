@@ -43,14 +43,11 @@ public class AppCourseServiceImpl implements AppCourseService {
 
         Course course = sqlSession.getMapper(CourseMapper.class).getCourse(courseMap).getFirst();
         courseInfoBo.setCourse(course);
-        System.out.println("@@@课程信息：" + course);
 
         User teacher = new UserDaoImpl().queryUserById(course.getUserId());
         courseInfoBo.setTeacher(teacher);
-        System.out.println("@@@教师信息：" + teacher);
 
         List<Comment> comments = sqlSession.getMapper(CommentMapper.class).getCommentById(courseId);
-        System.out.println("@@@评论集合：" + comments);
 
         List<CommentBo> commentBoList = new ArrayList<>();
 
