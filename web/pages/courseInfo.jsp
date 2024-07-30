@@ -230,12 +230,12 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-box form-group">
-                                            <textarea name="#" rows="6" class="form-control form-control-custom" placeholder="请在登录后，再进行评论！"></textarea>
+                                            <textarea id="info" rows="6" class="form-control form-control-custom" placeholder="输入您对此课程的评论！"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-12">
                                         <div class="form-box form-group">
-                                            <input type="number" name="name" min="1" max="5" class="form-control form-control-custom" placeholder="请输入您对此课程的星级评价"/>
+                                            <input type="number" id="score" min="1" max="5" class="form-control form-control-custom" placeholder="输入您对此课程的星级评价"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-12">
@@ -245,7 +245,8 @@
                                                     <button type="submit" class="btn mouse-dir white-bg btn-alt" disabled>登 录 后 才 可 评 论<span class="dir-part"></span></button>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <button id="doComment" type="submit" class="btn mouse-dir white-bg">点 击 发 送 评 论<span class="dir-part"></span></button>
+                                                    <input type="text" id="courseId" value="${courseInfoBo.course.id}" hidden="hidden">
+                                                    <button id="doComment" type="button" onclick="sendComment()" class="btn mouse-dir white-bg">点 击 发 送 评 论<span class="dir-part"></span></button>
                                                 </c:otherwise>
                                             </c:choose>
                                         </div>
@@ -331,5 +332,10 @@
 <jsp:include page="goHead.jsp"/>
 
 <jsp:include page="/pages/assets/app/myJs.jsp"/>
+<script>
+    function sendComment() {
+        alert("评论功能暂未完成！");
+    }
+</script>
 </body>
 </html>

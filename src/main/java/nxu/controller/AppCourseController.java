@@ -15,15 +15,13 @@ import nxu.entity.Notice;
 import nxu.entity.Points;
 import nxu.entity.User;
 import nxu.service.*;
-import nxu.service.impl.CourseServiceImpl;
-import nxu.service.impl.NoticeServiceImpl;
-import nxu.service.impl.PointsServiceImpl;
-import nxu.service.impl.UserServiceImpl;
+import nxu.service.impl.*;
 import nxu.utils.BaseServlet;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 课程应用层控制器 (张宏业)
@@ -41,6 +39,8 @@ public class AppCourseController extends BaseServlet {
 
     public static final NoticeService noticeService = new NoticeServiceImpl();
 
+    public static final CommentService commentService = new CommentServiceImpl();
+
     // 前往后台管理页面
     public void goToLayuiAdmin(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         if (req.getSession().getAttribute("Admin") != null) {
@@ -56,6 +56,34 @@ public class AppCourseController extends BaseServlet {
         List<CourseDataBo> courseDataBo = app.getCourseDataBo();
         req.setAttribute("courseDataBo", courseDataBo);
         req.getRequestDispatcher("/pages/index.jsp").forward(req, resp);
+    }
+
+    // 查看更多某种种类课程
+    public void searchMoreCourse(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HashMap<String, Object> map = new HashMap<>();
+        if (req.getParameter("name") != null && !Objects.equals(req.getParameter("state"), "")) {
+            map.put("name", req.getParameter("name"));
+        }
+        int pageIndex;
+        if (req.getParameter("pageIndex") != null && !Objects.equals(req.getParameter("pageIndex"), "")) {
+            pageIndex = Integer.parseInt(req.getParameter("pageIndex"));
+        } else {
+            pageIndex = 1;
+        }
+
+        map.put("pageIndex", pageIndex);
+        map.put("pageSize", 15);    // 前端页面默认每页显示15条课程信息
+        map.put("courseType", Integer.parseInt(req.getParameter("courseType")));
+
+        PageInfo<Course> courseList = courseService.getCourse(map);
+
+        req.setAttribute("courses", courseList.getList());
+        req.setAttribute("count", courseList.getTotal());
+        req.setAttribute("pages", courseList.getPages());
+        req.setAttribute("pageNum", courseList.getPageNum());
+
+        req.setAttribute("typeName", req.getParameter("typeName"));
+        req.getRequestDispatcher("/pages/moreCourse.jsp").forward(req, resp);
     }
 
     // 用户点击某个课程链接后获取该课程的详情信息
@@ -168,7 +196,6 @@ public class AppCourseController extends BaseServlet {
 
     // 查看谋课程的公告(分页查询)
     public void getSomeCourseNotice(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
         HashMap<String, Object> map = new HashMap<>();
         map.put("pageIndex", 1);
         map.put("pageSize", 100);
@@ -177,5 +204,26 @@ public class AppCourseController extends BaseServlet {
         req.setAttribute("notices", notice.getList());
         req.setAttribute("courseName", req.getParameter("courseName"));
         req.getRequestDispatcher("/pages/courseNotice.jsp").forward(req, resp);
+    }
+
+    // 拥有此课程的用户进行评论(未完成)
+    public void sendComment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int courseId = Integer.parseInt(req.getParameter("courseId"));
+        int userId = ((User) req.getSession().getAttribute("Admin")).getId();
+        int score = Integer.parseInt(req.getParameter("score"));
+        String info = req.getParameter("info");
+        System.out.println("收到的：info=" + info + " score=" + score + " courseId=" + courseId);
+        int i = commentService.insertComment(courseId, userId, score, info);
+        System.out.println("评论结果：" + i);
+        JSONObject jsonObject = new JSONObject();
+        if (i > 0) {
+            jsonObject.put("result", true);
+            jsonObject.put("msg", "评论成功");
+        } else {
+            jsonObject.put("result", false);
+            jsonObject.put("msg", "评论失败");
+        }
+        resp.setContentType("application/json;");
+        resp.getWriter().write(jsonObject.toString());
     }
 }

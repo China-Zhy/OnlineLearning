@@ -35,16 +35,16 @@ public class UserController extends BaseServlet {
 
         String account = req.getParameter("account");
         String password = req.getParameter("password");
-        String vercode = req.getParameter("vercode");
 
         // 验证码功能
-        if (!Objects.equals(vercode, "12138")) {
-            jsonObject.put("result", false);
-            jsonObject.put("msg", "验证码输入错误，请重试！");
-            resp.setContentType("application/json;");
-            resp.getWriter().write(jsonObject.toString());
-            return;
-        }
+//        String vercode = req.getParameter("vercode");
+//        if (!Objects.equals(vercode, "12138")) {
+//            jsonObject.put("result", false);
+//            jsonObject.put("msg", "验证码输入错误，请重试！");
+//            resp.setContentType("application/json;");
+//            resp.getWriter().write(jsonObject.toString());
+//            return;
+//        }
 
         User user = userService.queryUserToLogin(account, password);
 
@@ -71,19 +71,19 @@ public class UserController extends BaseServlet {
     public void register(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String phone = req.getParameter("phone");
         String password = req.getParameter("password");
-        String vercode = req.getParameter("vercode");
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);
 
         // 验证码功能
-        if (!Objects.equals(vercode, "12138")) {
-            jsonObject.put("result", false);
-            jsonObject.put("msg", "验证码输入错误，请重试!");
-            resp.setContentType("application/json;");
-            resp.getWriter().write(jsonObject.toString());
-            return;
-        }
+//        String vercode = req.getParameter("vercode");
+//        if (!Objects.equals(vercode, "12138")) {
+//            jsonObject.put("result", false);
+//            jsonObject.put("msg", "验证码输入错误，请重试!");
+//            resp.setContentType("application/json;");
+//            resp.getWriter().write(jsonObject.toString());
+//            return;
+//        }
 
         int userExist = userService.isUserExist(phone);
         if (userExist > 0) {
@@ -193,7 +193,7 @@ public class UserController extends BaseServlet {
         resp.getWriter().write(jsonObject.toString());
     }
 
-    // 短信验证码
+    // 短信验证码(未完成！)
     public void sendCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("进入发送验证码的controller");
         JSONObject jsonObject = new JSONObject();

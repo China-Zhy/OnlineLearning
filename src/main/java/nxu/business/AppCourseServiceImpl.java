@@ -88,6 +88,7 @@ public class AppCourseServiceImpl implements AppCourseService {
             PageHelper.startPage((int) (map.get("pageIndex")), (int) map.get("pageSize"));
             List<Course> course = sqlSession.getMapper(CourseMapper.class).getCourse(map);
             courseDataBo.setCourses(new PageInfo<>(course).getList());
+            courseDataBo.setCourseCount(course.size());
             courseDataBoList.add(courseDataBo);
         }
         sqlSession.close();

@@ -18,6 +18,6 @@ import java.util.List;
 @ToString
 public class CourseInfoBo {
     private Course course;              // 课程信息
-    private User teacher;               // 任课教师
-    private List<CommentBo> commentBo;  // 课程下评论
+    private User teacher;               // 任课教师信息
+    private List<CommentBo> commentBo;  // 该课程下的评论
 }

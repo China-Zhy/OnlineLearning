@@ -74,8 +74,17 @@
                 </div>
                 <div class="pagination left">
                     <ul class="pagination-list">
-                        <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=1&pageSize=6">首页</a></li>
-                        <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum-1}&pageSize=6">上一页</a></li>
+                        <c:choose>
+                            <c:when test="${pageNum == 1}">
+                                <li style="pointer-events: none;"><a href="/app/course?method=getAllCourseByUserId&pageIndex=1&pageSize=6">首页</a></li>
+                                <li style="pointer-events: none;"><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum-1}&pageSize=6">上一页</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=1&pageSize=6">首页</a></li>
+                                <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum-1}&pageSize=6">上一页</a></li>
+                            </c:otherwise>
+                        </c:choose>
+
                         <c:forEach begin="1" end="${pages}" var="pageIndex">
                             <c:choose>
                                 <c:when test="${pageNum==pageIndex}">
@@ -86,9 +95,20 @@
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
-                        <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum+1}&pageSize=6">下一页</a></li>
-                        <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pages}&pageSize=6">尾页</a></li>
+
+                        <c:choose>
+                            <c:when test="${pageNum == pages}">
+                                <li style="pointer-events: none;"><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum+1}&pageSize=6">下一页</a></li>
+                                <li style="pointer-events: none;"><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pages}&pageSize=6">尾页</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pageNum+1}&pageSize=6">下一页</a></li>
+                                <li><a href="/app/course?method=getAllCourseByUserId&pageIndex=${pages}&pageSize=6">尾页</a></li>
+                            </c:otherwise>
+                        </c:choose>
+
                         <li><a disabled>共 ${total} 条</a></li>
+                        <li><a disabled>6条/页</a></li>
                     </ul>
                 </div>
             </div>

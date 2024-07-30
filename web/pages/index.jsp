@@ -99,13 +99,14 @@
             <div class="col-12">
                 <div class="section-title">
                     <h2 class="wow fadeInUp" data-wow-delay=".4s">【${courseInfo.courseType.name}】</h2>
-                    <p class="wow fadeInUp" data-wow-delay=".6s">【课程类型编号-${courseInfo.courseType.id}】</p>
+                    <p class="wow fadeInUp" data-wow-delay=".6s">【课程类型编号:<span style="color: red;">${courseInfo.courseType.id}</span>&ensp;,&ensp;此类课程总量:<span style="color: red;">${courseInfo.courseCount}</span>】</p>
                 </div>
             </div>
         </div>
         <div class="home-page-inner">
 <%--课程信息的循环(开始)--%>
             <c:forEach items="${courseInfo.courses}" var="course" varStatus="numberInfo">
+                <%--新的一行--%>
                 <c:if test="${numberInfo.index % 3 == 0}">
                     <c:if test="${numberInfo.last}">
                         <div class="row">
@@ -129,13 +130,24 @@
                             </div>
                     </c:if>
                 </c:if>
-
+                <%--原来那行--%>
                 <c:if test="${numberInfo.index % 3 != 0}">
-                    <c:if test="${numberInfo.last}">
+                    <c:if test="${numberInfo.last && numberInfo.index != 8}">
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="single-demo wow fadeInUp" data-wow-delay=".${(numberInfo.index % 3)*2}s">
                                     <a href="/app/course?method=showCourseDetailsById&id=${course.id}&courseType=${courseInfo.courseType.name}" target="_blank"><img src="${course.image}" alt="图片加载失败">
                                         <h3 style="font-weight: bold;">编号:${course.id}&ensp;名称:${course.name}&ensp;<span style="color: darkred;">价格:￥${course.score}</span></h3>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+                    <%--探索更多课程--%>
+                    <c:if test="${numberInfo.last && numberInfo.index == 8}">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-demo wow fadeInUp" data-wow-delay=".${(numberInfo.index % 3)*2}s">
+                                    <a href="/app/course?method=searchMoreCourse&courseType=${courseInfo.courseType.id}&typeName=${courseInfo.courseType.name}&pageIndex=1" target="_blank"><img src="/pages/assets/images/course/moreCourse.png" alt="图片加载失败">
+                                        <h3 style="font-weight: bold;">点我查看同类的更多课程</h3>
                                     </a>
                                 </div>
                             </div>

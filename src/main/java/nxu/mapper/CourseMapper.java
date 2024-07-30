@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 课程数据层接口 (樊雪儿)
+ * 课程数据层接口 (樊雪儿、张宏业)
  */
 public interface CourseMapper {
 
@@ -21,7 +21,7 @@ public interface CourseMapper {
     /**
      * 获取搜索的课程集合
      *
-     * @param map 实体参数（id, name, course_type, score)
+     * @param map 实体参数 id, name, course_type, score
      * @return 返回查询的课程实体集合
      */
     List<Course> getCourse(Map<String, Object> map);

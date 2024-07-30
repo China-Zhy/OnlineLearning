@@ -2246,7 +2246,7 @@ ol {
     width: 500px;
     display: block;
     border-radius: 50%;
-    background-image: url("../images/hero/04.jpg");
+    background-image: url("../images/icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2259,7 +2259,7 @@ ol {
     content: "";
     left: 0;
     top: 0;
-    background-image: url("../images/hero/shape2.png");
+    background-image: url("../images/icon.png");
     background-repeat: no-repeat;
     height: 100px;
     width: 100px;
@@ -3091,7 +3091,7 @@ ol {
     border-radius: 5px;
     font-size: 14px;
     font-weight: 400;
-    background-image: url("../images/about/pattern.png");
+    background-image: url("../images/icon.png");
 }
 
 .about-us .about-right .project span {
@@ -3103,7 +3103,7 @@ ol {
 
 .our-achievement {
     background-color: #473BF0;
-    background-image: url("../images/hero/hero1-pattern.png");
+    background-image: url("../images/icon.png");
 }
 
 .our-achievement .single-achievement {
@@ -3128,7 +3128,7 @@ ol {
 ========================================*/
 .our-achievement {
     background-color: #473BF0;
-    background-image: url("../images/achievement/achievement-bg.png");
+    background-image: url("../images/icon.png");
     background-size: cover;
     background-repeat: no-repeat;
     padding-top: 70px;
@@ -3259,7 +3259,7 @@ ol {
     CTA CSS
 ========================================*/
 .cta-section {
-    background-image: url("../images/cta/cta-bg.jpg");
+    background-image: url("../images/icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -4315,7 +4315,7 @@ ol {
 ========================================*/
 .intro-video-area {
     background-color: #F4F7FA;
-    background-image: url("../images/video/video-bg.jpg");
+    background-image: url("../images/icon.png");
     background-size: cover;
     background-position: center;
     padding: 120px 60px;
@@ -5201,7 +5201,7 @@ blockquote span {
 
 .widget.call-us {
     background-color: #473BF0;
-    background-image: url("../images/about/pattern.png");
+    background-image: url("../images/pattern.png");
     border: none;
 }
 

@@ -6,7 +6,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="/pages/assets/images/icon.png"/>
 <link rel="stylesheet" href="/pages/assets/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="/pages/assets/css/LineIcons.2.0.css"/>
-<link rel="stylesheet" href="/pages/assets/css/animate.css"/>
-<link rel="stylesheet" href="/pages/assets/css/tiny-slider.css"/>
 <link rel="stylesheet" href="/pages/assets/css/glightbox.min.css"/>
+<link rel="stylesheet" href="/pages/assets/css/tiny-slider.css"/>
+<link rel="stylesheet" href="/pages/assets/css/animate.css"/>
 <link rel="stylesheet" href="/pages/assets/css/main.css"/>

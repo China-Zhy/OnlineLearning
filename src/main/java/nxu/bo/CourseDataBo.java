@@ -19,4 +19,5 @@ import java.util.List;
 public class CourseDataBo {
     private CourseType courseType;      // 课程类型信息
     private List<Course> courses;       // 该类课程信息
+    private int courseCount;            // 该类课程数量
 }
