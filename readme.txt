@@ -14,6 +14,3 @@
 其他事项：
     ① file_info、homework_file、ownership这三个是关系表(多对多)，不存在entity。
     ② 开发顺序：mapper接口 → mapper.xml → service → serviceImpl → Test → controller → 浏览器。
-
-
-  ![我爱黑花](https://www.helloimg.com/i/2025/01/07/677cd94cc2737.jpg)
