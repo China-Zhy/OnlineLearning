@@ -16,4 +16,4 @@
     ② 开发顺序：mapper接口 → mapper.xml → service → serviceImpl → Test → controller → 浏览器。
 
 功能模块：
-![OnlineLearning.png](https://img.picui.cn/free/2025/06/18/68529072dadba.png)
+  ![我爱黑花](https://img.picui.cn/free/2025/06/18/68529072dadba.png)
